@@ -1,0 +1,101 @@
+id: g_iceland
+slug: iceland
+status: published
+title: "Iceland"
+description: "Black sand, glacier lagoons and weather that turns every ten minutes, along Iceland's south coast."
+photographed_start: "2026-06-13"
+photographed_end: "2026-06-28"
+published_at: "2026-09-12T00:00:00Z"
+places:
+  - pl_vik
+  - pl_jokulsarlon
+  - pl_south_coast
+  - pl_snaefellsnes
+  - pl_thingvellir
+cover_photo_id: p_iceland_004
+next_gallery_id: g_netherlands
+photos:
+  - id: p_iceland_004
+    source_ref: iceland/FEI03978.jpg
+    place: pl_vik
+    captured_at: "2026-06-26T12:32:12"
+    caption: "Iceland · June 2026"
+    rhythm_after: base
+    alt_text: "The white church on the seaside, with its red roof and red spire, is very eye-catching. The church is built next to an asphalt parking lot. In the foreground of the frame is a large grassland full of purple lupine flowers. Tourists and several cars are scattered in the parking lot and grassland. On the left side of the background are green steep cliffs and a black beach. There are several black reef pillars standing on the sea, and the sky is blue with large white clouds."
+  - id: p_iceland_005
+    place: pl_south_coast
+    source_ref: iceland/FEI03989.jpg
+    caption: "Iceland · June 2026"
+    rhythm_after: base
+    alt_text: "A wide waterfall pours down from the moss-covered black rock wall. The water divides into multiple streams and falls into the blue pool below. Water mist rises on the surface of the pool. On both sides of the waterfall are towering rock walls and steep slopes covered with green moss. There is also a small waterfall on the right rock wall, and a corner of blue sky and white clouds are exposed at the top of the frame."
+  - id: p_iceland_006
+    place: pl_jokulsarlon   # owner-approved 2026-09-15 (local review)
+    source_ref: iceland/FEI04052.jpg
+    caption: "Iceland · June 2026"
+    rhythm_after: base
+    alt_text: "A huge iceberg floats on the dark blue sea. The ice body is white and translucent light blue, and the surface is covered with sharp corners, cracks and melted textures. The sky is dark blue, with white clouds floating in it. In the distance, there are low brown coastlines on both sides of the horizon."
+  - id: p_iceland_007
+    source_ref: iceland/FEI04059.jpg
+    place: pl_vik
+    captured_at: "2026-06-26T21:22:41"
+    caption: "Iceland · June 2026"
+    rhythm_after: base
+    alt_text: "Black sand beach under a cloudy sky: in the foreground is a black gravel beach, with a white wave surging ashore; on the left is a dark rock wall higher than the frame, with green vegetation hanging on the wall; two huge black reef pillars stand on the sea, one of which is tall and pointed. In the distance, the horizon is connected with gray clouds, and there are several seabirds in the sky."
+  - id: p_iceland_008
+    source_ref: iceland/FEI04110.jpg
+    place: pl_south_coast
+    captured_at: "2026-06-26T23:00:45"
+    caption: "Iceland · June 2026"
+    rhythm_after: base
+    alt_text: "A tall waterfall falls vertically from a towering cliff. The water flows in a wide white water curtain, with large amounts of water mist and waves aroused at the bottom. The rock walls on both sides of the waterfall are dark brown basalt layers with green moss. A small green grass slope is exposed on the top of the cliff. The sky is gloomy gray-white. At the bottom of the frame are dark pools and gravel on the shore."
+  - id: p_iceland_009
+    place: pl_thingvellir   # owner-approved 2026-09-15 (local review)
+    source_ref: iceland/FEI04136.jpg
+    caption: "Iceland · June 2026"
+    rhythm_after: base
+    alt_text: "Cloudy geological landscape: A dark gray columnar jointed rock wall full of cracks runs across the middle of the frame. Below the rock wall is a slope made of a large amount of gravel. Green moss and grass grow on the gravel and rock wall. Below the frame is a green grassland and shrubs with small purple flowers. A trail passes along the rock wall, and there are several walking figures on the road."
+  - id: p_iceland_010
+    source_ref: iceland/FEI04184.jpg
+    place: pl_snaefellsnes
+    captured_at: "2026-06-28T14:59:34"
+    caption: "Iceland · June 2026"
+    rhythm_after: base
+    alt_text: "An isolated grassy mountain under a cloudy sky has a symmetrical cone shape. There are layers of horizontal rock formations and dark strips on the hillside, covered with green grass. The top of the mountain is covered by a low-hanging gray-white cloud. An asphalt road crosses the foot of the mountain, and a small white RV is driving on the road. The foreground of the frame is a green wetland, a creek and a gravel beach, and the sky is covered with thick gray clouds."
+  - id: p_iceland_011
+    place: pl_snaefellsnes   # owner-approved 2026-09-15 (local review)
+    source_ref: iceland/FEI04193.jpg
+    caption: "Iceland · June 2026"
+    rhythm_after: base
+    alt_text: "A small white church is located on the top of a green hill. The red roof and red steeple are very conspicuous. The foreground of the frame is a large grassy slope full of purple lupine flowers. The flowers are blurred due to the depth of field. The sky is gray-white clouds, and there is a path leading to the church on the grass and a white short guardrail."
+  - id: p_iceland_012
+    place: pl_snaefellsnes   # owner-approved 2026-09-15 (local review)
+    source_ref: iceland/FEI04202.jpg
+    caption: "Iceland · June 2026"
+    rhythm_after: base
+    alt_text: "Undulating tundra and lava landforms: The frame is filled with dark gray, sharp and broken volcanic rocks, with bright green grass and moss growing between the rocks. At the bottom of the frame, a man in red is walking along a stone path. A black beach and sea surface can be seen low on the left; in the distance are rolling hills covered with yellow-green moss, and the sky is covered with thin clouds."
+  - id: p_iceland_013
+    place: pl_snaefellsnes   # owner-approved 2026-09-15 (local review)
+    source_ref: iceland/FEI04256.jpg
+    caption: "Iceland · June 2026"
+    rhythm_after: base
+    alt_text: "Broad coastline: In the middle of the frame is a long black rock cliff with a flat top. The top of the cliff is covered with green meadows and tundra. The cliff is dark and steep, with white waves lapping at the bottom. There is a vague road and telegraph poles on the flat field on the top of the cliff, and there are low mountain shadows on the horizon in the distance. On the right is the gray-blue sea, and the sky is full of clouds."
+  - id: p_iceland_014
+    source_ref: iceland/FEI04259.jpg
+    place: pl_snaefellsnes
+    captured_at: "2026-06-28T17:23:09"
+    caption: "Iceland · June 2026"
+    rhythm_after: base
+    alt_text: "A high-angle view of the coast: On the right is a cliff composed of layered rock walls, with several people watching on the grassy slope on the top of the cliff; in the middle left, a black rock has been eroded by the waves and a large hole has been carved, and the sea surface is visible through the hole."
+  - id: p_iceland_015
+    source_ref: iceland/FEI04276.jpg
+    place: pl_snaefellsnes
+    captured_at: "2026-06-28T17:54:40"
+    caption: "Iceland · June 2026"
+    rhythm_after: base
+    alt_text: "There is a natural arched cave on the huge black rock on the coast. The sea water passes under the cave and stirs up white waves. The top of the arched rock is covered with green grass and yellow-green moss, and the rock surface is dark volcanic rock full of holes. There are similar black rocks and grass slopes on the left and right sides of the frame. There are several small reefs scattered on the sea in the distance. There are continuous blue mountain shadows on the horizon, and the clouds in the sky are brighter."
+  - id: p_iceland_016
+    place: pl_snaefellsnes   # owner-approved 2026-09-15 (local review)
+    source_ref: iceland/FEI04285.jpg
+    caption: "Iceland · June 2026"
+    rhythm_after: base
+    alt_text: "The reef waters of the sea on a cloudy day: a light brown seal lies on a reef on the left, and a dark seal is curled up next to it; another seal floats half of its body upright in the water on the right, and seals are also lying on several rocks. A small seal has just exposed its head on the water surface nearby; the sky is gray-white stratus clouds."

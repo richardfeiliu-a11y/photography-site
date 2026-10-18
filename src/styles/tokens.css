@@ -1,0 +1,426 @@
+/*
+ * src/styles/tokens.css — Immersive Viewing design tokens.
+ *
+ * ONLY place hex color literals are allowed in src/ (enforced by
+ * tests/unit/design-tokens.test.ts; the two theme-color metas in
+ * Base.astro are the single exception). Authority:
+ * docs/plans/2026-10-18-immersive-direction-production-port.md (C direction,
+ * owner-approved 2026-10-18), spec canon to be published as
+ * docs/IMMERSIVE_VIEWING_SPEC.md.
+ *
+ * The palette is the design-lab C prototype's system:
+ *   - the page field ("ground") is derived per page from the subject's own
+ *     cover — an "ambient pair" written by the layout as --ground-light /
+ *     --ground-dark (OKLCH), with the neutral fallbacks below;
+ *   - ink / muted / hairline are fixed neutrals per theme;
+ *   - photographs never carry a mat or a crop: a 1px rim plus a wide, soft
+ *     shadow give them their edge on the field (--photo-edge, --photo-shadow*).
+ *
+ * Theme model: the light ("Day") palette on :root, a concrete dark ("Night")
+ * theme via [data-theme="dark"] (pre-paint restore script in Base.astro), and
+ * the prefers-color-scheme media query when no data-theme is authored at all
+ * (no-JS system following). The appearance control's three choices
+ * (Day / Night / System) resolve to those same two concrete values.
+ */
+
+:root {
+  /* ============================================================
+   * Color — Day: the museum wall.
+   * ============================================================ */
+  color-scheme: light;
+
+  /* Field. --ground-light / --deep-light are set per page by the layout
+     from the cover's ambient; the literals here are the neutral room. */
+  --ground: var(--ground-light, oklch(0.945 0.012 255));
+  --ground-deep: var(--deep-light, oklch(0.9 0.026 255));
+
+  --ink: oklch(0.24 0.015 265);
+  --muted: oklch(0.4 0.015 265);
+  --ink-tertiary: oklch(0.55 0.012 265);
+  --hairline: oklch(0.24 0.015 265 / 0.2);
+  --hover: oklch(0.24 0.015 265 / 0.05);
+
+  --color-canvas: var(--ground);
+  --color-surface-raised: oklch(0.92 0.012 255);
+  --color-surface-sunken: oklch(0.88 0.012 255);
+
+  --color-text-primary: var(--ink);
+  --color-text-secondary: var(--muted);
+  --color-text-tertiary: var(--ink-tertiary);
+
+  --color-hairline: var(--hairline);
+  --color-photo-border: var(--hairline);
+
+  --color-strong: oklch(0.18 0.015 265);
+  --color-accent-subtle: oklch(0.45 0.09 265);
+  --color-focus: oklch(0.3 0.03 265);
+  --focus-outline-width: 2px;
+  --focus-outline-offset: 3px;
+
+  --color-pill-bg: oklch(0.9 0.026 255 / 0.82);
+
+  /* Photograph edge treatment (project-level in this direction): a 1px rim
+     picks the photograph off a field of similar value; a wide, low-opacity
+     shadow lets it sit on the room instead of being cut out of it. Never a
+     filter on the picture itself, never a frame around it. */
+  --photo-edge: 0 0 0 1px oklch(0.24 0.015 265 / 0.07);
+  --photo-shadow-sm:
+    0 1px 2px oklch(0.24 0.015 265 / 0.07),
+    0 8px 20px -10px oklch(0.24 0.015 265 / 0.3);
+  --photo-shadow:
+    0 1px 2px oklch(0.24 0.015 265 / 0.08),
+    0 16px 44px -20px oklch(0.24 0.015 265 / 0.34);
+  --photo-shadow-lift:
+    0 2px 4px oklch(0.24 0.015 265 / 0.1),
+    0 24px 60px -22px oklch(0.24 0.015 265 / 0.42);
+
+  /* ---- Compatibility aliases (consumed by not-yet-migrated components;
+     removed as the immersive port rewrites their last consumers). ---- */
+  --photo-edge-color: var(--color-photo-border);
+  --shadow-photo-subtle: var(--photo-shadow-sm);
+  --shadow-mount-board: var(--photo-shadow);
+  --shadow-mount-card: var(--photo-shadow-sm);
+  --shadow-mount-card-hover: var(--photo-shadow-lift);
+  --mount-board-pad: 0px;
+  --mount-card-pad: 0px;
+
+  /* Collection reader (the immersive viewer): the same room, not another
+     one — the reader's screen reuses the field and the room's own ink. */
+  --color-lightbox-bg: var(--ground-deep);
+  --color-lightbox-text: var(--ink);
+  --color-lightbox-muted: var(--muted);
+  --color-lightbox-line: var(--hairline);
+  --color-lightbox-scrim: oklch(0 0 0 / 0.6);
+  --color-lightbox-plaque: transparent;
+  --color-lightbox-plaque-edge: transparent;
+  --shadow-lightbox-plaque: none;
+  --lightbox-plaque-pad: 0px;
+  --lightbox-blur: 20px;
+
+  /* ---- Transitional aliases (legacy names kept resolvable). ---- */
+  --photo-shadow-light: var(--photo-shadow-sm);
+  --accent-emphasis: var(--color-accent-subtle);
+  --stage-canvas: oklch(0.1 0.012 265);
+  --stage-text: oklch(0.93 0.008 90);
+  --stage-text-muted: oklch(0.93 0.008 90 / 0.72);
+  --stage-accent: oklch(0.72 0.06 265);
+}
+
+/* Night: the darkroom. Same structure; the field comes from the ambient
+   pair's dark half (--ground-dark / --deep-dark). */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --ground: var(--ground-dark, oklch(0.13 0.012 265));
+  --ground-deep: var(--deep-dark, oklch(0.108 0.016 265));
+
+  --ink: oklch(0.93 0.008 90);
+  --muted: oklch(0.72 0.01 90);
+  --ink-tertiary: oklch(0.6 0.01 90);
+  --hairline: oklch(0.93 0.008 90 / 0.16);
+  --hover: oklch(0.93 0.008 90 / 0.04);
+
+  --color-canvas: var(--ground);
+  --color-surface-raised: oklch(0.17 0.014 265);
+  --color-surface-sunken: oklch(0.1 0.014 265);
+
+  --color-text-primary: var(--ink);
+  --color-text-secondary: var(--muted);
+  --color-text-tertiary: var(--ink-tertiary);
+
+  --color-hairline: var(--hairline);
+  --color-photo-border: var(--hairline);
+
+  --color-strong: oklch(0.99 0.005 90);
+  --color-accent-subtle: oklch(0.78 0.07 265);
+  --color-focus: oklch(0.95 0.015 90);
+  --color-pill-bg: oklch(0.108 0.016 265 / 0.82);
+
+  --photo-edge: 0 0 0 1px oklch(0.93 0.008 90 / 0.06);
+  --photo-shadow-sm:
+    0 1px 3px oklch(0 0 0 / 0.4),
+    0 10px 24px -10px oklch(0 0 0 / 0.6);
+  --photo-shadow:
+    0 2px 6px oklch(0 0 0 / 0.45),
+    0 20px 54px -20px oklch(0 0 0 / 0.7);
+  --photo-shadow-lift:
+    0 3px 8px oklch(0 0 0 / 0.5),
+    0 28px 70px -22px oklch(0 0 0 / 0.8);
+
+  --photo-shadow-light: var(--photo-shadow-sm);
+}
+
+/* No-JS / pre-restore system following. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --ground: var(--ground-dark, oklch(0.13 0.012 265));
+    --ground-deep: var(--deep-dark, oklch(0.108 0.016 265));
+
+    --ink: oklch(0.93 0.008 90);
+    --muted: oklch(0.72 0.01 90);
+    --ink-tertiary: oklch(0.6 0.01 90);
+    --hairline: oklch(0.93 0.008 90 / 0.16);
+    --hover: oklch(0.93 0.008 90 / 0.04);
+
+    --color-canvas: var(--ground);
+    --color-surface-raised: oklch(0.17 0.014 265);
+    --color-surface-sunken: oklch(0.1 0.014 265);
+
+    --color-text-primary: var(--ink);
+    --color-text-secondary: var(--muted);
+    --color-text-tertiary: var(--ink-tertiary);
+
+    --color-hairline: var(--hairline);
+    --color-photo-border: var(--hairline);
+
+    --color-strong: oklch(0.99 0.005 90);
+    --color-accent-subtle: oklch(0.78 0.07 265);
+    --color-focus: oklch(0.95 0.015 90);
+    --color-pill-bg: oklch(0.108 0.016 265 / 0.82);
+
+    --photo-edge: 0 0 0 1px oklch(0.93 0.008 90 / 0.06);
+    --photo-shadow-sm:
+      0 1px 3px oklch(0 0 0 / 0.4),
+      0 10px 24px -10px oklch(0 0 0 / 0.6);
+    --photo-shadow:
+      0 2px 6px oklch(0 0 0 / 0.45),
+      0 20px 54px -20px oklch(0 0 0 / 0.7);
+    --photo-shadow-lift:
+      0 3px 8px oklch(0 0 0 / 0.5),
+      0 28px 70px -22px oklch(0 0 0 / 0.8);
+
+    --photo-shadow-light: var(--photo-shadow-sm);
+  }
+}
+
+/* ============================================================
+ * §7.2 Typography — serif display, sans body, mono numerals.
+ * Self-hosted faces live in src/styles/fonts.css (generated).
+ * ============================================================ */
+:root {
+  /* Fallback order is deliberate (perf): the Noto SC subsets advertise
+     U+0020-007E in their honest cmap-derived ranges, so listing them before a
+     system family makes every Latin-only page download 26-35KB of CJK subset
+     it never paints (measured: +54KB/page when the serif faces started
+     painting). System families resolve instantly for Latin and for CJK on
+     macOS/Windows; the Noto SC faces remain the last resort before the
+     generic keyword (they still ship for platforms without a system CJK
+     serif/sans). */
+  --font-serif: "Source Serif 4", Georgia, "Noto Serif SC", "Songti SC", serif;
+  --font-sans: "Source Sans 3", "Helvetica Neue", "Noto Sans SC", -apple-system, sans-serif;
+  --font-mono-numbers: ui-monospace, "SF Mono", "Cascadia Code", "Source Code Pro",
+    Menlo, monospace;
+
+  --line-height-cjk: 1.75;
+
+  /* Role families: editorial titles serif; interface/meta sans; indices mono. */
+  --type-display-family: var(--font-serif);
+  --type-h1-family: var(--font-serif);
+  --type-h2-family: var(--font-serif);
+  --type-card-title-family: var(--font-serif);
+  --type-body-family: var(--font-sans);
+  --type-caption-family: var(--font-sans);
+  --type-meta-family: var(--font-sans);
+  --type-nav-family: var(--font-sans);
+  --type-utility-family: var(--font-mono-numbers);
+
+  /* Fluid magnitudes (spec §7.2). */
+  --type-display-size: clamp(38px, 4.5vw, 64px);
+  --type-display-lh: 1.08;
+  --type-display-weight: 400;
+  --type-display-tracking: -0.025em;
+
+  --type-h1-size: clamp(32px, 3vw, 44px);
+  --type-h1-lh: 1.14;
+  --type-h1-weight: 400;
+  --type-h1-tracking: -0.02em;
+
+  --type-h2-size: clamp(22px, 2vw, 28px);
+  --type-h2-lh: 1.25;
+  --type-h2-weight: 400;
+  --type-h2-tracking: -0.01em;
+
+  --type-card-title-size: 20px;
+  --type-card-title-lh: 1.3;
+  --type-card-title-weight: 400;
+
+  --type-body-size: 17px;
+  --type-body-lh: 1.65;
+  --type-body-weight: 400;
+
+  --type-caption-size: 14px;
+  --type-caption-lh: 1.5;
+  --type-caption-weight: 400;
+
+  --type-meta-size: 14px;
+  --type-meta-lh: 1.5;
+  --type-meta-weight: 400;
+
+  /* EXIF plaque / mini settings line only. */
+  --type-exif-size: 12.5px;
+  --type-exif-lh: 1.4;
+  --type-exif-tracking: 0.02em;
+
+  /* Lightbox plaque plinth (§6.3.C/§4.4: 11–12px on the graphite mat). Kept
+     separate from --type-exif-size, which the position-annotation capture gate
+     pins at exactly 12.5px. */
+  --type-plaque-size: 12px;
+  --type-plaque-tracking: 0.05em;
+
+  --type-nav-size: 14px;
+  --type-nav-lh: 1.4;
+  --type-nav-weight: 500;
+  --type-nav-tracking: 0.02em;
+
+  --type-brand-size: 20px;
+  --type-brand-lh: 1.25;
+  --type-brand-weight: 400;
+
+  --type-utility-size: 13px;
+  --type-utility-lh: 1.4;
+  --type-utility-weight: 500;
+
+  /* Back-compat aliases consumed by existing components (-min/-max names
+     from the former two-magnitude system; both endpoints now resolve to the
+     same fluid token). Migrated per-page in later phases. */
+  --type-display-size-min: var(--type-display-size);
+  --type-display-size-max: var(--type-display-size);
+  --type-display-weight-min: var(--type-display-weight);
+  --type-display-weight-max: var(--type-display-weight);
+  --type-display-lh-min: var(--type-display-lh);
+  --type-display-lh-max: var(--type-display-lh);
+
+  --type-h1-size-min: var(--type-h1-size);
+  --type-h1-size-max: var(--type-h1-size);
+  --type-h1-weight-min: var(--type-h1-weight);
+  --type-h1-weight-max: var(--type-h1-weight);
+  --type-h1-lh-min: var(--type-h1-lh);
+  --type-h1-lh-max: var(--type-h1-lh);
+
+  --type-h2-size-min: var(--type-h2-size);
+  --type-h2-size-max: var(--type-h2-size);
+  --type-h2-weight-min: var(--type-h2-weight);
+  --type-h2-weight-max: var(--type-h2-weight);
+  --type-h2-lh-min: var(--type-h2-lh);
+  --type-h2-lh-max: var(--type-h2-lh);
+
+  --type-card-title-size-min: var(--type-card-title-size);
+  --type-card-title-size-max: var(--type-card-title-size);
+  --type-card-title-weight-min: var(--type-card-title-weight);
+  --type-card-title-weight-max: var(--type-card-title-weight);
+  --type-card-title-lh-min: var(--type-card-title-lh);
+
+  --type-body-size-min: var(--type-body-size);
+  --type-body-size-max: var(--type-body-size);
+  --type-body-lh-min: var(--type-body-lh);
+  --type-body-lh-max: var(--type-body-lh);
+
+  --type-caption-size-min: var(--type-caption-size);
+  --type-caption-size-max: var(--type-caption-size);
+  --type-caption-weight-min: var(--type-caption-weight);
+  --type-caption-weight-max: var(--type-caption-weight);
+  --type-caption-lh-min: var(--type-caption-lh);
+  --type-caption-lh-max: var(--type-caption-lh);
+
+  --type-meta-size-min: var(--type-meta-size);
+  --type-meta-size-max: var(--type-meta-size);
+  --type-meta-weight-min: var(--type-meta-weight);
+  --type-meta-weight-max: var(--type-meta-weight);
+  --type-meta-lh-min: var(--type-meta-lh);
+  --type-meta-lh-max: var(--type-meta-lh);
+
+  --type-nav-size-min: var(--type-nav-size);
+  --type-nav-size-max: var(--type-nav-size);
+  --type-nav-lh-min: var(--type-nav-lh);
+
+  --type-utility-size-min: var(--type-utility-size);
+  --type-utility-size-max: var(--type-utility-size);
+  --type-utility-lh-min: var(--type-utility-lh);
+  --type-utility-lh-max: var(--type-utility-lh);
+
+  /* ============================================================
+   * §7.3 Spacing — 8pt scale + layout primitives.
+   * ============================================================ */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+  --space-5xl: 128px;
+  --space-6xl: 168px;
+  /* Historical composite rhythm (128 + 16 = 144). */
+  --space-5xl-lg: calc(var(--space-5xl) + var(--space-lg));
+
+  --content-max: 1400px;
+  --content-wide: 1600px;
+  --reading-max: 680px;
+  --reading-about: 600px;
+
+  /* Fluid reference (spec §7.3); the consumed --edge-inset below is stepped
+     per the §8 viewport table so its custom-property value stays a literal
+     px at each breakpoint (20 mobile / 32 tablet / 40 laptop / 56 wide). */
+  --page-gutter: clamp(20px, 4vw, 56px);
+  --edge-inset: 20px;
+
+  /* The header bar's own height: the opening cover fills exactly the rest of
+     the first viewport (min-height: calc(100dvh - var(--bar-h))). Phones get
+     a two-row bar, so the value steps up there. */
+  --bar-h: 66px;
+
+  /* ============================================================
+   * §7.5 Motion — editorial easing.
+   * ============================================================ */
+  --ease-out-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --dur-micro: 120ms;
+  --dur-medium: 240ms;
+  --dur-major: 400ms;
+}
+
+/* Two-row header below 700px: brand, then navigation + theme chips. */
+@media (max-width: 700px) {
+  :root {
+    --bar-h: 104px;
+  }
+}
+
+/* §8 stepped edge insets. */
+@media (min-width: 768px) {
+  :root {
+    --edge-inset: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --edge-inset: 40px;
+  }
+}
+@media (min-width: 1440px) {
+  :root {
+    --edge-inset: 56px;
+  }
+}
+
+/* CJK display tracking collapses to zero; body/caption line-height opens. */
+:lang(zh),
+[lang="zh"] {
+  --type-display-tracking: 0;
+  --type-h1-tracking: 0;
+  --type-body-lh: 1.75;
+  --type-caption-lh: 1.75;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-micro: 0ms;
+    --dur-medium: 0ms;
+    --dur-major: 0ms;
+  }
+}

@@ -1,0 +1,122 @@
+id: g_swiss_and_dolomites
+slug: swiss-and-dolomites
+status: published
+title: "Swiss and Dolomites"
+description: "Lakeside towns and alpine meadows, from Thun and Lungern down to the Dolomites."
+photographed_start: "2024-12-26"
+photographed_end: "2026-06-13"
+published_at: "2026-09-12T00:00:00Z"
+places:
+  - pl_thun
+  - pl_lungern
+  - pl_dolomites
+  - pl_interlaken
+  - pl_varenna
+cover_photo_id: p_lakes_and_meadows_012
+next_gallery_id: g_autumn_china
+photos:
+  - id: p_lakes_and_meadows_001
+    source_ref: swiss-and-dolomites/DSC02054.jpg
+    caption: "Thun · December 2024"
+    rhythm_after: base
+    alt_text: "The ground is paved with slates after snow. A large pile of snow has been swept away and piled on a stone pier on the left. A gray-and-white cat is sitting sideways on the stone tiles next to the snowdrift, with its back to the camera. At the top of the frame, a black car is parked on the road. The rear wheels of the car are half buried behind a wall of snow. The headlights and silver wheels are visible."
+  - id: p_lakes_and_meadows_002
+    source_ref: swiss-and-dolomites/DSC02066.jpg
+    caption: "Thun · December 2024"
+    rhythm_after: base
+    alt_text: "On the lakeside in a foggy day after snow, the lake surface is calm and gray-blue. On the hillside on the other side are village houses covered with snow. In the center of the frame, a tall deciduous tree is bare and leafless. On the right, two people wearing dark winter clothes stand on the snow on the lakeshore and look into the distance. The person on the right is walking to the right with his back to the camera. The sky is gray and white."
+  - id: p_lakes_and_meadows_003
+    source_ref: swiss-and-dolomites/DSC02070.jpg
+    caption: "Thun · December 2024"
+    rhythm_after: base
+    alt_text: "On a train platform in the snow, a red and white train is heading towards the platform along the rails. The track and platform are covered with snow; above are dense catenary brackets and wires, and on the platform are two red triangle warning signs and platform number plates; on the left platform is a backpacker standing with his back to the camera, and on the right are several cars and a steeple house."
+  - id: p_lakes_and_meadows_004
+    place: pl_interlaken   # owner-approved 2026-09-15 (local review)
+    source_ref: swiss-and-dolomites/DSC02078.jpg
+    caption: "Thun · December 2024"
+    rhythm_after: base
+    alt_text: "The lake is like a mirror, and the hillside on the other side is densely dotted with village houses with pitched roofs. The roofs are intertwined with fresh snow, and the woods and sky on the upper part of the hillside are shrouded in mist. The villages and woods are reflected in the dark blue lake below, almost completely symmetrical, and a small tower-like building stands on the top of the mountain."
+  - id: p_lakes_and_meadows_005
+    source_ref: swiss-and-dolomites/DSC02085.jpg
+    caption: "Thun · December 2024"
+    rhythm_after: base
+    alt_text: "Winter scenery of the lakeside in the fog. A row of trees (a mixture of evergreen conifers and bare deciduous trees) stand on the snow-covered shoreline. The background is the hillside covered with thin snow and the forest in the fog. The lake water in the vicinity is calm and reflects the shadows of the trees. There are two white buoys floating on the water in the lower right corner. A small boat covered with a white tarpaulin is parked on the right shore."
+  - id: p_lakes_and_meadows_006
+    source_ref: swiss-and-dolomites/DSC03125.jpg
+    place: pl_dolomites
+    captured_at: "2025-05-01T20:09:46"
+    caption: "Dolomites · May 2025"
+    rhythm_after: base
+    alt_text: "At dusk, a row of jagged rock peaks were dyed orange-red by the setting sun. There was still snow on the peaks, and the slopes below the peaks were covered with dark green coniferous forests. There was a village in the foreground, with two-story houses with white walls and deep roofs arranged at random. There were hedges and shrubs with yellow flowers in front of the houses. There was a street sign with the name of the street at the intersection, and a car on the right was covered by a green tarpaulin."
+  - id: p_lakes_and_meadows_007
+    source_ref: swiss-and-dolomites/DSC03172.jpg
+    caption: "Dolomites · May 2025"
+    rhythm_after: base
+    alt_text: "A wooden structure alpine inn under a clear sky. The two-story wooden building is lined up along the hillside, with verandahs and railings. The exterior walls are made of dark logs. In front of the building is a large green grassy slope full of yellow wildflowers. On the right side is the coniferous forest on the hillside. The sky is dark blue with white clouds."
+  - id: p_lakes_and_meadows_008
+    source_ref: swiss-and-dolomites/DSC03188.jpg
+    place: pl_dolomites
+    captured_at: "2025-05-02T12:17:57"
+    caption: "Dolomites · May 2025"
+    rhythm_after: base
+    alt_text: "Looking through a heart-shaped hollow dug out of a wooden board, the middle scene shows a pair of men and women sitting on a wooden bench. One is wearing a black coat and a black hat, and the other is wearing an orange-red top. In the farthest distance is a huge light gray rock mountain peak; on the hillside are green and yellow meadows and sparse coniferous trees. Icons and lettering are faintly visible on the lower edge of the board."
+  - id: p_lakes_and_meadows_009
+    source_ref: swiss-and-dolomites/DSC03211.jpg
+    place: pl_dolomites
+    captured_at: "2025-05-02T13:30:26"
+    caption: "Dolomites · May 2025"
+    rhythm_after: base
+    alt_text: "Panoramic view on the plateau: in the foreground is a dark wooden house with a gray wooden roof, and a few people walking on the gravel open space in front of the house; in the middle ground are rolling meadows and coniferous forests, in the background is a row of jagged gray-white rock peaks covered with residual snow, and the sky is blue and covered with large white clouds."
+  - id: p_lakes_and_meadows_010
+    source_ref: swiss-and-dolomites/DSC03212.jpg
+    place: pl_dolomites
+    captured_at: "2025-05-02T15:42:14"
+    caption: "Dolomites · May 2025"
+    rhythm_after: base
+    alt_text: "Looking into the distance through a strongly blurred circular hole: there is a small church with white walls and a red spire bell tower on the green grass in the center of the frame; behind the church is a dense coniferous forest and a steep light gray rock mountain peak, with small yellow flowers scattered on the grass."
+  - id: p_lakes_and_meadows_011
+    source_ref: swiss-and-dolomites/DSC03218.jpg
+    caption: "Dolomites · May 2025"
+    rhythm_after: base
+    alt_text: "In the alpine meadow under the sun, a large bright green grass slope slopes from the lower left to the upper right of the frame, with several trails carved on the slope; a small group of white and black-and-white cattle are grazing on the left side of the grass slope, and a few people are walking along a horizontal path on the right side; in the background are dark green coniferous forests and shadowed hillsides."
+  - id: p_lakes_and_meadows_012
+    source_ref: swiss-and-dolomites/DSC03222.jpg
+    place: pl_dolomites
+    captured_at: "2025-05-02T19:42:41"
+    caption: "Dolomites · May 2025"
+    rhythm_after: base
+    alt_text: "In the evening or early morning light, a large row of tooth-shaped gray-white rock peaks spans the upper part of the frame, with patches of snow hanging on the rock walls; in front of the peaks are rolling hillsides covered with dark green coniferous forests, and in the lower part of the frame is a bright alpine meadow. The meadow is dotted with cottages with white walls and deep roofs, and there is a church with a steeple in the center."
+  - id: p_lakes_and_meadows_013
+    place: pl_varenna   # owner-approved 2026-09-15 (local review)
+    source_ref: swiss-and-dolomites/DSC03266.jpg
+    caption: "Varenna · May 2025"
+    rhythm_after: base
+    alt_text: "In a lakeside town under a cloudy sky, multi-story houses with yellow, orange, red and pink exteriors are densely stacked on a steep hillside, with green shutters on the windows; there are several small sailboats parked on the lake, and there are stone walls and arched waterways on the shore; in the lower right of the foreground are red railings and a long row of yellow-purple flowers in full bloom, and in the distance are mountain forests in the mist."
+  - id: p_lakes_and_meadows_014
+    source_ref: swiss-and-dolomites/DSC03310.jpg
+    caption: "Thun · June 2025"
+    rhythm_after: base
+    alt_text: "A lake scene in rainy weather. The lake is wide and dark green. On the other side is a small town composed of green grass slopes and rows of dark-sloped houses. There are scattered boats parked on the shore. The hillside in the background is completely covered by dark green forests. The top of the mountain is covered by low-hanging white clouds, and the clouds are thick."
+  - id: p_lakes_and_meadows_015
+    source_ref: swiss-and-dolomites/DSC03313.jpg
+    caption: "Thun · June 2025"
+    rhythm_after: base
+    alt_text: "A park-like lakeside green space, with lawns and an oval light blue pool in the foreground, a thin water column sprays out from the center of the pool, and a dark portrait sculpture stands on two stone piers beside the pool; people are resting on benches under several tall broad-leaved trees, and there are several figures deep in the middle path; in the background are dark mountains shrouded in mist, and the sky is filled with white clouds."
+  - id: p_lakes_and_meadows_016
+    place: pl_lungern   # owner-approved 2026-09-15 (local review)
+    source_ref: swiss-and-dolomites/FEI03927.jpg
+    caption: "Lungern · June 2026"
+    rhythm_after: base
+    alt_text: "It is an alpine lake on a clear summer day. The lake water is a rich turquoise color that runs across the middle and lower part of the frame. There are several tall broad-leaved trees growing on the grassland on the lakeshore, one of which has drooping branches and leaves. There are sunshades and a few small figures on the grass under the trees. On the other side is a hillside covered with dense forests and bright meadows, dotted with several small houses with dark roofs. The top of the frame is a green ridge."
+  - id: p_lakes_and_meadows_017
+    place: pl_lungern   # owner-approved 2026-09-15 (local review)
+    source_ref: swiss-and-dolomites/FEI03931.jpg
+    caption: "Lungern · June 2026"
+    rhythm_after: base
+    alt_text: "Under the blue sky, there are turquoise lakes and lakeside hillside villages: many houses and farmhouses with dark wooden roofs and white or wooden walls are scattered on the layers of bright green grass slopes. The slopes are dotted with isolated trees; on the right is a steep mountain covered with dark green forest and exposed rock walls. The lake surface is calm and peacock blue, with a floating platform and a small reed island in the water."
+  - id: p_lakes_and_meadows_018
+    place: pl_lungern
+    source_ref: swiss-and-dolomites/FEI03932.jpg
+    caption: "Lungern · June 2026"
+    rhythm_after: base
+    alt_text: "Summer scenery of the lakeside park: the close-up is a green grassland, with a leafy tree on the right side of the frame; a woman sitting on a light-colored bench on the grass with her back to the camera and facing the lake; the mid-ground is the green lake, with green trees, villages and forest-covered hillsides on the other side. There is a mountain peak with residual snow on the top left, and the sky is clean blue."

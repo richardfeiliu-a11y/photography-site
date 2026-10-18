@@ -1,0 +1,71 @@
+---
+/*
+ * src/pages/qa-probe.astro — QA probe surface (WP-28 relocation).
+ *
+ * The WP-02 placeholder page carried test-only probe markup (the JS canary,
+ * the WP-04 token probes, the WP-05 font probes). WP-28 replaces the Home
+ * page wholesale, so the probes move here — a dedicated robots-noindex route
+ * that no navigation links to (not part of the user-facing IA; the frozen
+ * route table governs canonical CONTENT routes, this is a test artifact).
+ * Tests that previously targeted `/` for probe assertions now target
+ * /qa-probe.
+ *
+ * Immersive pass: the probe surface wears the site's title/note voice (serif
+ * heading + mono line) and keeps its minimal structure otherwise — the
+ * probe elements below are contract surfaces and never decorative.
+ */
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="QA Probe">
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+    <script is:inline>
+      window.__qaCanary = "js-enabled";
+    </script>
+  </Fragment>
+  <div class="qa-probe">
+    <h1 class="qa-probe-title">QA probe surface</h1>
+    <p class="qa-probe-note mono-label">Test-only surface — not part of the site</p>
+    {/* Astro compressHTML strips authored comments, so the markers the tests
+        assert on are injected raw to survive the production build. */}
+    <Fragment set:html="<!-- wp-04-token-probe (test-only QA surface) -->" />
+    <div data-probe="space-2xs" style="width: var(--space-2xs);"></div>
+    <div data-probe="space-xs" style="width: var(--space-xs);"></div>
+    <div data-probe="space-md" style="width: var(--space-md);"></div>
+    <div data-probe="space-lg" style="width: var(--space-lg);"></div>
+    <div data-probe="space-2xl" style="width: var(--space-2xl);"></div>
+    <div data-probe="space-4xl" style="width: var(--space-4xl);"></div>
+    <Fragment set:html="<!-- wp-05-font-probe (test-only QA surface) -->" />
+    <p data-probe="font-serif-mixed" lang="zh" style="font-family: var(--font-serif);">
+      Quiet Editorial Archive — 静谧影像档案 2026
+    </p>
+    <p data-probe="font-sans-mixed" lang="zh" style="font-family: var(--font-sans);">
+      Photo essays 影像随笔 — 12 / 36
+    </p>
+    <p data-probe="font-outside-subset" lang="zh" style="font-family: var(--font-serif);">喆</p>
+  </div>
+</Base>
+
+<style>
+  .qa-probe {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-inline: var(--edge-inset);
+    padding-block: var(--space-2xl) var(--space-4xl);
+  }
+
+  .qa-probe-title {
+    margin: 0;
+    font-family: var(--type-h1-family);
+    font-size: var(--type-h1-size);
+    font-weight: var(--type-h1-weight);
+    line-height: var(--type-h1-lh);
+    letter-spacing: var(--type-h1-tracking);
+    color: var(--color-text-primary);
+  }
+
+  .qa-probe-note {
+    margin: var(--space-sm) 0 var(--space-2xl);
+  }
+</style>

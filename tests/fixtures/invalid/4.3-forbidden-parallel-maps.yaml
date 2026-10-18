@@ -1,0 +1,24 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §4.3 forbidden fields
+# Separate captions/rhythms maps keyed by Photo ID: captions and
+# rhythms live INLINE on each photo item (§5). Consumed by:
+# tests/unit/gallery-schema.test.ts (WP-09, forbidden-field RED case).
+# =====================================================================
+id: g_bad_forbidden_maps
+slug: invalid-forbidden-parallel-maps
+status: draft
+title: "Invalid — parallel caption/rhythm maps"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+places:
+  - pl_lofoten
+captions:
+  p_bad_forbidden_maps_001: "Caption stored in the wrong place"
+rhythms:
+  p_bad_forbidden_maps_001: compact
+photos:
+  - id: p_bad_forbidden_maps_001
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

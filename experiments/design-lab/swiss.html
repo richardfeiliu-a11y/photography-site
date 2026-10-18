@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Photography · 瑞士 × 玻璃比较</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#e7e8ea;color:#17202a;font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.toolbar{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px;background:#fff;border-bottom:1px solid #d5d8dc}.brand{font-weight:650}.hint{display:block;font-size:12px;color:#52616b;font-weight:400;margin-top:3px}.tools{display:flex;align-items:center;gap:8px}.tools button,.tools a,.tools select{border:1px solid #c6ccd2;border-radius:6px;background:#fff;color:#17202a;padding:8px 12px;text-decoration:none;font:inherit;cursor:pointer}.tools button[aria-pressed=true]{background:#17202a;color:white}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #2864d0;outline-offset:3px}#stage{height:calc(100dvh - 64px);display:flex;justify-content:center}iframe{border:0;width:100%;height:100%;background:#fff}#stage[data-mobile] iframe{width:390px;max-width:100%;box-shadow:0 0 40px #0002}dialog{border:1px solid #c9cdd2;border-radius:12px;max-width:680px;width:calc(100vw - 30px);max-height:85dvh;overflow:auto;padding:24px}dialog::backdrop{background:#0007}.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:20px}.dialog-head h1{font-size:23px;margin:0}.close{background:none;border:1px solid #c6ccd2;border-radius:6px;padding:8px 12px;font:inherit;cursor:pointer}.tradeoff{background:#f1f4f7;padding:16px;line-height:1.7;margin:16px 0}.rating{display:grid;grid-template-columns:100px 1fr 24px;align-items:center;gap:12px;margin:18px 0}input[type=range]{width:100%}textarea{width:100%;min-height:100px;margin-top:8px;border:1px solid #9fa8b0;padding:10px;border-radius:6px;font:inherit}.saved{font-size:12px;color:#485c4b}.export{padding:10px 16px;margin-top:16px;background:#17202a;border:0;color:#fff;border-radius:6px;font:inherit;cursor:pointer}.comparison{width:100%;border-collapse:collapse;font-size:12px;margin-top:24px}.comparison th,.comparison td{padding:10px 4px;text-align:left;border-bottom:1px solid #ddd}.comparison caption{text-align:left;font-weight:600;font-size:16px;margin-bottom:10px}@media(max-width:600px){.toolbar{padding:8px 10px}.hint{display:none}.tools button,.tools a,.tools select{font-size:12px;padding:8px}.brand{display:none}.rating{grid-template-columns:76px 1fr 24px}dialog{padding:18px}.comparison{font-size:11px}}
+</style>
+<style id="picker-css">.proto-picker {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.82);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  backdrop-filter: blur(12px) saturate(1.4);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    0 8px 24px rgba(0, 0, 0, 0.24),
+    0 2px 6px rgba(0, 0, 0, 0.12);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13px;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.proto-picker-highlight {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  will-change: transform;
+}
+
+/* The slide is enabled only after first paint (data-ready), so load doesn't animate. */
+.proto-picker[data-ready] .proto-picker-highlight {
+  transition:
+    transform 250ms cubic-bezier(0.23, 1, 0.32, 1),
+    width 250ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proto-picker[data-ready] .proto-picker-highlight { transition: none; }
+}
+
+.proto-picker-item {
+  position: relative; /* sits above the highlight */
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.55);
+  font: inherit;
+  cursor: pointer;
+  transition: color 150ms ease-out;
+}
+
+.proto-picker-item:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.proto-picker-item:active {
+  transform: scale(0.97);
+}
+
+.proto-picker-item:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 2px;
+}
+
+.proto-picker-item[data-active] {
+  color: #fff;
+}
+
+.proto-picker-divider {
+  width: 1px;
+  height: 16px;
+  margin: 0 4px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.proto-picker-replay {
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+.proto-picker[data-position="top"] {
+  bottom: auto;
+  top: 24px;
+}
+.proto-picker{width:max-content;max-width:calc(100vw - 16px)}.proto-picker-item{flex-shrink:0;white-space:nowrap}
+body{height:100dvh;display:grid;grid-template-rows:auto minmax(0,1fr)}.toolbar{height:auto;min-height:64px}.tools{flex-wrap:wrap;justify-content:flex-end}#stage{height:auto;min-height:0}@media(max-width:600px){.tools{justify-content:center}.toolbar{justify-content:center}}
+</style></head>
+<body>
+<header class="toolbar"><div class="brand">Swiss · 玻璃比较<span class="hint">1–4 切换版本 · 左右键切换 · R 重载 · 每套均可浏览主要页面</span></div><div class="tools"><select id="view" aria-label="比较页面"><option value="home">首页</option><option value="archive">归档</option><option value="places">地点</option><option value="about">关于</option></select><button id="mobile" aria-pressed="false">手机宽度</button><button id="collection">看照片</button><button id="review">评分 / 备注</button><a id="standalone" target="_blank" rel="noopener">独立打开</a></div></header>
+<main id="stage"><iframe id="preview" title="摄影网站设计预览"></iframe></main>
+<nav class="proto-picker" aria-label="设计方向"><span class="proto-picker-highlight" aria-hidden="true"></span><button class="proto-picker-item" data-active aria-current="true">纯瑞士</button><button class="proto-picker-item">控件玻璃</button><button class="proto-picker-item">导航玻璃</button><button class="proto-picker-item">透光玻璃</button><span class="proto-picker-divider" aria-hidden="true"></span><button class="proto-picker-item proto-picker-replay" aria-label="重新加载预览 (R)">↻</button></nav>
+<dialog id="review-dialog"><div class="dialog-head"><h1 id="review-title"></h1><button class="close">关闭</button></div><p id="tradeoff" class="tradeoff"></p><p>每项 1–5 分；未评分显示为「—」。评分和备注自动保存在本浏览器。</p><div id="ratings"></div><label for="notes">想保留、舍弃或组合的部分</label><textarea id="notes" placeholder="例如：喜欢首页排版，但想用另一套的作品浏览方式。"></textarea><p class="saved" role="status" id="save-status"></p><button id="export" class="export">导出比较记录</button><table class="comparison"><caption>四版本评分一览</caption><thead><tr><th>方向</th><th>布局</th><th>文字</th><th>照片</th><th>导航</th><th>手机</th></tr></thead><tbody id="summary"></tbody></table></dialog>
+<script>
+const directions = [
+  {slug:'swiss',name:'纯瑞士',tradeoff:'对照版：原有排版和实色观看控件。观察照片、文字与检索是否已经足够清楚。'},
+  {slug:'swiss-controls',name:'瑞士 + 观看控件玻璃',tradeoff:'第2版：保留整站瑞士布局，只在摄影集观看控件加入玻璃。请打开摄影集并滚动比较。'},
+  {slug:'swiss-floating',name:'瑞士 + 导航与观看控件玻璃',tradeoff:'第3版：观看控件加入玻璃，滚过首屏顶栏后再出现浮动玻璃导航。请滚动页面、切换页面并打开摄影集比较。'},
+  {slug:'swiss-clear',name:'瑞士 + 透光玻璃观看栏',tradeoff:'第4版：沿用第2版的观看栏布局，使用中性黑灰控件、原比例无灰框照片；降低大面积白底遮盖并加强细窄边缘高光。打开摄影集，滚动到观看栏覆盖照片处，与第2版比较透色和文字清晰度。'}
+];
+const axes=['布局','文字','照片','导航','手机'];
+const stage=document.getElementById('stage');
+const frame=document.getElementById('preview');
+const picker=document.querySelector('.proto-picker');
+const highlight=picker.querySelector('.proto-picker-highlight');
+const items=[...picker.querySelectorAll('.proto-picker-item:not(.proto-picker-replay)')];
+const dialog=document.getElementById('review-dialog');
+let current=0;
+const viewSelect=document.getElementById('view');
+const initialView=new URLSearchParams(location.search).get('view');
+if(['home','archive','places','about'].includes(initialView))viewSelect.value=initialView;
+let records={};
+try {records=JSON.parse(localStorage.getItem('photography-swiss-glass-lab')||'{}');} catch {records={};}
+function moveHighlight(){const el=items[current];highlight.style.width=el.offsetWidth+'px';highlight.style.transform=`translateX(${el.offsetLeft}px)`;}
+function mount(){frame.src=`/variants/${directions[current].slug}.html#${viewSelect.value}`;frame.title=directions[current].name+' · 摄影网站预览';document.getElementById('standalone').href=frame.src;}
+function setActive(i){if(i<0||i>=directions.length)return;current=i;items.forEach((el,j)=>{el.toggleAttribute('data-active',j===i);if(j===i)el.setAttribute('aria-current','true');else el.removeAttribute('aria-current');});moveHighlight();const url=new URL(location);url.searchParams.set('v',i+1);history.replaceState(null,'',url);mount();}
+function save(){try {localStorage.setItem('photography-swiss-glass-lab',JSON.stringify(records));document.getElementById('save-status').textContent='已保存到本浏览器';}catch{document.getElementById('save-status').textContent='浏览器无法保存，请导出比较记录。';}summarize();}
+function summarize(){document.getElementById('summary').innerHTML=directions.map(d=>`<tr><th>${d.name}</th>${axes.map((_,i)=>`<td>${records[d.slug]?.scores?.[i]||'—'}</td>`).join('')}</tr>`).join('');}
+function review(){const d=directions[current];document.getElementById('review-title').textContent=d.name;document.getElementById('tradeoff').textContent=d.tradeoff;const record=records[d.slug]||{scores:{},notes:''};records[d.slug]=record;document.getElementById('ratings').innerHTML=axes.map((axis,i)=>`<label class="rating">${axis}<input type="range" min="1" max="5" step="1" value="${record.scores[i]||3}" data-axis="${i}" aria-label="${axis}评分"><output>${record.scores[i]||'—'}</output></label>`).join('');document.getElementById('notes').value=record.notes;summarize();dialog.showModal();}
+items.forEach((el,i)=>el.addEventListener('click',()=>setActive(i)));
+picker.querySelector('.proto-picker-replay').addEventListener('click',mount);
+window.addEventListener('resize',moveHighlight);
+function shortcuts(e){if(/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)||e.target.isContentEditable||e.metaKey||e.ctrlKey||e.altKey||dialog.open||frame.contentDocument?.querySelector('dialog[open]'))return;const num=parseInt(e.key,10);if(num>=1&&num<=directions.length){e.preventDefault();setActive(num-1);}else if(e.key==='ArrowRight'){e.preventDefault();setActive((current+1)%directions.length);}else if(e.key==='ArrowLeft'){e.preventDefault();setActive((current-1+directions.length)%directions.length);}else if(e.key==='r'||e.key==='R')mount();}
+document.addEventListener('keydown',shortcuts);
+function syncView(){document.getElementById('standalone').href=frame.contentWindow.location.href;const view=frame.contentWindow.location.hash.slice(1).split(/[?\/]/)[0];if(['home','archive','places','about'].includes(view)){viewSelect.value=view;const url=new URL(location);url.searchParams.set('view',view);history.replaceState(null,'',url);}}
+frame.addEventListener('load',()=>{frame.contentDocument.addEventListener('keydown',shortcuts);frame.contentWindow.addEventListener('hashchange',syncView);syncView();});
+viewSelect.addEventListener('change',()=>{frame.contentWindow.location.hash=viewSelect.value;});
+document.getElementById('mobile').addEventListener('click',e=>{const enabled=stage.toggleAttribute('data-mobile');e.currentTarget.setAttribute('aria-pressed',String(enabled));});
+document.getElementById('review').addEventListener('click',review);
+dialog.querySelector('.close').addEventListener('click',()=>dialog.close());
+document.getElementById('ratings').addEventListener('input',e=>{const i=e.target.dataset.axis;if(i===undefined)return;records[directions[current].slug].scores[i]=Number(e.target.value);e.target.nextElementSibling.value=e.target.value;save();});
+document.getElementById('notes').addEventListener('input',e=>{records[directions[current].slug].notes=e.target.value;save();});
+document.getElementById('export').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({date:new Date().toISOString(),directions,records},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='photography-swiss-glass-comparison.json';a.click();URL.revokeObjectURL(url);});
+document.getElementById('collection').addEventListener('click',()=>{const doc=frame.contentDocument;const trigger=[...doc.querySelectorAll('[data-gallery]')].find(el=>el.getClientRects().length>0);trigger?.click();});
+const initial=parseInt(new URLSearchParams(location.search).get('v'),10)||1;
+setActive(initial>=1&&initial<=directions.length?initial-1:0);
+requestAnimationFrame(()=>requestAnimationFrame(()=>picker.setAttribute('data-ready','')));
+</script></body></html>

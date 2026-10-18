@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Letter mark: a serif R set on a quiet field. -->
+  <rect x="1" y="1" width="30" height="30" rx="2" fill="#f5f3ef" />
+  <text x="16" y="24" text-anchor="middle" font-family="Georgia, 'Source Serif 4', serif"
+        font-size="22" fill="#181816">R</text>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      rect { fill: #121315; }
+      text { fill: #edece8; }
+    }
+  </style>
+</svg>

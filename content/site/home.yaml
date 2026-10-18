@@ -1,0 +1,4 @@
+# Home editorial settings (CONTENT_MODEL §10).
+# featured_gallery_id: the single published gallery used as the home cover.
+# The Monograph home has ONE curated cover (no stage rotation/carousel).
+featured_gallery_id: g_lofoten_polar_night

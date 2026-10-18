@@ -1,0 +1,21 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §5.2 rhythm_after enum
+# rhythm_after: "spacious" — the value does not exist. Only base
+# (default), compact, breathing. Orientation alone never selects
+# rhythm. Consumed by: tests/unit/gallery-schema.test.ts (WP-09 RED:
+# "rhythm_after: spacious rejected").
+# =====================================================================
+id: g_bad_rhythm_spacious
+slug: invalid-rhythm-spacious
+status: draft
+title: "Invalid — rhythm_after spacious"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+places:
+  - pl_lofoten
+photos:
+  - id: p_bad_rhythm_spacious_001
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: spacious
+    alt_text: null

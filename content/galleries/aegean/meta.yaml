@@ -1,0 +1,71 @@
+id: g_aegean
+slug: aegean
+status: published
+title: "Aegean"
+description: "White walls, blue water and hard noon light in the Greek islands."
+photographed_start: "2024-08-10"
+photographed_end: "2024-08-11"
+published_at: "2026-09-12T00:00:00Z"
+places:
+  - pl_aegean
+  - pl_athens
+  - pl_zakynthos
+cover_photo_id: p_aegean_006
+next_gallery_id: g_alps
+photos:
+  - id: p_aegean_001
+    source_ref: aegean/DSC00969.jpg
+    caption: "Aegean · August 2024"
+    rhythm_after: base
+    alt_text: "On the sea surface under the backlight, a large white cruise ship crosses the middle of the frame, dragging a white wake behind the ship, and the sea surface is covered with silver reflections; there is a small boat nearby and below, and the bottom foreground of the frame is branches and leaves darkened by the backlight."
+  - id: p_aegean_002
+    source_ref: aegean/DSC00972.jpg
+    place: pl_zakynthos
+    captured_at: "2024-08-10T08:13:34"
+    caption: "Zakynthos · August 2024"
+    rhythm_after: base
+    alt_text: "A high-angle view of the harbor city, with dense blocks of red-tiled roofs covering the bottom of the frame. A bright yellow ferry is sailing in the bay, and rows of sailboats and boats are parked in the harbor. Behind the city is a large mountain covered with vegetation and with rocky peaks on the top. The sky is light blue and misty."
+  - id: p_aegean_003
+    source_ref: aegean/DSC00975.jpg
+    caption: "Aegean · August 2024"
+    rhythm_after: base
+    alt_text: "The steep gray-white rock wall is covered with shrubs and trees. Under the rock wall is a small arc-shaped beach. There are dark umbrellas on the beach. There are many swimmers scattered on the beach and shallow water. The sea water gradually changes from light green nearby to deep blue in the distance. A small piece of reef is exposed on the left side of the sea."
+  - id: p_aegean_004
+    place: pl_zakynthos   # owner-approved 2026-09-15 (local review)
+    source_ref: aegean/DSC00978.jpg
+    caption: "Aegean · August 2024"
+    rhythm_after: base
+    alt_text: "In the crystal clear turquoise bay, light-colored rocks and light spots can be seen under the water; two white boats with beige awnings are parked side by side in the front of the frame, and in the background are green hillsides covered with shrubs and exposed light-colored rock walls. There are two boats in the distance at the rear right."
+  - id: p_aegean_005
+    source_ref: aegean/DSC00981.jpg
+    place: pl_zakynthos
+    captured_at: "2024-08-10T11:14:39"
+    caption: "Zakynthos · August 2024"
+    rhythm_after: base
+    alt_text: "A traditional wooden boat with a white hull and a red waterline is parked on a rope in the clear turquoise shallow water. A simple awning is erected on the boat, and orange lifebuoys and fishing gear are hung on the boat. Through the water, you can clearly see the underwater rocks and the reflection of the boat's hull. The background is light-colored rocky shores and shrub hillsides."
+  - id: p_aegean_006
+    place: pl_zakynthos   # owner-approved 2026-09-15 (local review)
+    source_ref: aegean/DSC00982.jpg
+    caption: "Aegean · August 2024"
+    rhythm_after: base
+    alt_text: "A rocky shore bay in the sun: There is a blue metal support on a small stone pier on the right side of the frame. Four children in swimsuits are standing on the edge of the pier. One of them is hanging on the water, holding on to a rope, and the other is walking down the stone steps; on the left is a white speedboat parked on the water. The water is turquoise and transparent, and the background is light-colored rock walls and shrubs full of caves."
+  - id: p_aegean_007
+    place: pl_zakynthos   # owner-approved 2026-09-15 (local review)
+    source_ref: aegean/DSC00994.jpg
+    caption: "Aegean · August 2024"
+    rhythm_after: base
+    alt_text: "Under the deep blue sky, an almost vertical white limestone cliff extends from the right side of the frame, with clear rock texture. On the blue sea below the cliff, a speedboat drags a long white trail to the right, and there is a sailboat next to it. On the distant horizon is a faint outline of land, and the water is a saturated deep blue."
+  - id: p_aegean_008
+    source_ref: aegean/DSC00996.jpg
+    place: pl_zakynthos
+    captured_at: "2024-08-10T11:58:35"
+    caption: "Zakynthos · August 2024"
+    rhythm_after: base
+    alt_text: "A large rusty sunken ship was broken into several pieces and stranded on the white pebble beach. The rusty red hull formed a strong contrast with the white beach surface; in the foreground was a blue boat parked on the blue sea with white writing on the hull and the deck was full of tourists; behind it was a whole light-colored rock wall with distinct layers."
+  - id: p_aegean_009
+    source_ref: aegean/DSC01058.jpg
+    place: pl_athens
+    captured_at: "2024-08-11T19:50:31"
+    caption: "Athens · August 2024"
+    rhythm_after: base
+    alt_text: "Panoramic view of the city at twilight: Dense city lights fill the lower half of the frame, with the ruins of an ancient temple illuminated on top of a rocky hill in the center; in the distance are the dark blue bay, port lights and continuous mountain shadows, with an orange-pink glow band across the horizon, and the rest of the sky is gray-purple."

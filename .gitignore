@@ -1,0 +1,74 @@
+# OS
+.DS_Store
+._*
+
+# Local tool state
+.freebuff/
+.workbuddy/
+
+# Secrets
+.env
+.env.*
+
+# Python / Node leftovers if later added
+.venv/
+__pycache__/
+node_modules/
+
+# Regenerable outputs (REPOSITORY_STRUCTURE.md section 3)
+/dist/
+/dist-qa/
+/generated/
+
+# Astro generated types
+/.astro/
+
+# Worktree-local symlinks to main-tree untracked state
+/media
+/prototype
+/prototype-stage3c
+
+# Capture output (regenerable; approved baselines in tests/baselines/ ARE tracked)
+/tests/captures/
+
+# Playwright transient artifacts (reports/results are regenerated per run)
+/test-results/
+/playwright-report/
+
+# Test-only assembled serving artifacts (IMP-01/IMP-06 harness; regenerable,
+# never the canonical dist/ — see tests/support/artifact.mjs)
+/.serve-artifacts/
+
+# Test-only scratch (created + removed by suites; P9 rework isolated workspaces)
+/tests/tmp/
+
+# WP-07 benchmark scratch output (evidence packets are regenerated per run)
+/bench-output/
+
+# Deployment artifacts (built release candidates + generated nginx redirect rules)
+/releases/
+/www/
+# Isolated worktrees (git-worktree fallback)
+.worktrees/
+
+# Regenerable build output (nested paths; root covered above)
+generated/
+dist/
+
+# SDD scratch workspace
+.superpowers/
+
+# Media: fixtures symlink + ingest masters stay outside Git
+media/stage3c-fixtures
+media/ingest-masters/
+
+# Worktree-local symlink to the main tree generated/ dir (trailing-slash
+# rule above matches a real directory but not this symlink)
+/generated
+
+# Local tool state directory (0919 simplification audit B-12)
+.workbuddy-ai/
+
+# Local agent scratch. ESLint scans the worktree, so this untracked trash
+# otherwise fails the repository-wide pre-commit check.
+.ua/

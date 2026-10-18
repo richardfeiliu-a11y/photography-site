@@ -1,0 +1,15 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 15 AND rule 16 (WP-12 RED set)
+# Old path equals a CURRENT canonical route: `lofoten` is the live slug of
+# pl_lofoten, so /places/reine is a canonical route (§12). Redirect old
+# paths are HISTORICAL aliases only (§11.2 fail-closed; BUILD_AND_ROUTING
+# §5 "the old path ... must not equal any current canonical path").
+# Rule 15 states the entry-level gate ("old path equals a current
+# canonical route"); rule 16 states the graph-level gate ("route
+# collision"). Both fire on this entry.
+# Consumed by: tests/unit/redirects.test.ts (WP-12);
+# tests/integration/redirect-validation.test.ts (WP-12, real corpus
+# registries — pl_lofoten exists there); WP-13.
+# =====================================================================
+/places/lofoten:
+  place_id: pl_lofoten

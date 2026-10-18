@@ -1,0 +1,249 @@
+---
+/*
+ * src/pages/galleries/[slug].astro — the canonical Gallery route (WP-33).
+ *
+ * Frozen references: BUILD_AND_ROUTING §4 + RUNTIME §10.1 (canonical
+ * /galleries/{slug} ONLY; published-only getStaticPaths), CONTENT_MODEL §9
+ * (authored photo order — preserved by the GalleryView builder), RUNTIME §10.2
+ * (header on the reading column, NOT sticky — full treatment lands WP-34).
+ *
+ * WP-33 lands the ROUTE + DATA CONTRACT with a minimal structural rendering
+ * (Base shell + title + ordered sequence + continuation links); WP-34..37
+ * refine presentation against the frozen §3.1 content order. Loading
+ * attributes and rhythm spacing are WP-35's contract.
+ *
+ * C direction (2026-10-18): the route composes the immersive reading order —
+ * header → sequence → ending → viewer — on the gallery's OWN ambient field,
+ * with the Overview light-table and the position pill pruned (owner decision;
+ * the viewer bar + its mono plaque line carry the reader's location).
+ */
+import { buildGalleryView } from "../../lib/views/gallery";
+import { loadPublishedDataSet } from "../../lib/pages/archive-data";
+import { createPhotoSelectors, getManifest } from "../../lib/assets/manifest";
+import { backOriginScript } from "../../lib/back-origin";
+import Base from "../../layouts/Base.astro";
+import SeoHead from "../../components/SeoHead.astro";
+import { galleryMeta } from "../../lib/seo/meta";
+import { buildSiteOrigin } from "../../lib/seo/site";
+import { buildGalleryJsonLd, jsonLdScriptHtml } from "../../lib/seo/jsonld";
+import "../../styles/gallery.css";
+import { MEDIA_FRAME_SIZES_VALUE as MEDIA_FRAME_SIZES } from "../../lib/media";
+import GalleryHeader from "../../components/GalleryHeader.astro";
+import GallerySequence from "../../components/GallerySequence.astro";
+import GalleryContinuation from "../../components/GalleryContinuation.astro";
+import { exifResolverFactory } from "../../lib/exif/read";
+import { cameraLabel, settingsLine } from "../../lib/exif/format";
+import { loadAtmosphere, ambientFor } from "../../lib/theme/read";
+import { formatPhotographedDateLong } from "../../lib/presentation/photographed-date";
+import Lightbox from "../../components/Lightbox.astro";
+
+export async function getStaticPaths() {
+  const { galleries, places, nextGalleryMap, mode } = loadPublishedDataSet();
+  const routes = mode === "preview"
+    ? galleries // ADR-020: preview surfaces draft + published routes.
+    : galleries.filter((gallery) => gallery.status === "published");
+  return routes.map((gallery) => ({
+    params: { slug: gallery.slug },
+    props: { gallery, places, nextGalleryMap, allGalleries: galleries, mode },
+  }));
+}
+
+const { gallery, places, nextGalleryMap, allGalleries, mode } = Astro.props;
+
+// WP-24 selector surface bound to the §3.1 media frame layout context.
+const selectors = createPhotoSelectors(getManifest());
+const resolveDisplay = (photoId: string) => {
+  try {
+    const v = selectors.getGalleryVariants(photoId, { sizes: MEDIA_FRAME_SIZES });
+    const avif = v.formats.find((f) => f.format === "avif");
+    return {
+      photoId,
+      src: v.src,
+      srcset: v.srcset,
+      avifSrcset: avif?.srcset,
+      width: v.width,
+      height: v.height,
+    };
+  } catch (error) {
+    if (mode === "preview") {
+      // Preview draft photos may reference derivatives the published manifest
+      // never produced. Honesty (IMP-03): render the null-display composition
+      // rather than a fabricated URL. Production keeps fail-closed propagation.
+      return { photoId, src: "", srcset: "", width: 0, height: 0, missing: true } as never;
+    }
+    throw error;
+  }
+};
+
+const view = buildGalleryView({
+  gallery,
+  places,
+  nextGalleryMap,
+  allGalleries,
+  resolveDisplay,
+  resolveExif: exifResolverFactory(),
+});
+
+// C direction — the page's field is the ambient pair of its OWN cover
+// (generated/atmosphere.json, keyed by gallery id). A missing entry (or no
+// sidecar at all) resolves to null and the layout's neutral room; the reader
+// is a data layer, never a gate (src/lib/theme/read.ts).
+const ambient = ambientFor(loadAtmosphere(), gallery.id);
+
+// The viewer bar's collection line (C viewer): "February 2025 · 11
+// photographs" — the long-month form the rest of the language's mono meta
+// lines use (home lockup, archive rows). Built once, read by zero JS.
+const lightboxMeta = `${formatPhotographedDateLong(
+  view.header.photographedStart,
+  view.header.photographedEnd,
+)} · ${view.header.photoCount} photographs`;
+
+// Lightbox items (C viewer): the widest gallery_display derivative (up to
+// 2560) per photo, in the same authored order, plus the build-time EXIF
+// labels. Rendered as a JSON island consumed by src/lib/js/lightbox.ts.
+// The layout context is the ONE §3.1 media frame (src/lib/media.ts): the
+// viewer column mirrors the gallery plate column, so the page, the sequence
+// and the viewer share a single sizes authority.
+const lightboxItems = view.photos.map((photo, i) => {
+  const v = selectors.getGalleryVariants(photo.photoId, { sizes: MEDIA_FRAME_SIZES });
+  const avif = v.formats.find((f) => f.format === "avif");
+  const exif = photo.exif;
+  return {
+    id: photo.photoId,
+    // Only the AVIF candidate set ships in the island (the JPEG ladder would
+    // double the payload and the page JS budget scales with photo count):
+    // AVIF-capable browsers select responsively via <source>, others load the
+    // widest JPEG fallback `src`.
+    src: v.src,
+    avifSrcset: avif?.srcset,
+    width: v.width,
+    height: v.height,
+    alt: photo.altText ?? "",
+    caption: photo.caption,
+    camera: cameraLabel(exif ?? {}) ?? "",
+    lens: exif?.lens ?? "",
+    tech: settingsLine(exif),
+    index: i,
+  };
+});
+
+// WP-44 — og:image from the authored cover derivative (JPEG fallback src,
+// absolute-pathed by SeoHead). Preview honesty mirrors resolveDisplay
+// (IMP-03): a draft cover without manifest coverage omits og:image instead
+// of emitting a fabricated URL. Production keeps fail-closed propagation.
+let coverImagePath: string | undefined;
+if (mode === "preview") {
+  try {
+    const coverDisplay = resolveDisplay(
+      gallery.cover_photo_id ?? view.photos[0]?.photoId ?? "",
+    );
+    coverImagePath = coverDisplay?.src || undefined;
+  } catch {
+    coverImagePath = undefined;
+  }
+} else {
+  coverImagePath = resolveDisplay(gallery.cover_photo_id as string).src;
+}
+
+// F2 — JSON-LD ImageGallery describing every photograph.
+const galleryJsonLd = buildGalleryJsonLd({
+  origin: buildSiteOrigin(),
+  title: view.header.title,
+  description: gallery.description ?? view.header.title,
+  slug: gallery.slug,
+  photos: view.photos
+    .filter((photo) => photo.display.src)
+    .map((photo) => ({
+      url: photo.display.src,
+      alt: photo.altText ?? "",
+    })),
+});
+---
+
+<Base title={view.header.title} ambient={ambient}>
+  <Fragment slot="head">
+    <SeoHead
+      meta={galleryMeta({
+        title: view.header.title,
+        description: gallery.description,
+        slug: gallery.slug,
+        photoCount: view.header.photoCount,
+      })}
+      imagePath={coverImagePath}
+    />
+    {/* RUNTIME §11.1: the Gallery first photo is the route LCP — preload
+        exactly once. IMP-01: responsive + format-honest semantics, identical
+        to the Home hero preload — imagesrcset/imagesizes mirror the first
+        photo's AVIF <source> candidate set + the §3.1 media-frame sizes so
+        the preloaded candidate IS the candidate the browser consumes (one
+        transfer); href stays the JPEG fallback; type lets non-AVIF browsers
+        skip the fetch. Only when a display derivative exists (preview draft
+        photos without manifest coverage emit nothing, never a fabricated URL). */}
+    {view.photos[0]!.display.src && (
+      <link
+        rel="preload"
+        as="image"
+        href={view.photos[0]!.display.src}
+        imagesrcset={view.photos[0]!.display.avifSrcset}
+        imagesizes={MEDIA_FRAME_SIZES}
+        type="image/avif"
+        fetchpriority="high"
+      />
+    )}
+    <script is:inline type="application/ld+json" set:html={jsonLdScriptHtml(galleryJsonLd)} />
+  </Fragment>
+  <div class="gallery-page">
+    <GalleryHeader
+      class="gallery-page-col"
+      header={view.header}
+      originHref={view.continuation.originFallback}
+    />
+
+    <GallerySequence class="gallery-page-col" photos={view.photos} />
+
+    <GalleryContinuation
+      class="gallery-page-col"
+      title={view.header.title}
+      continuation={view.continuation}
+    />
+
+    {/* The viewer: the same room, read one plate at a time (C direction —
+        the reader's location feedback lives in its top bar and its mono
+        plaque line; the n/total pill and the Overview light-table were
+        pruned by owner decision). */}
+    <Lightbox
+      items={lightboxItems}
+      title={view.header.title}
+      collectionMeta={lightboxMeta}
+    />
+
+    {/* IMP-04 — Back-to-origin refinement (progressive enhancement).
+        Static fallback = /archive "Back to Archive" (both header + ending
+        agree). JS refines from document.referrer against a DATA-DERIVED
+        allowlist: only /, /archive, and REAL canonical Place routes
+        (props.places — the same set that generates /places/{slug} routes in
+        this build mode) are accepted; everything else falls back to
+        /archive. One shared script (src/lib/back-origin.ts — the same core
+        the unit tests exercise) updates header AND ending href+text
+        together. No-JS core keeps the /archive fallback and works. */}
+    <script is:inline set:html={backOriginScript(places.map((p) => p.slug))} />
+    <script>
+      import { initReveal } from "../../lib/js/reveal";
+      import { initMediaSlots } from "../../lib/js/media-slots";
+      initReveal();
+      initMediaSlots();
+    </script>
+  </div>
+</Base>
+
+<style>
+  /* The plate measure: this column's content box is the ONE width every
+     photograph in the sequence renders at (the viewer column mirrors it), and
+     the header/ending keep the narrower reading measure inside it. */
+  .gallery-page {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-inline: var(--edge-inset);
+    position: relative;
+  }
+</style>

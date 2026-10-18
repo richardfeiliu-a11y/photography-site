@@ -1,0 +1,19 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 6 (TWO DOCUMENTS)
+# Duplicate Place slug: two different Place IDs share slug
+# invalid-dup-place-slug — two /places/invalid-dup-place-slug routes.
+# Consumed by: tests/unit/place-schema.test.ts (WP-10);
+# tests/integration/production-validation.test.ts (WP-13).
+# =====================================================================
+id: pl_bad_13_06_a
+slug: invalid-dup-place-slug
+name: "Invalid duplicate place slug — A"
+region: "Nowhere"
+country: "Test"
+
+---
+id: pl_bad_13_06_b
+slug: invalid-dup-place-slug
+name: "Invalid duplicate place slug — B"
+region: "Nowhere"
+country: "Test"

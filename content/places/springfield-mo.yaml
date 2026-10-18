@@ -1,0 +1,13 @@
+# =====================================================================
+# WP-08 TEST FIXTURE CORPUS — NOT real site content.
+# Derived from REAL_PHOTO_FIXTURE_MANIFEST.md §4.1 — disambiguation pair
+# member (region always rendered, B10). Not referenced by any corpus
+# gallery (the pair's galleries are outside the 12-gallery corpus);
+# retained so the Places-Index disambiguation evidence stays testable.
+# ONE PLACE = ONE FILE (CONTENT_MODEL §6).
+# =====================================================================
+id: pl_springfield_mo
+slug: springfield-mo
+name: "Springfield"
+region: "Missouri, USA"
+country: "United States"

@@ -1,0 +1,24 @@
+# =====================================================================
+# WARNING FIXTURE — CONTENT_MODEL.md §13.2 (warning case 3)
+# Missing description: description is optional (§4.2); its absence is a
+# preview-mode WARNING only, for draft AND published galleries alike.
+# (Most VALID corpus galleries intentionally omit description too.)
+# Consumed by: tests/unit/gallery-schema.test.ts (WP-09, preview mode);
+# tests/integration/production-validation.test.ts (WP-13, §13.2 pass).
+# =====================================================================
+id: g_bad_warn_description
+slug: invalid-warn-no-description
+status: published
+title: "Warning — no description"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+published_at: "2026-08-29T00:00:00Z"
+places:
+  - pl_lofoten
+cover_photo_id: p_bad_warn_description_001
+photos:
+  - id: p_bad_warn_description_001
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

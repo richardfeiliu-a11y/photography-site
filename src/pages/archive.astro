@@ -1,0 +1,93 @@
+---
+/*
+ * src/pages/archive.astro — the immersive archive index (C direction).
+ *
+ * Frozen references: FDS §3.3 (the archive is the complete catalogue: cover,
+ * title, photographed date, Place, count), CONTENT_MODEL §7/UD-003 (ordering
+ * comes from PHOTOGRAPHED dates — the ArchiveView builder owns chronology;
+ * this page never re-derives it), §5.5 (one h1).
+ *
+ * Presentation (reference: audit-c-immersive.html .arow): a FLAT hairline
+ * list in one reading column — thumbnail, serif title, mono meta, OPEN — with
+ * the catalogue number continuing down the page. The year headings are gone:
+ * the chronology is already in the rows (newest first, comparePhotographedDesc
+ * through the builder), and the header carries the count instead of an
+ * invented grouping.
+ */
+import { buildArchiveView } from "../lib/views/archive";
+import { loadPublishedDataSet } from "../lib/pages/archive-data";
+import Base from "../layouts/Base.astro";
+import SeoHead from "../components/SeoHead.astro";
+import { archiveMeta } from "../lib/seo/meta";
+import ArchiveRow from "../components/ArchiveRow.astro";
+
+const { galleries, places, resolveCover, mode } = loadPublishedDataSet();
+const view = buildArchiveView({ galleries, places, resolveCover, mode });
+
+// The builder's year groups are flattened back into one chronology: years are
+// newest-first and the cards inside a year already carry the builder's
+// comparePhotographedDesc order, so the flat list IS the frozen chronology.
+const rows = view.years.flatMap((group) => group.galleries);
+---
+
+<Base title="Journeys">
+  <SeoHead slot="head" meta={archiveMeta()} />
+  <div class="archive-page">
+    <div class="archive-head">
+      <h1 class="archive-title">Journeys</h1>
+      <p class="archive-note mono-label">
+        {rows.length} {rows.length === 1 ? "collection" : "collections"}
+      </p>
+    </div>
+    <ol class="arow-list">
+      {rows.map((card, i) => <ArchiveRow card={card} number={i + 1} />)}
+    </ol>
+  </div>
+</Base>
+
+<style>
+  .archive-page {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-inline: var(--edge-inset);
+    padding-bottom: var(--space-4xl);
+  }
+
+  .archive-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    padding-block: var(--space-2xl) var(--space-xl);
+  }
+
+  .archive-title {
+    margin: 0;
+    font-family: var(--type-h1-family);
+    font-size: var(--type-h1-size);
+    font-weight: var(--type-h1-weight);
+    line-height: var(--type-h1-lh);
+    letter-spacing: var(--type-h1-tracking);
+    color: var(--color-text-primary);
+  }
+
+  .archive-note {
+    margin: 0;
+    flex: none;
+  }
+
+  .arow-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-hairline);
+  }
+
+  @media (max-width: 700px) {
+    .archive-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+  }
+</style>

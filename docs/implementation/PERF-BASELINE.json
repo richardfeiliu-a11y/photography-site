@@ -1,0 +1,2378 @@
+{
+  "version": 2,
+  "tool": "scripts/perf/measure.mjs",
+  "measuredAt": "2026-09-16T17:47:26.252Z",
+  "host": {
+    "platform": "darwin arm64",
+    "node": "v22.14.0",
+    "nodeEnginesRequired": ">=22.12.0 <23",
+    "nodeEngineSatisfied": true,
+    "chromium": "Chrome for Testing 151.0.7922.34 (playwright chromium v1234)",
+    "playwright": "Version 1.62.1",
+    "cache": "fresh browser + fresh context per run (no persistent cache); SETTLE 3000ms post-load"
+  },
+  "conditions": {
+    "network": "loopback serve + CDP throttled profiles (desktop cable / mobile slow-4G); never unthrottled",
+    "provision": "production manifest provision (isolated temp workspace; real corpus + alt_text fill only)",
+    "mode": "production-like (preview-scoped manifest override; production authority untouched)",
+    "gzip": {
+      "library": "node:zlib gzipSync",
+      "level": "default (6)"
+    }
+  },
+  "profiles": {
+    "desktop": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "network": {
+        "throttled": true,
+        "offline": false,
+        "latency": 40,
+        "downloadThroughput": 209715,
+        "uploadThroughput": 96000,
+        "downKbps": 1600,
+        "rttMs": 150,
+        "label": "Cable 1.6Mbps/750Kbps RTT 150ms (recorded choice; Budget sets no frozen numbers)"
+      },
+      "cpuSlowdown": 1,
+      "cpuNote": "unthrottled (desktop reference)"
+    },
+    "mobileLowEnd": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "userAgent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36",
+      "network": {
+        "throttled": true,
+        "offline": false,
+        "latency": 150,
+        "downloadThroughput": 209715,
+        "uploadThroughput": 96000,
+        "downKbps": 1600,
+        "rttMs": 300,
+        "label": "Slow-4G 1.6Mbps/750Kbps RTT 300ms (recorded choice; Budget sets no frozen numbers)"
+      },
+      "cpuSlowdown": 4,
+      "cpuNote": "4x slowdown",
+      "memoryEmulation": "resource-constrained emulation: CDP network throttle + 4x CPU throttle + heap-pressure read (1.5x Netherlands-28 DOM resident) + single-document discipline; NOT a viewport-resize-only or deviceMemory-spoof claim",
+      "limitations": "no physical handset in this environment (adb absent); no per-context JS heap cap exists in Chromium so mobileHeapCapMB is a read-only instrumentation target, not an enforced device limit; emulation constrains network + CPU + resident-DOM pressure but cannot reproduce thermal throttling, carrier middleboxes, or real-GPU raster costs"
+    }
+  },
+  "corpus": {
+    "productionManifestSha": "ca793c250364af46484700e3ab126a20d667d4e6baf510ed6fc803165fa0b9f3",
+    "syntheticManifestSha": "b66af54390936208a96371c04d8ca8c2e4f5b12bc049deb90e19d5350fde5602",
+    "syntheticAlts": 0,
+    "actualCorpus": {
+      "sourceAltTextNull": 0,
+      "sourcePhotoEntries": 180,
+      "measuredAt": "2026-09-16T17:47:26.252Z",
+      "note": "candidate content/galleries as measured this run (not a historical figure)"
+    }
+  },
+  "fingerprint": {
+    "gitBranch": "gallery-monograph-redesign",
+    "gitSha": "02988bce09653a84d40ea9c96e30b6643973a7fd",
+    "gitDirty": true,
+    "dirtyFileCount": 15,
+    "dirtyFiles": [
+      "docs/README.md",
+      "docs/implementation/PERF-BASELINE.json",
+      "docs/plans/2026-09-16-gallery-monograph-redesign.md",
+      "src/components/Lightbox.astro",
+      "src/components/PositionAnnotation.astro",
+      "src/content-schemas.ts",
+      "src/lib/js/lightbox.ts",
+      "src/pages/galleries/[slug].astro",
+      "src/styles/tokens.css",
+      "tests/capture/states.mjs",
+      "tests/e2e/fonts.spec.ts",
+      "tests/e2e/lightbox.spec.ts",
+      "tests/integration/p4p5-corrections.test.ts",
+      "tests/integration/views.test.ts",
+      ".workbuddy-ai/"
+    ],
+    "trackedContentDiffSha256": "562d0f998fee05ba43abfbda73f73e736c528b86fb23c0aa86110fe7d90f9cf5",
+    "untrackedSourceHashes": {}
+  },
+  "inpMethod": "Event Timing API, event-timing-attributed (PerformanceObserver type event, durationThreshold 0, trusted input; observer starts after setup, entries filtered by event.target + interactionId, setup excluded, click excluded)",
+  "pages": [
+    {
+      "path": "/",
+      "label": "Home",
+      "profiles": {
+        "desktop": {
+          "lcp": {
+            "unit": "ms",
+            "runs": [
+              312,
+              320,
+              320,
+              320,
+              320
+            ],
+            "min": 312,
+            "max": 320,
+            "median": 320,
+            "mean": 318.4,
+            "medianMs": 320,
+            "minMs": 312,
+            "maxMs": 320
+          },
+          "cls": {
+            "unit": "score",
+            "runs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "min": 0,
+            "max": 0,
+            "median": 0,
+            "mean": 0
+          },
+          "payload": {
+            "unit": "bytes-transferred",
+            "runs": [
+              {
+                "htmlBytes": 22338,
+                "cssBytes": 13869,
+                "jsBytes": 953,
+                "imgBytes": 750736,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 22338,
+                "cssBytes": 13869,
+                "jsBytes": 953,
+                "imgBytes": 750736,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 22338,
+                "cssBytes": 13869,
+                "jsBytes": 953,
+                "imgBytes": 750736,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 22338,
+                "cssBytes": 13869,
+                "jsBytes": 953,
+                "imgBytes": 750736,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 22338,
+                "cssBytes": 13869,
+                "jsBytes": 953,
+                "imgBytes": 750736,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              }
+            ],
+            "median": {
+              "htmlBytes": 22338,
+              "cssBytes": 13869,
+              "jsBytes": 953,
+              "imgBytes": 750736,
+              "fontBytes": 66628,
+              "otherBytes": 0
+            },
+            "htmlBytes": 22338,
+            "cssBytes": 13869,
+            "jsBytes": 953,
+            "imgBytes": 750736,
+            "fontBytes": 66628,
+            "otherBytes": 0
+          },
+          "dom": {
+            "nodes": 118
+          }
+        },
+        "mobileLowEnd": {
+          "lcp": {
+            "unit": "ms",
+            "runs": [
+              528,
+              532,
+              532,
+              536,
+              552
+            ],
+            "min": 528,
+            "max": 552,
+            "median": 532,
+            "mean": 536,
+            "medianMs": 532,
+            "minMs": 528,
+            "maxMs": 552
+          },
+          "cls": {
+            "unit": "score",
+            "runs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "min": 0,
+            "max": 0,
+            "median": 0,
+            "mean": 0
+          },
+          "payload": {
+            "unit": "bytes-transferred",
+            "runs": [
+              {
+                "htmlBytes": 22338,
+                "cssBytes": 13869,
+                "jsBytes": 953,
+                "imgBytes": 189002,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 22338,
+                "cssBytes": 13869,
+                "jsBytes": 953,
+                "imgBytes": 189002,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 22338,
+                "cssBytes": 13869,
+                "jsBytes": 953,
+                "imgBytes": 189002,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 22338,
+                "cssBytes": 13869,
+                "jsBytes": 953,
+                "imgBytes": 189002,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 22338,
+                "cssBytes": 13869,
+                "jsBytes": 953,
+                "imgBytes": 189002,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              }
+            ],
+            "median": {
+              "htmlBytes": 22338,
+              "cssBytes": 13869,
+              "jsBytes": 953,
+              "imgBytes": 189002,
+              "fontBytes": 66628,
+              "otherBytes": 0
+            },
+            "htmlBytes": 22338,
+            "cssBytes": 13869,
+            "jsBytes": 953,
+            "imgBytes": 189002,
+            "fontBytes": 66628,
+            "otherBytes": 0
+          },
+          "dom": {
+            "nodes": 118
+          }
+        }
+      }
+    },
+    {
+      "path": "/places/amsterdam",
+      "label": "Place Detail (photo aggregation)",
+      "profiles": {
+        "desktop": {
+          "lcp": {
+            "unit": "ms",
+            "runs": [
+              828,
+              836,
+              836,
+              836,
+              836
+            ],
+            "min": 828,
+            "max": 836,
+            "median": 836,
+            "mean": 834.4,
+            "medianMs": 836,
+            "minMs": 828,
+            "maxMs": 836
+          },
+          "cls": {
+            "unit": "score",
+            "runs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "min": 0,
+            "max": 0,
+            "median": 0,
+            "mean": 0
+          },
+          "payload": {
+            "unit": "bytes-transferred",
+            "runs": [
+              {
+                "htmlBytes": 29604,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 234608,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 29604,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 234608,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 29604,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 234608,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 29604,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 234608,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 29604,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 234608,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              }
+            ],
+            "median": {
+              "htmlBytes": 29604,
+              "cssBytes": 13869,
+              "jsBytes": 0,
+              "imgBytes": 234608,
+              "fontBytes": 66628,
+              "otherBytes": 0
+            },
+            "htmlBytes": 29604,
+            "cssBytes": 13869,
+            "jsBytes": 0,
+            "imgBytes": 234608,
+            "fontBytes": 66628,
+            "otherBytes": 0
+          },
+          "dom": {
+            "nodes": 126
+          }
+        },
+        "mobileLowEnd": {
+          "lcp": {
+            "unit": "ms",
+            "runs": [
+              1172,
+              1184,
+              1188,
+              1264,
+              1276
+            ],
+            "min": 1172,
+            "max": 1276,
+            "median": 1188,
+            "mean": 1216.8,
+            "medianMs": 1188,
+            "minMs": 1172,
+            "maxMs": 1276
+          },
+          "cls": {
+            "unit": "score",
+            "runs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "min": 0,
+            "max": 0,
+            "median": 0,
+            "mean": 0
+          },
+          "payload": {
+            "unit": "bytes-transferred",
+            "runs": [
+              {
+                "htmlBytes": 29604,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 234608,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 29604,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 234608,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 29604,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 234608,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 29604,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 234608,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 29604,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 234608,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              }
+            ],
+            "median": {
+              "htmlBytes": 29604,
+              "cssBytes": 13869,
+              "jsBytes": 0,
+              "imgBytes": 234608,
+              "fontBytes": 66628,
+              "otherBytes": 0
+            },
+            "htmlBytes": 29604,
+            "cssBytes": 13869,
+            "jsBytes": 0,
+            "imgBytes": 234608,
+            "fontBytes": 66628,
+            "otherBytes": 0
+          },
+          "dom": {
+            "nodes": 126
+          }
+        }
+      }
+    },
+    {
+      "path": "/galleries/lofoten-polar-night",
+      "label": "Gallery (normal)",
+      "profiles": {
+        "desktop": {
+          "lcp": {
+            "unit": "ms",
+            "runs": [
+              388,
+              392,
+              392,
+              392,
+              396
+            ],
+            "min": 388,
+            "max": 396,
+            "median": 392,
+            "mean": 392,
+            "medianMs": 392,
+            "minMs": 388,
+            "maxMs": 396
+          },
+          "cls": {
+            "unit": "score",
+            "runs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "min": 0,
+            "max": 0,
+            "median": 0,
+            "mean": 0
+          },
+          "payload": {
+            "unit": "bytes-transferred",
+            "runs": [
+              {
+                "htmlBytes": 65065,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 331581,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 65065,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 331581,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 65065,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 331581,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 65065,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 331581,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 65065,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 331581,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              }
+            ],
+            "median": {
+              "htmlBytes": 65065,
+              "cssBytes": 26246,
+              "jsBytes": 1722,
+              "imgBytes": 331581,
+              "fontBytes": 66628,
+              "otherBytes": 0
+            },
+            "htmlBytes": 65065,
+            "cssBytes": 26246,
+            "jsBytes": 1722,
+            "imgBytes": 331581,
+            "fontBytes": 66628,
+            "otherBytes": 0
+          },
+          "dom": {
+            "nodes": 230
+          }
+        },
+        "mobileLowEnd": {
+          "lcp": {
+            "unit": "ms",
+            "runs": [
+              704,
+              704,
+              708,
+              712,
+              716
+            ],
+            "min": 704,
+            "max": 716,
+            "median": 708,
+            "mean": 708.8,
+            "medianMs": 708,
+            "minMs": 704,
+            "maxMs": 716
+          },
+          "cls": {
+            "unit": "score",
+            "runs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "min": 0,
+            "max": 0,
+            "median": 0,
+            "mean": 0
+          },
+          "payload": {
+            "unit": "bytes-transferred",
+            "runs": [
+              {
+                "htmlBytes": 65065,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 74676,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 65065,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 74676,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 65065,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 74676,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 65065,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 74676,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 65065,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 74676,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              }
+            ],
+            "median": {
+              "htmlBytes": 65065,
+              "cssBytes": 26246,
+              "jsBytes": 1722,
+              "imgBytes": 74676,
+              "fontBytes": 66628,
+              "otherBytes": 0
+            },
+            "htmlBytes": 65065,
+            "cssBytes": 26246,
+            "jsBytes": 1722,
+            "imgBytes": 74676,
+            "fontBytes": 66628,
+            "otherBytes": 0
+          },
+          "dom": {
+            "nodes": 232
+          }
+        }
+      }
+    },
+    {
+      "path": "/galleries/netherlands",
+      "label": "Gallery (28-photo long)",
+      "profiles": {
+        "desktop": {
+          "lcp": {
+            "unit": "ms",
+            "runs": [
+              392,
+              392,
+              392,
+              392,
+              404
+            ],
+            "min": 392,
+            "max": 404,
+            "median": 392,
+            "mean": 394.4,
+            "medianMs": 392,
+            "minMs": 392,
+            "maxMs": 404
+          },
+          "cls": {
+            "unit": "score",
+            "runs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "min": 0,
+            "max": 0,
+            "median": 0,
+            "mean": 0
+          },
+          "payload": {
+            "unit": "bytes-transferred",
+            "runs": [
+              {
+                "htmlBytes": 131097,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 272268,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 131097,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 272268,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 131097,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 272268,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 131097,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 272268,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 131097,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 272268,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              }
+            ],
+            "median": {
+              "htmlBytes": 131097,
+              "cssBytes": 26246,
+              "jsBytes": 1722,
+              "imgBytes": 272268,
+              "fontBytes": 66628,
+              "otherBytes": 0
+            },
+            "htmlBytes": 131097,
+            "cssBytes": 26246,
+            "jsBytes": 1722,
+            "imgBytes": 272268,
+            "fontBytes": 66628,
+            "otherBytes": 0
+          },
+          "dom": {
+            "nodes": 438
+          },
+          "memory": {
+            "jsHeapBytes": 1426132,
+            "jsHeapRuns": {
+              "runs": [
+                1426132,
+                1426132,
+                1426132,
+                1426132,
+                1426132
+              ],
+              "min": 1426132,
+              "max": 1426132,
+              "median": 1426132,
+              "mean": 1426132
+            },
+            "jsHeapTotalBytes": 2359296,
+            "jsHeapTotalRuns": {
+              "runs": [
+                2359296,
+                2359296,
+                2359296,
+                2359296,
+                2359296
+              ],
+              "min": 2359296,
+              "max": 2359296,
+              "median": 2359296,
+              "mean": 2359296
+            },
+            "domNodes": 2000,
+            "domNodesDirect": 438,
+            "transferredImageBytes": 271926,
+            "decodedImageEstimateBytes": 8957952,
+            "decodedImageMethod": "MODEL ESTIMATE: sum of current-src naturalWidth × naturalHeight × 4 (2 imgs). NOT browser/GPU resident memory; excludes shared-cache reuse and cross-URL dedupe uncertainty. transferredImageBytes = encodedBodySize (compressed HTTP transfer), never called decoded memory.",
+            "imageCount": 31,
+            "traversalMs": 0.1,
+            "traversalRuns": {
+              "runs": [
+                0.1,
+                0.1,
+                0.1,
+                0.2,
+                0.2
+              ],
+              "min": 0.1,
+              "max": 0.2,
+              "median": 0.1,
+              "mean": 0.14
+            },
+            "scrollJank": {
+              "droppedFrames": 0,
+              "droppedFramesRuns": {
+                "runs": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "min": 0,
+                "max": 0,
+                "median": 0,
+                "mean": 0
+              },
+              "worstFrameMs": 18.6,
+              "worstFrameMsRuns": {
+                "runs": [
+                  18.6,
+                  18.6,
+                  18.6,
+                  18.7,
+                  18.7
+                ],
+                "min": 18.6,
+                "max": 18.7,
+                "median": 18.6,
+                "mean": 18.64
+              }
+            },
+            "heapPressure": "1.5x Netherlands-28 DOM (detached clone, held by JS reference only — NOT appended to the document) resident during measurement",
+            "mobileHeapCapMB": null,
+            "mobileHeapCapNote": null
+          },
+          "lcpMemoryPass": {
+            "unit": "ms",
+            "runs": [
+              388,
+              388,
+              392,
+              392,
+              400
+            ],
+            "min": 388,
+            "max": 400,
+            "median": 392,
+            "mean": 392,
+            "medianMs": 392,
+            "minMs": 388,
+            "maxMs": 400
+          }
+        },
+        "mobileLowEnd": {
+          "lcp": {
+            "unit": "ms",
+            "runs": [
+              672,
+              688,
+              688,
+              692,
+              692
+            ],
+            "min": 672,
+            "max": 692,
+            "median": 688,
+            "mean": 686.4,
+            "medianMs": 688,
+            "minMs": 672,
+            "maxMs": 692
+          },
+          "cls": {
+            "unit": "score",
+            "runs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "min": 0,
+            "max": 0,
+            "median": 0,
+            "mean": 0
+          },
+          "payload": {
+            "unit": "bytes-transferred",
+            "runs": [
+              {
+                "htmlBytes": 131097,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 70940,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 131097,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 70940,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 131097,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 70940,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 131097,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 70940,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 131097,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 70940,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              }
+            ],
+            "median": {
+              "htmlBytes": 131097,
+              "cssBytes": 26246,
+              "jsBytes": 1722,
+              "imgBytes": 70940,
+              "fontBytes": 66628,
+              "otherBytes": 0
+            },
+            "htmlBytes": 131097,
+            "cssBytes": 26246,
+            "jsBytes": 1722,
+            "imgBytes": 70940,
+            "fontBytes": 66628,
+            "otherBytes": 0
+          },
+          "dom": {
+            "nodes": 440
+          },
+          "memory": {
+            "jsHeapBytes": 1429912,
+            "jsHeapRuns": {
+              "runs": [
+                1429888,
+                1429912,
+                1429912,
+                1429912,
+                1429912
+              ],
+              "min": 1429888,
+              "max": 1429912,
+              "median": 1429912,
+              "mean": 1429907.2
+            },
+            "jsHeapTotalBytes": 2359296,
+            "jsHeapTotalRuns": {
+              "runs": [
+                2359296,
+                2359296,
+                2359296,
+                2359296,
+                2359296
+              ],
+              "min": 2359296,
+              "max": 2359296,
+              "median": 2359296,
+              "mean": 2359296
+            },
+            "domNodes": 1998,
+            "domNodesDirect": 440,
+            "transferredImageBytes": 70430,
+            "decodedImageEstimateBytes": 985608,
+            "decodedImageMethod": "MODEL ESTIMATE: sum of current-src naturalWidth × naturalHeight × 4 (3 imgs). NOT browser/GPU resident memory; excludes shared-cache reuse and cross-URL dedupe uncertainty. transferredImageBytes = encodedBodySize (compressed HTTP transfer), never called decoded memory.",
+            "imageCount": 32,
+            "traversalMs": 0.1,
+            "traversalRuns": {
+              "runs": [
+                0,
+                0,
+                0.1,
+                0.3,
+                0.4
+              ],
+              "min": 0,
+              "max": 0.4,
+              "median": 0.1,
+              "mean": 0.16
+            },
+            "scrollJank": {
+              "droppedFrames": 0,
+              "droppedFramesRuns": {
+                "runs": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "min": 0,
+                "max": 0,
+                "median": 0,
+                "mean": 0
+              },
+              "worstFrameMs": 18.6,
+              "worstFrameMsRuns": {
+                "runs": [
+                  18.3,
+                  18.3,
+                  18.6,
+                  18.6,
+                  18.7
+                ],
+                "min": 18.3,
+                "max": 18.7,
+                "median": 18.6,
+                "mean": 18.5
+              }
+            },
+            "heapPressure": "1.5x Netherlands-28 DOM (detached clone, held by JS reference only — NOT appended to the document) resident during measurement",
+            "mobileHeapCapMB": 150,
+            "mobileHeapCapNote": "read-only instrumentation target (no per-context heap cap exists in Chromium); measured heap must stay under it"
+          },
+          "lcpMemoryPass": {
+            "unit": "ms",
+            "runs": [
+              668,
+              676,
+              684,
+              688,
+              692
+            ],
+            "min": 668,
+            "max": 692,
+            "median": 684,
+            "mean": 681.6,
+            "medianMs": 684,
+            "minMs": 668,
+            "maxMs": 692
+          }
+        }
+      }
+    },
+    {
+      "path": "/galleries/autumn-china",
+      "label": "Gallery (mixed orientation)",
+      "profiles": {
+        "desktop": {
+          "lcp": {
+            "unit": "ms",
+            "runs": [
+              388,
+              392,
+              392,
+              392,
+              400
+            ],
+            "min": 388,
+            "max": 400,
+            "median": 392,
+            "mean": 392.8,
+            "medianMs": 392,
+            "minMs": 388,
+            "maxMs": 400
+          },
+          "cls": {
+            "unit": "score",
+            "runs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "min": 0,
+            "max": 0,
+            "median": 0,
+            "mean": 0
+          },
+          "payload": {
+            "unit": "bytes-transferred",
+            "runs": [
+              {
+                "htmlBytes": 98391,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 569881,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 98391,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 569881,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 98391,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 569881,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 98391,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 569881,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 98391,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 569881,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              }
+            ],
+            "median": {
+              "htmlBytes": 98391,
+              "cssBytes": 26246,
+              "jsBytes": 1722,
+              "imgBytes": 569881,
+              "fontBytes": 66628,
+              "otherBytes": 0
+            },
+            "htmlBytes": 98391,
+            "cssBytes": 26246,
+            "jsBytes": 1722,
+            "imgBytes": 569881,
+            "fontBytes": 66628,
+            "otherBytes": 0
+          },
+          "dom": {
+            "nodes": 340
+          }
+        },
+        "mobileLowEnd": {
+          "lcp": {
+            "unit": "ms",
+            "runs": [
+              648,
+              656,
+              656,
+              668,
+              676
+            ],
+            "min": 648,
+            "max": 676,
+            "median": 656,
+            "mean": 660.8,
+            "medianMs": 656,
+            "minMs": 648,
+            "maxMs": 676
+          },
+          "cls": {
+            "unit": "score",
+            "runs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "min": 0,
+            "max": 0,
+            "median": 0,
+            "mean": 0
+          },
+          "payload": {
+            "unit": "bytes-transferred",
+            "runs": [
+              {
+                "htmlBytes": 98391,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 87578,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 98391,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 87578,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 98391,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 87578,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 98391,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 87578,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 98391,
+                "cssBytes": 26246,
+                "jsBytes": 1722,
+                "imgBytes": 87578,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              }
+            ],
+            "median": {
+              "htmlBytes": 98391,
+              "cssBytes": 26246,
+              "jsBytes": 1722,
+              "imgBytes": 87578,
+              "fontBytes": 66628,
+              "otherBytes": 0
+            },
+            "htmlBytes": 98391,
+            "cssBytes": 26246,
+            "jsBytes": 1722,
+            "imgBytes": 87578,
+            "fontBytes": 66628,
+            "otherBytes": 0
+          },
+          "dom": {
+            "nodes": 342
+          }
+        }
+      }
+    },
+    {
+      "path": "/places",
+      "label": "Places index",
+      "profiles": {
+        "desktop": {
+          "lcp": {
+            "unit": "ms",
+            "runs": [
+              836,
+              836,
+              836,
+              844,
+              844
+            ],
+            "min": 836,
+            "max": 844,
+            "median": 836,
+            "mean": 839.2,
+            "medianMs": 836,
+            "minMs": 836,
+            "maxMs": 844
+          },
+          "cls": {
+            "unit": "score",
+            "runs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "min": 0,
+            "max": 0,
+            "median": 0,
+            "mean": 0
+          },
+          "payload": {
+            "unit": "bytes-transferred",
+            "runs": [
+              {
+                "htmlBytes": 44070,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 410464,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 44070,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 410464,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 44070,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 410464,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 44070,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 410464,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 44070,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 410464,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              }
+            ],
+            "median": {
+              "htmlBytes": 44070,
+              "cssBytes": 13869,
+              "jsBytes": 0,
+              "imgBytes": 410464,
+              "fontBytes": 66628,
+              "otherBytes": 0
+            },
+            "htmlBytes": 44070,
+            "cssBytes": 13869,
+            "jsBytes": 0,
+            "imgBytes": 410464,
+            "fontBytes": 66628,
+            "otherBytes": 0
+          },
+          "dom": {
+            "nodes": 347
+          }
+        },
+        "mobileLowEnd": {
+          "lcp": {
+            "unit": "ms",
+            "runs": [
+              1632,
+              1644,
+              1644,
+              1644,
+              1652
+            ],
+            "min": 1632,
+            "max": 1652,
+            "median": 1644,
+            "mean": 1643.2,
+            "medianMs": 1644,
+            "minMs": 1632,
+            "maxMs": 1652
+          },
+          "cls": {
+            "unit": "score",
+            "runs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "min": 0,
+            "max": 0,
+            "median": 0,
+            "mean": 0
+          },
+          "payload": {
+            "unit": "bytes-transferred",
+            "runs": [
+              {
+                "htmlBytes": 44070,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 307463,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 44070,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 307463,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 44070,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 307463,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 44070,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 307463,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 44070,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 307463,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              }
+            ],
+            "median": {
+              "htmlBytes": 44070,
+              "cssBytes": 13869,
+              "jsBytes": 0,
+              "imgBytes": 307463,
+              "fontBytes": 66628,
+              "otherBytes": 0
+            },
+            "htmlBytes": 44070,
+            "cssBytes": 13869,
+            "jsBytes": 0,
+            "imgBytes": 307463,
+            "fontBytes": 66628,
+            "otherBytes": 0
+          },
+          "dom": {
+            "nodes": 347
+          }
+        }
+      }
+    },
+    {
+      "path": "/archive",
+      "label": "Archive",
+      "profiles": {
+        "desktop": {
+          "lcp": {
+            "unit": "ms",
+            "runs": [
+              1196,
+              1200,
+              1200,
+              1208,
+              1208
+            ],
+            "min": 1196,
+            "max": 1208,
+            "median": 1200,
+            "mean": 1202.4,
+            "medianMs": 1200,
+            "minMs": 1196,
+            "maxMs": 1208
+          },
+          "cls": {
+            "unit": "score",
+            "runs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "min": 0,
+            "max": 0,
+            "median": 0,
+            "mean": 0
+          },
+          "payload": {
+            "unit": "bytes-transferred",
+            "runs": [
+              {
+                "htmlBytes": 26032,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 397369,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 26032,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 397369,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 26032,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 397369,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 26032,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 397369,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 26032,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 397369,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              }
+            ],
+            "median": {
+              "htmlBytes": 26032,
+              "cssBytes": 13869,
+              "jsBytes": 0,
+              "imgBytes": 397369,
+              "fontBytes": 66628,
+              "otherBytes": 0
+            },
+            "htmlBytes": 26032,
+            "cssBytes": 13869,
+            "jsBytes": 0,
+            "imgBytes": 397369,
+            "fontBytes": 66628,
+            "otherBytes": 0
+          },
+          "dom": {
+            "nodes": 179
+          }
+        },
+        "mobileLowEnd": {
+          "lcp": {
+            "unit": "ms",
+            "runs": [
+              1156,
+              1160,
+              1164,
+              1172,
+              1180
+            ],
+            "min": 1156,
+            "max": 1180,
+            "median": 1164,
+            "mean": 1166.4,
+            "medianMs": 1164,
+            "minMs": 1156,
+            "maxMs": 1180
+          },
+          "cls": {
+            "unit": "score",
+            "runs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "min": 0,
+            "max": 0,
+            "median": 0,
+            "mean": 0
+          },
+          "payload": {
+            "unit": "bytes-transferred",
+            "runs": [
+              {
+                "htmlBytes": 26032,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 286566,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 26032,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 286566,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 26032,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 286566,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 26032,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 286566,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 26032,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 286566,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              }
+            ],
+            "median": {
+              "htmlBytes": 26032,
+              "cssBytes": 13869,
+              "jsBytes": 0,
+              "imgBytes": 286566,
+              "fontBytes": 66628,
+              "otherBytes": 0
+            },
+            "htmlBytes": 26032,
+            "cssBytes": 13869,
+            "jsBytes": 0,
+            "imgBytes": 286566,
+            "fontBytes": 66628,
+            "otherBytes": 0
+          },
+          "dom": {
+            "nodes": 179
+          }
+        }
+      }
+    },
+    {
+      "path": "/about",
+      "label": "About",
+      "profiles": {
+        "desktop": {
+          "lcp": {
+            "unit": "ms",
+            "runs": [
+              192,
+              200,
+              200,
+              200,
+              208
+            ],
+            "min": 192,
+            "max": 208,
+            "median": 200,
+            "mean": 200,
+            "medianMs": 200,
+            "minMs": 192,
+            "maxMs": 208
+          },
+          "cls": {
+            "unit": "score",
+            "runs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "min": 0,
+            "max": 0,
+            "median": 0,
+            "mean": 0
+          },
+          "payload": {
+            "unit": "bytes-transferred",
+            "runs": [
+              {
+                "htmlBytes": 6709,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 0,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 6709,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 0,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 6709,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 0,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 6709,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 0,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 6709,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 0,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              }
+            ],
+            "median": {
+              "htmlBytes": 6709,
+              "cssBytes": 13869,
+              "jsBytes": 0,
+              "imgBytes": 0,
+              "fontBytes": 66628,
+              "otherBytes": 0
+            },
+            "htmlBytes": 6709,
+            "cssBytes": 13869,
+            "jsBytes": 0,
+            "imgBytes": 0,
+            "fontBytes": 66628,
+            "otherBytes": 0
+          },
+          "dom": {
+            "nodes": 42
+          }
+        },
+        "mobileLowEnd": {
+          "lcp": {
+            "unit": "ms",
+            "runs": [
+              424,
+              432,
+              432,
+              432,
+              436
+            ],
+            "min": 424,
+            "max": 436,
+            "median": 432,
+            "mean": 431.2,
+            "medianMs": 432,
+            "minMs": 424,
+            "maxMs": 436
+          },
+          "cls": {
+            "unit": "score",
+            "runs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "min": 0,
+            "max": 0,
+            "median": 0,
+            "mean": 0
+          },
+          "payload": {
+            "unit": "bytes-transferred",
+            "runs": [
+              {
+                "htmlBytes": 6709,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 0,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 6709,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 0,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 6709,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 0,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 6709,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 0,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              },
+              {
+                "htmlBytes": 6709,
+                "cssBytes": 13869,
+                "jsBytes": 0,
+                "imgBytes": 0,
+                "fontBytes": 66628,
+                "otherBytes": 0
+              }
+            ],
+            "median": {
+              "htmlBytes": 6709,
+              "cssBytes": 13869,
+              "jsBytes": 0,
+              "imgBytes": 0,
+              "fontBytes": 66628,
+              "otherBytes": 0
+            },
+            "htmlBytes": 6709,
+            "cssBytes": 13869,
+            "jsBytes": 0,
+            "imgBytes": 0,
+            "fontBytes": 66628,
+            "otherBytes": 0
+          },
+          "dom": {
+            "nodes": 42
+          }
+        }
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "id": "overview-open",
+      "method": "event-timing-attributed",
+      "gateMs": 200,
+      "pass": true,
+      "profiles": {
+        "desktop": {
+          "attribution": true,
+          "method": "event-timing-attributed",
+          "runs": [
+            {
+              "durationMs": 32,
+              "interactionId": 5395,
+              "targetAction": "overview-open",
+              "runId": "overview-open:desktop:1"
+            },
+            {
+              "durationMs": 32,
+              "interactionId": 4103,
+              "targetAction": "overview-open",
+              "runId": "overview-open:desktop:2"
+            },
+            {
+              "durationMs": 32,
+              "interactionId": 2111,
+              "targetAction": "overview-open",
+              "runId": "overview-open:desktop:3"
+            },
+            {
+              "durationMs": 32,
+              "interactionId": 4309,
+              "targetAction": "overview-open",
+              "runId": "overview-open:desktop:4"
+            },
+            {
+              "durationMs": 40,
+              "interactionId": 2680,
+              "targetAction": "overview-open",
+              "runId": "overview-open:desktop:5"
+            }
+          ],
+          "medianMs": 32,
+          "minMs": 32,
+          "maxMs": 40
+        },
+        "mobileLowEnd": {
+          "attribution": true,
+          "method": "event-timing-attributed",
+          "runs": [
+            {
+              "durationMs": 48,
+              "interactionId": 5553,
+              "targetAction": "overview-open",
+              "runId": "overview-open:mobileLowEnd:1"
+            },
+            {
+              "durationMs": 48,
+              "interactionId": 6092,
+              "targetAction": "overview-open",
+              "runId": "overview-open:mobileLowEnd:2"
+            },
+            {
+              "durationMs": 40,
+              "interactionId": 8546,
+              "targetAction": "overview-open",
+              "runId": "overview-open:mobileLowEnd:3"
+            },
+            {
+              "durationMs": 40,
+              "interactionId": 5943,
+              "targetAction": "overview-open",
+              "runId": "overview-open:mobileLowEnd:4"
+            },
+            {
+              "durationMs": 40,
+              "interactionId": 2700,
+              "targetAction": "overview-open",
+              "runId": "overview-open:mobileLowEnd:5"
+            }
+          ],
+          "medianMs": 40,
+          "minMs": 40,
+          "maxMs": 48
+        }
+      }
+    },
+    {
+      "id": "overview-close",
+      "method": "event-timing-attributed",
+      "gateMs": 200,
+      "pass": true,
+      "profiles": {
+        "desktop": {
+          "attribution": true,
+          "method": "event-timing-attributed",
+          "runs": [
+            {
+              "durationMs": 16,
+              "interactionId": 8363,
+              "targetAction": "overview-close",
+              "runId": "overview-close:desktop:1"
+            },
+            {
+              "durationMs": 16,
+              "interactionId": 2502,
+              "targetAction": "overview-close",
+              "runId": "overview-close:desktop:2"
+            },
+            {
+              "durationMs": 24,
+              "interactionId": 9762,
+              "targetAction": "overview-close",
+              "runId": "overview-close:desktop:3"
+            },
+            {
+              "durationMs": 24,
+              "interactionId": 1574,
+              "targetAction": "overview-close",
+              "runId": "overview-close:desktop:4"
+            },
+            {
+              "durationMs": 24,
+              "interactionId": 4881,
+              "targetAction": "overview-close",
+              "runId": "overview-close:desktop:5"
+            }
+          ],
+          "medianMs": 24,
+          "minMs": 16,
+          "maxMs": 24
+        },
+        "mobileLowEnd": {
+          "attribution": true,
+          "method": "event-timing-attributed",
+          "runs": [
+            {
+              "durationMs": 16,
+              "interactionId": 6994,
+              "targetAction": "overview-close",
+              "runId": "overview-close:mobileLowEnd:1"
+            },
+            {
+              "durationMs": 16,
+              "interactionId": 9783,
+              "targetAction": "overview-close",
+              "runId": "overview-close:mobileLowEnd:2"
+            },
+            {
+              "durationMs": 16,
+              "interactionId": 9323,
+              "targetAction": "overview-close",
+              "runId": "overview-close:mobileLowEnd:3"
+            },
+            {
+              "durationMs": 16,
+              "interactionId": 3109,
+              "targetAction": "overview-close",
+              "runId": "overview-close:mobileLowEnd:4"
+            },
+            {
+              "durationMs": 16,
+              "interactionId": 5973,
+              "targetAction": "overview-close",
+              "runId": "overview-close:mobileLowEnd:5"
+            }
+          ],
+          "medianMs": 16,
+          "minMs": 16,
+          "maxMs": 16
+        }
+      }
+    },
+    {
+      "id": "overview-jump",
+      "method": "event-timing-attributed",
+      "gateMs": 200,
+      "pass": true,
+      "profiles": {
+        "desktop": {
+          "attribution": true,
+          "method": "event-timing-attributed",
+          "runs": [
+            {
+              "durationMs": 16,
+              "interactionId": 1924,
+              "targetAction": "overview-jump",
+              "runId": "overview-jump:desktop:1"
+            },
+            {
+              "durationMs": 16,
+              "interactionId": 3410,
+              "targetAction": "overview-jump",
+              "runId": "overview-jump:desktop:2"
+            },
+            {
+              "durationMs": 16,
+              "interactionId": 4670,
+              "targetAction": "overview-jump",
+              "runId": "overview-jump:desktop:3"
+            },
+            {
+              "durationMs": 16,
+              "interactionId": 7559,
+              "targetAction": "overview-jump",
+              "runId": "overview-jump:desktop:4"
+            },
+            {
+              "durationMs": 16,
+              "interactionId": 5090,
+              "targetAction": "overview-jump",
+              "runId": "overview-jump:desktop:5"
+            }
+          ],
+          "medianMs": 16,
+          "minMs": 16,
+          "maxMs": 16
+        },
+        "mobileLowEnd": {
+          "attribution": true,
+          "method": "event-timing-attributed",
+          "runs": [
+            {
+              "durationMs": 16,
+              "interactionId": 9107,
+              "targetAction": "overview-jump",
+              "runId": "overview-jump:mobileLowEnd:1"
+            },
+            {
+              "durationMs": 16,
+              "interactionId": 8169,
+              "targetAction": "overview-jump",
+              "runId": "overview-jump:mobileLowEnd:2"
+            },
+            {
+              "durationMs": 16,
+              "interactionId": 212,
+              "targetAction": "overview-jump",
+              "runId": "overview-jump:mobileLowEnd:3"
+            },
+            {
+              "durationMs": 16,
+              "interactionId": 432,
+              "targetAction": "overview-jump",
+              "runId": "overview-jump:mobileLowEnd:4"
+            },
+            {
+              "durationMs": 16,
+              "interactionId": 8728,
+              "targetAction": "overview-jump",
+              "runId": "overview-jump:mobileLowEnd:5"
+            }
+          ],
+          "medianMs": 16,
+          "minMs": 16,
+          "maxMs": 16
+        }
+      }
+    },
+    {
+      "id": "menu-toggle",
+      "status": "na",
+      "rationale": "No JS menu toggle exists (SiteNav is static anchor links; smallest viewport keeps the same inline nav). Nothing to time."
+    }
+  ],
+  "bundles": {
+    "jsGzipBytes": 868,
+    "cssGzipBytes": 5829,
+    "perRouteScriptGzipBytes": {
+      "/": {
+        "inlineScriptCount": 2,
+        "inlineJsRawBytes": 1639,
+        "inlineJsGzipBytes": 748,
+        "externalJsGzipBytes": 65,
+        "routeJsGzipBytes": 813
+      },
+      "/places/amsterdam": {
+        "inlineScriptCount": 2,
+        "inlineJsRawBytes": 1639,
+        "inlineJsGzipBytes": 748,
+        "externalJsGzipBytes": 0,
+        "routeJsGzipBytes": 748
+      },
+      "/galleries/lofoten-polar-night": {
+        "inlineScriptCount": 10,
+        "inlineJsRawBytes": 25428,
+        "inlineJsGzipBytes": 9234,
+        "externalJsGzipBytes": 492,
+        "routeJsGzipBytes": 9726
+      },
+      "/galleries/netherlands": {
+        "inlineScriptCount": 10,
+        "inlineJsRawBytes": 45201,
+        "inlineJsGzipBytes": 14427,
+        "externalJsGzipBytes": 492,
+        "routeJsGzipBytes": 14919
+      },
+      "/galleries/autumn-china": {
+        "inlineScriptCount": 10,
+        "inlineJsRawBytes": 35215,
+        "inlineJsGzipBytes": 12104,
+        "externalJsGzipBytes": 492,
+        "routeJsGzipBytes": 12596
+      },
+      "/places": {
+        "inlineScriptCount": 2,
+        "inlineJsRawBytes": 1639,
+        "inlineJsGzipBytes": 748,
+        "externalJsGzipBytes": 0,
+        "routeJsGzipBytes": 748
+      },
+      "/archive": {
+        "inlineScriptCount": 2,
+        "inlineJsRawBytes": 1639,
+        "inlineJsGzipBytes": 748,
+        "externalJsGzipBytes": 0,
+        "routeJsGzipBytes": 748
+      },
+      "/about": {
+        "inlineScriptCount": 2,
+        "inlineJsRawBytes": 1639,
+        "inlineJsGzipBytes": 748,
+        "externalJsGzipBytes": 0,
+        "routeJsGzipBytes": 748
+      }
+    },
+    "maxRouteJs": {
+      "path": "/galleries/netherlands",
+      "routeJsGzipBytes": 14919,
+      "inlineJsGzipBytes": 14427,
+      "externalJsGzipBytes": 492
+    }
+  },
+  "scriptInventory": {
+    "routes": {
+      "/": {
+        "inlineScriptCount": 2,
+        "inlineJsRawBytes": 1639,
+        "inlineJsGzipBytes": 748,
+        "externalJsGzipBytes": 65,
+        "externalJs": [
+          {
+            "src": "/_astro/index.astro_astro_type_script_index_0_lang.V6__z0YJ.js",
+            "gzipBytes": 65
+          }
+        ],
+        "largestInline": {
+          "rawBytes": 992,
+          "gzipBytes": 435
+        },
+        "routeJsGzipBytes": 813
+      },
+      "/places/amsterdam": {
+        "inlineScriptCount": 2,
+        "inlineJsRawBytes": 1639,
+        "inlineJsGzipBytes": 748,
+        "externalJsGzipBytes": 0,
+        "externalJs": [],
+        "largestInline": {
+          "rawBytes": 992,
+          "gzipBytes": 435
+        },
+        "routeJsGzipBytes": 748
+      },
+      "/galleries/lofoten-polar-night": {
+        "inlineScriptCount": 10,
+        "inlineJsRawBytes": 25428,
+        "inlineJsGzipBytes": 9234,
+        "externalJsGzipBytes": 492,
+        "externalJs": [
+          {
+            "src": "/_astro/_slug_.astro_astro_type_script_index_0_lang.BofDM-8U.js",
+            "gzipBytes": 492
+          }
+        ],
+        "largestInline": {
+          "rawBytes": 13967,
+          "gzipBytes": 3904
+        },
+        "routeJsGzipBytes": 9726
+      },
+      "/galleries/netherlands": {
+        "inlineScriptCount": 10,
+        "inlineJsRawBytes": 45201,
+        "inlineJsGzipBytes": 14427,
+        "externalJsGzipBytes": 492,
+        "externalJs": [
+          {
+            "src": "/_astro/_slug_.astro_astro_type_script_index_0_lang.BofDM-8U.js",
+            "gzipBytes": 492
+          }
+        ],
+        "largestInline": {
+          "rawBytes": 33740,
+          "gzipBytes": 9097
+        },
+        "routeJsGzipBytes": 14919
+      },
+      "/galleries/autumn-china": {
+        "inlineScriptCount": 10,
+        "inlineJsRawBytes": 35215,
+        "inlineJsGzipBytes": 12104,
+        "externalJsGzipBytes": 492,
+        "externalJs": [
+          {
+            "src": "/_astro/_slug_.astro_astro_type_script_index_0_lang.BofDM-8U.js",
+            "gzipBytes": 492
+          }
+        ],
+        "largestInline": {
+          "rawBytes": 23754,
+          "gzipBytes": 6774
+        },
+        "routeJsGzipBytes": 12596
+      },
+      "/places": {
+        "inlineScriptCount": 2,
+        "inlineJsRawBytes": 1639,
+        "inlineJsGzipBytes": 748,
+        "externalJsGzipBytes": 0,
+        "externalJs": [],
+        "largestInline": {
+          "rawBytes": 992,
+          "gzipBytes": 435
+        },
+        "routeJsGzipBytes": 748
+      },
+      "/archive": {
+        "inlineScriptCount": 2,
+        "inlineJsRawBytes": 1639,
+        "inlineJsGzipBytes": 748,
+        "externalJsGzipBytes": 0,
+        "externalJs": [],
+        "largestInline": {
+          "rawBytes": 992,
+          "gzipBytes": 435
+        },
+        "routeJsGzipBytes": 748
+      },
+      "/about": {
+        "inlineScriptCount": 2,
+        "inlineJsRawBytes": 1639,
+        "inlineJsGzipBytes": 748,
+        "externalJsGzipBytes": 0,
+        "externalJs": [],
+        "largestInline": {
+          "rawBytes": 992,
+          "gzipBytes": 435
+        },
+        "routeJsGzipBytes": 748
+      }
+    },
+    "maxRouteJs": {
+      "path": "/galleries/netherlands",
+      "inlineScriptCount": 10,
+      "inlineJsRawBytes": 45201,
+      "inlineJsGzipBytes": 14427,
+      "externalJsGzipBytes": 492,
+      "externalJs": [
+        {
+          "src": "/_astro/_slug_.astro_astro_type_script_index_0_lang.BofDM-8U.js",
+          "gzipBytes": 492
+        }
+      ],
+      "largestInline": {
+        "rawBytes": 33740,
+        "gzipBytes": 9097
+      },
+      "routeJsGzipBytes": 14919
+    }
+  },
+  "gates": {
+    "lcpFrozenMs": 2500,
+    "clsFrozen": 0.1,
+    "inpFrozenMs": 200,
+    "jsGzipBytes": 20480,
+    "cssGzipBytes": 40960,
+    "galleryMemoryMB": 200
+  },
+  "adr013": {
+    "verdict": "no-virtualization",
+    "rule": "§5.2: heap>=200MB || attributed-INP>200ms || domNodes>=10000 || droppedFrames>10 → virtualize, else no-virtualization",
+    "triggers": {
+      "heapMB": 1.36,
+      "worstInpMs": 40,
+      "domNodesMax": 2000,
+      "droppedFramesMax": 0
+    },
+    "rationale": "§5.2 triggers measured: long-72 JS heap 1.4MB vs 200MB budget; worst attributed Event-Timing INP 40ms vs 200ms frozen; long-72 DOM 2000 nodes vs 10000 tripwire; scroll-jank dropped frames 0/120 vs 10 tripwire. No §5.2 trigger fires on either profile; native lazy loading + document flow hold (§5 baseline stands). Context (not a trigger): worst throttled LCP 1644ms vs 2500ms standard target — recorded as a P8 candidate in the decision doc."
+  },
+  "calibration": {
+    "throttleProbe": {
+      "label": "unthrottled loopback must read faster than throttled profile (same page)",
+      "effectMs": 276,
+      "fails": true,
+      "throttled": 316,
+      "open": 40,
+      "verdict": "RED-verdict-armed"
+    },
+    "eventTimingProbe": {
+      "label": "injected 60ms handler must surface >= 50ms event entry (proxy would miss it)",
+      "worstMs": 96,
+      "fails": true,
+      "verdict": "RED-verdict-armed"
+    }
+  }
+}

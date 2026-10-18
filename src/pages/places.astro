@@ -1,0 +1,103 @@
+---
+/*
+ * src/pages/places.astro — the places atlas (immersive direction).
+ *
+ * Ordering/publicity and the no-count rule stay owned by buildPlacesView; the
+ * representative cover is derived from the most recent contributing published
+ * gallery. Presentation: serif page title with a mono catalogue note, then
+ * the atlas — 3 columns desktop, 2 tablet, 1 mobile, every cover shown whole.
+ */
+import Base from "../layouts/Base.astro";
+import SeoHead from "../components/SeoHead.astro";
+import { placesIndexMeta } from "../lib/seo/meta";
+import PlaceAtlasCard from "../components/PlaceAtlasCard.astro";
+import { buildPlacesView } from "../lib/views/places";
+import { loadPublishedDataSet } from "../lib/pages/archive-data";
+
+const { galleries, places, resolveCover, mode } = loadPublishedDataSet();
+
+const view = buildPlacesView({ places, galleries, mode, resolveCover });
+---
+
+<Base title="Places">
+  <Fragment slot="head">
+    <SeoHead meta={placesIndexMeta()} />
+  </Fragment>
+
+  <div class="places-page">
+    <div class="places-head">
+      <h1 class="places-title">Places</h1>
+      <p class="places-note mono-label">
+        {view.places.length} {view.places.length === 1 ? "place" : "places"}
+      </p>
+    </div>
+
+    <ul class="places-atlas">
+      {view.places.map((place) => <PlaceAtlasCard place={place} />)}
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .places-page {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-inline: var(--edge-inset);
+    padding-bottom: var(--space-6xl);
+  }
+
+  .places-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    padding-block: var(--space-2xl) var(--space-2xl);
+  }
+
+  .places-title {
+    margin: 0;
+    font-family: var(--type-h1-family);
+    font-size: var(--type-h1-size);
+    font-weight: var(--type-h1-weight);
+    line-height: var(--type-h1-lh);
+    letter-spacing: var(--type-h1-tracking);
+    color: var(--color-text-primary);
+  }
+
+  .places-note {
+    margin: 0;
+    flex: none;
+  }
+
+  .places-atlas {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2xl) var(--space-xl);
+    align-items: start;
+  }
+
+  @media (max-width: 1023px) {
+    .places-atlas {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-xl) var(--space-lg);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .places-atlas {
+      grid-template-columns: 1fr;
+      row-gap: var(--space-2xl);
+    }
+  }
+
+  @media (max-width: 700px) {
+    .places-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+  }
+</style>

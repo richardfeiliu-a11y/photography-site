@@ -1,0 +1,222 @@
+---
+/*
+ * src/pages/index.astro — the immersive home (C direction).
+ *
+ * Authority: docs/plans/2026-10-18-immersive-direction-production-port.md +
+ * experiments/design-lab/variants/audit-c-immersive.html (the approved
+ * reference). The page is a cover screen and its index:
+ *   1. the field ("ground") is the featured cover's own ambient pair — read
+ *      from the build-time atmosphere sidecar and handed to Base, which writes
+ *      --ground-light/--ground-dark/--deep-light/--deep-dark + theme-color. No
+ *      sidecar entry → ambient={null} and Base paints the neutral room.
+ *   2. the cover (HomeHero) fills the first viewport inside the content
+ *      column; the remaining collections follow as a horizontal scroll-snap
+ *      strip of the ONE shared card component.
+ *   3. the page ends in the site colophon (SiteFooter), not a wall + blank.
+ *
+ * CONTENT_MODEL §10 is unchanged: featured is the single §10.2 owner, the
+ * remaining list is §10.4 published_at DESC, hero excluded. Every published
+ * gallery is shown — the strip scrolls, it is not sliced.
+ *
+ * RUNTIME §11.1: the cover is the route LCP — exactly one responsive AVIF
+ * preload whose imagesrcset/imagesizes match the cover <source> verbatim.
+ */
+import { buildHomeView } from "../lib/views/home";
+import type { ViewGalleryCard } from "../lib/views/types";
+import { loadPublishedDataSet } from "../lib/pages/archive-data";
+import Base from "../layouts/Base.astro";
+import SeoHead from "../components/SeoHead.astro";
+import { homeMeta } from "../lib/seo/meta";
+import { buildSiteOrigin } from "../lib/seo/site";
+import { buildHomeJsonLd, jsonLdScriptHtml } from "../lib/seo/jsonld";
+import HomeHero from "../components/HomeHero.astro";
+import GalleryCard from "../components/GalleryCard.astro";
+import { ambientFor, loadAtmosphere } from "../lib/theme/read";
+
+const { resolveHeroCover, resolveCover, home, galleries, places, mode } = loadPublishedDataSet();
+
+const view = buildHomeView({
+  galleries,
+  places,
+  home: home.settings ?? { featured_gallery_id: null },
+  resolveCover,
+  mode,
+});
+
+const hero = view.hero;
+if (!hero || !hero.cover) {
+  throw new Error("[home] no published hero gallery available (§10.2 resolution null)");
+}
+
+// The rest of the corpus in §10.4 order; the cover is not repeated.
+const more: ViewGalleryCard[] = view.recent.filter((c) => c.id !== hero.id);
+
+// The field: the featured cover's own ambient pair (Light Field sidecar).
+// Absent entry → null → Base's neutral room.
+const ambient = ambientFor(loadAtmosphere(), hero.id);
+
+// LCP slot — the cover is the FULL width of the content column (no split):
+// content-max minus the §8 stepped edge insets, then the viewport minus the
+// insets below it. Kept character-identical to the <source sizes> below.
+const HERO_SIZES =
+  "(min-width: 1440px) calc(1400px - 2 * 56px), (min-width: 1024px) calc(100vw - 80px), (min-width: 768px) calc(100vw - 64px), calc(100vw - 40px)";
+
+// Strip slot: the card's own track width (clamp(230px, 24vw, 330px)).
+const STRIP_SIZES = "clamp(230px, 24vw, 330px)";
+
+const heroCover = (() => {
+  const full = resolveHeroCover(hero.cover!.photoId);
+  return {
+    src: full?.src ?? hero.cover!.src,
+    srcset: full?.srcset ?? hero.cover!.srcset,
+    avifSrcset: full?.avifSrcset ?? hero.cover!.avifSrcset,
+    width: full?.width ?? hero.cover!.width,
+    height: full?.height ?? hero.cover!.height,
+    sizes: HERO_SIZES,
+  };
+})();
+
+// F2 — JSON-LD CollectionPage with an ImageGallery of the published galleries.
+const siteOrigin = buildSiteOrigin();
+const homeJsonLd = buildHomeJsonLd({
+  origin: siteOrigin,
+  name: homeMeta().title,
+  description: homeMeta().description,
+  galleries: view.recent.map((card) => ({
+    title: card.title,
+    slug: card.slug,
+    image: card.cover?.src ?? null,
+  })),
+});
+
+// "No. 02 — No. 07": the catalogue span of the strip (No. 01 is the cover).
+const stripNo = (n: number) => `No. ${String(n).padStart(2, "0")}`;
+const stripNote =
+  more.length > 0 ? `${stripNo(2)} — ${stripNo(more.length + 1)}` : "";
+---
+
+<Base title={homeMeta().title} ambient={ambient}>
+  <Fragment slot="head">
+    <SeoHead meta={homeMeta()} />
+    {/* Responsive, format-honest LCP preload: same candidate set + sizes as
+        the cover <source>, so the preload is one transfer (IMP-01). */}
+    <link
+      rel="preload"
+      as="image"
+      href={heroCover.src}
+      imagesrcset={heroCover.avifSrcset}
+      imagesizes={HERO_SIZES}
+      type="image/avif"
+      fetchpriority="high"
+    />
+    <script is:inline type="application/ld+json" set:html={jsonLdScriptHtml(homeJsonLd)} />
+  </Fragment>
+
+  <div class="home-page">
+    <HomeHero card={hero} cover={heroCover} moreCollections={more.length} />
+
+    {
+      more.length > 0 && (
+        <section class="home-index" aria-labelledby="index-title">
+          <div class="index-head">
+            <h2 class="index-title" id="index-title">More collections</h2>
+            <p class="index-note mono-label">{stripNote}</p>
+          </div>
+          <ol class="strip">
+            {more.map((card, i) => (
+              <li class="strip-item">
+                <GalleryCard
+                  card={card}
+                  showCount={true}
+                  context="home"
+                  sizes={STRIP_SIZES}
+                  plateNumber={i + 2}
+                />
+              </li>
+            ))}
+          </ol>
+        </section>
+      )
+    }
+  </div>
+</Base>
+
+<style>
+  /* The reading column: the cover, the strip and the site colophon all start
+     on the same rule (--content-max, inset by the §8 edge insets). */
+  .home-page {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-inline: var(--edge-inset);
+  }
+
+  .home-index {
+    border-top: 1px solid var(--color-hairline);
+    margin-top: var(--space-3xl);
+    padding-block: var(--space-3xl) var(--space-2xl);
+  }
+
+  .index-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    padding-bottom: var(--space-lg);
+  }
+
+  .index-title {
+    margin: 0;
+    font-family: var(--type-h2-family);
+    font-size: var(--type-h2-size);
+    font-weight: var(--type-h2-weight);
+    line-height: var(--type-h2-lh);
+    color: var(--color-text-primary);
+  }
+
+  .index-note {
+    margin: 0;
+  }
+
+  /* Index strip: one horizontal track, snapped card by card. The scroller's
+     inline gutter is 0 — the page column above owns it — so the snap padding
+     is 0 too: the first card snaps to the column's own left edge instead of
+     losing its place to a scrollport inset it does not have. */
+  .strip {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-2xs) 0 var(--space-sm);
+    display: flex;
+    gap: clamp(20px, 2.6vw, 40px);
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-text-tertiary) transparent;
+  }
+
+  .strip-item {
+    flex: 0 0 clamp(230px, 24vw, 330px);
+    scroll-snap-align: start;
+  }
+
+  /* Phones: a vertical stack has no snap positions and no scrollbar — the
+     full card list reads better than a side-scroller on a narrow screen. */
+  @media (max-width: 700px) {
+    .strip {
+      flex-direction: column;
+      overflow: visible;
+      gap: var(--space-xl);
+    }
+
+    .strip-item {
+      flex: none;
+      width: 100%;
+    }
+
+    .index-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+  }
+</style>

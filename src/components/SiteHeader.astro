@@ -1,0 +1,194 @@
+---
+/*
+ * src/components/SiteHeader.astro — global shell header (immersive direction).
+ *
+ * One bar: the wordmark on the left, the frozen top navigation and the
+ * Day / Night / System appearance chips on the right. Below 700px the bar
+ * wraps to two rows — three views and three theme choices never share a
+ * phone-width line. Not sticky.
+ *
+ * The appearance switcher ships `hidden` and is revealed by
+ * src/lib/js/appearance.ts once bound, so a no-JS visitor never gets a dead
+ * control. The checked radio is painted purely from [aria-checked]: the JS
+ * writes that one attribute, so ARIA state and visuals cannot drift.
+ */
+import SiteNav from "./SiteNav.astro";
+---
+
+<header class="site-header">
+  <a class="site-mark" href="/">Richard Photographs</a>
+  <div class="site-header-side">
+    <SiteNav />
+    <div
+      class="appearance-control"
+      data-appearance-control
+      role="radiogroup"
+      aria-label="Appearance"
+      hidden
+    >
+      <button
+        type="button"
+        role="radio"
+        data-appearance-value="light"
+        aria-checked="false"
+        aria-label="Day — light gallery wall"
+      >
+        Day
+      </button>
+      <button
+        type="button"
+        role="radio"
+        data-appearance-value="dark"
+        aria-checked="false"
+        aria-label="Night — darkroom"
+      >
+        Night
+      </button>
+      <button
+        type="button"
+        role="radio"
+        data-appearance-value="system"
+        aria-checked="false"
+        aria-label="System — follow this device"
+      >
+        System
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  import { initAppearance } from "../lib/js/appearance";
+  initAppearance();
+</script>
+
+<style>
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    width: 100%;
+    max-width: var(--content-max);
+    margin-inline: auto;
+    min-height: var(--bar-h);
+    padding-inline: var(--edge-inset);
+    background: var(--color-canvas);
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  .site-header-side {
+    display: flex;
+    align-items: center;
+    gap: clamp(12px, 3vw, 34px);
+    min-width: 0;
+  }
+
+  /* Wordmark: the classic serif face, regular weight — a photographer's
+     monograph imprint, not a bold app logotype. */
+  .site-mark {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    font-size: 19px;
+    line-height: var(--type-brand-lh);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    white-space: nowrap;
+  }
+
+  .site-mark:hover {
+    color: var(--color-strong);
+  }
+
+  /* Three theme choices as text chips: mono, uppercase, hairline boxes; the
+     checked chip inverts to the room's ink. */
+  .appearance-control {
+    display: inline-flex;
+    flex: 0 0 auto;
+    border: 1px solid var(--color-hairline);
+  }
+
+  /* MUST follow the base rule: the author `display: inline-flex` above would
+     otherwise beat the UA stylesheet's `[hidden] { display: none }`, and the
+     control would flash visible before JS binds it. */
+  .appearance-control[hidden] {
+    display: none;
+  }
+
+  .appearance-control button {
+    display: inline-grid;
+    place-items: center;
+    min-height: 44px;
+    padding: 10px 15px;
+    font-family: var(--font-mono-numbers);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+  }
+
+  .appearance-control button + button {
+    border-left: 1px solid var(--color-hairline);
+  }
+
+  .appearance-control button:hover {
+    color: var(--color-text-primary);
+  }
+
+  .appearance-control button[aria-checked="true"] {
+    background: var(--color-text-primary);
+    color: var(--color-canvas);
+  }
+
+  /* Phone: two rows — the wordmark, then navigation + chips. */
+  @media (max-width: 700px) {
+    .site-header {
+      flex-wrap: wrap;
+      row-gap: 0;
+      padding: 6px var(--edge-inset) 0;
+    }
+
+    .site-mark {
+      flex: 1 1 100%;
+    }
+
+    .site-header-side {
+      flex: 1 1 100%;
+      justify-content: space-between;
+      gap: 8px;
+      padding-bottom: 6px;
+    }
+
+    .appearance-control button {
+      padding: 10px 8px;
+      font-size: 10.5px;
+      letter-spacing: 0.1em;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .appearance-control button {
+      padding: 10px 6px;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+    }
+  }
+
+  @media (max-width: 389px) {
+    .site-mark {
+      font-size: 17px;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .appearance-control button {
+      transition: none;
+    }
+  }
+</style>

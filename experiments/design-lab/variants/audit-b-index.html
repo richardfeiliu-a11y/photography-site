@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fbfaf7">
+  <title>Richard Photographs — Index</title>
+  <link rel="stylesheet" href="/common.css">
+  <style>
+    :root {
+      --paper: #fbfaf7;
+      --ink: #1d1a16;
+      --quiet: #6e685e;
+      --line: #e4e1d8;
+      --rule: #c7c2b4;
+      --accent: #7c2d12;
+      --mat: #efede5;
+      --hover: #f4f1ea;
+      --mono: ui-monospace, 'SF Mono', Menlo, monospace;
+      --viewer-bg: var(--paper);
+      --viewer-ink: var(--ink);
+    }
+    body { background: var(--paper); color: var(--ink); font-family: 'Lab Sans', sans-serif; }
+    button { border: 0; background: none; padding: 0; text-align: left; color: inherit; cursor: pointer; }
+    button, a { touch-action: manipulation; }
+    :focus-visible { outline: 2px solid var(--accent) !important; outline-offset: 3px; }
+    [hidden] { display: none !important; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+    h1, p, figure { margin: 0; }
+    h1 { font-weight: 400; }
+    .shell { width: calc(100% - 48px); max-width: 1440px; margin: auto; }
+    .skip { position: fixed; top: -80px; left: 20px; z-index: 10; padding: 12px 16px; background: var(--paper); border: 1px solid var(--ink); font-size: 14px; }
+    .skip:focus { top: 12px; }
+
+    /* ── Masthead: small and definite, no hero ───────────────────── */
+    .masthead { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; padding: 22px 0 18px; border-bottom: 1px solid var(--ink); }
+    .wordmark { font-family: 'Lab Serif', serif; font-size: 23px; line-height: 1.1; letter-spacing: .01em; min-height: 32px; }
+    .wordmark:hover { color: var(--accent); }
+    .tagline { margin-top: 5px; font-size: 13px; color: var(--quiet); }
+    .nav { display: flex; gap: 28px; }
+    .nav button { min-height: 44px; padding: 10px 0; font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--quiet); border-bottom: 2px solid transparent; }
+    .nav button:hover { color: var(--ink); }
+    .nav button[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+
+    main { min-height: 60vh; }
+    .load-state { padding: 80px 0; font-family: 'Lab Serif', serif; font-size: 22px; color: var(--quiet); }
+
+    /* ── Page head: contents-page title + computed statistics ────── */
+    .page-head { padding: 54px 0 0; }
+    .page-head h1 { font-family: 'Lab Serif', serif; font-size: clamp(46px, 6.5vw, 84px); line-height: .98; letter-spacing: -.02em; }
+    .stats { margin-top: 20px; font-family: var(--mono); font-size: 13px; letter-spacing: .06em; color: var(--ink); }
+    .lede { margin-top: 10px; font-size: 15px; line-height: 1.5; color: var(--quiet); max-width: 52ch; }
+
+    /* ── Layout: index list + sticky plate rail ──────────────────── */
+    .index-layout { display: grid; grid-template-columns: minmax(0, 1fr) clamp(300px, 26vw, 380px); gap: clamp(40px, 5vw, 72px); align-items: start; margin-top: 46px; }
+
+    /* Column header — the catalogue signal */
+    .col-head { display: grid; grid-template-columns: 4ch 76px minmax(0, 1fr) 7ch minmax(8ch, 18ch) 6ch; column-gap: clamp(16px, 2.5vw, 32px); padding-bottom: 10px; border-bottom: 1px solid var(--ink); font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--quiet); }
+    .col-head span:nth-child(2) { grid-column: 2 / 4; }
+    .col-head span:nth-child(n+3) { text-align: right; }
+
+    .index-list { list-style: none; margin: 0; padding: 0; }
+    .row { display: grid; grid-template-columns: 4ch 76px minmax(0, 1fr) 7ch minmax(8ch, 18ch) 6ch; column-gap: clamp(16px, 2.5vw, 32px); align-items: center; width: 100%; padding: 22px 8px; margin: 0 -8px; border-bottom: 1px solid var(--line); }
+    .row:hover { background: var(--hover); }
+    .no { font-family: var(--mono); font-size: 13px; color: var(--quiet); }
+    .thumb { display: block; width: 76px; aspect-ratio: 3 / 2; background: var(--mat); border: 1px solid var(--line); }
+    .thumb img { width: 100%; height: 100%; object-fit: contain; }
+    .entry { min-width: 0; }
+    .title { display: block; font-family: 'Lab Serif', serif; font-size: clamp(26px, 3.4vw, 44px); line-height: 1.05; letter-spacing: -.01em; text-wrap: balance; }
+    .row:hover .title, .row:focus-visible .title { color: var(--accent); }
+    .desc { display: block; margin-top: 8px; font-size: 14px; line-height: 1.45; color: var(--quiet); max-width: 58ch; }
+    .year { font-family: var(--mono); font-size: 13px; text-align: right; }
+    .place { font-size: 14px; color: var(--quiet); text-align: right; }
+    .count { font-family: var(--mono); font-size: 13px; text-align: right; }
+    .m-meta { display: none; }
+
+    /* Closing line of the index */
+    .more { padding: 26px 0 0; }
+    .more button { min-height: 44px; padding: 12px 0; font-family: var(--mono); font-size: 13px; letter-spacing: .04em; color: var(--accent); border-bottom: 1px solid var(--accent); }
+
+    /* ── Plate rail: the larger preview, contain, never cropped ──── */
+    .plate { position: sticky; top: 36px; }
+    .plate figure { margin: 0; }
+    .plate-frame { aspect-ratio: 4 / 3; background: var(--mat); border: 1px solid var(--rule); padding: 12px; }
+    .plate-frame img { width: 100%; height: 100%; object-fit: contain; }
+    .plate figcaption { margin-top: 14px; }
+    .plate .fig { display: block; font-family: var(--mono); font-size: 12px; letter-spacing: .06em; color: var(--ink); }
+    .plate .plate-meta { display: block; margin-top: 5px; font-family: var(--mono); font-size: 12px; color: var(--quiet); }
+
+    /* ── Footer ──────────────────────────────────────────────────── */
+    .footer { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px 28px; margin-top: 90px; padding: 22px 0 40px; border-top: 1px solid var(--ink); font-size: 14px; }
+    .footer .foot-stats { font-family: var(--mono); font-size: 12px; color: var(--quiet); }
+    .footer button { min-height: 44px; padding: 10px 0; font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--quiet); }
+    .footer button:hover { color: var(--ink); }
+
+    /* Viewer chrome: match the paper tone, serif title */
+    .lab-viewer-title { font-family: 'Lab Serif', serif; }
+
+    /* ── Rail hidden below 1100px; rows stay complete ────────────── */
+    @media (max-width: 1099px) {
+      .index-layout { grid-template-columns: 1fr; }
+      .plate { display: none; }
+    }
+
+    /* ── Small screens: rows collapse into a readable stack ──────── */
+    @media (max-width: 700px) {
+      .shell { width: calc(100% - 40px); }
+      .masthead { flex-direction: column; align-items: flex-start; gap: 14px; padding-top: 18px; }
+      .nav { width: 100%; justify-content: space-between; gap: 16px; }
+      .page-head { padding-top: 40px; }
+      .index-layout { margin-top: 34px; }
+      .col-head { display: none; }
+      .row { grid-template-columns: 56px minmax(0, 1fr); grid-template-areas: 'meta meta' 'thumb entry'; column-gap: 16px; row-gap: 12px; padding: 18px 6px; margin: 0 -6px; }
+      .no, .year, .place, .count { display: none; }
+      .m-meta { display: block; grid-area: meta; font-family: var(--mono); font-size: 12px; color: var(--quiet); }
+      .thumb { grid-area: thumb; width: 56px; margin-top: 5px; }
+      .entry { grid-area: entry; }
+      .title { font-size: 26px; }
+      .desc { font-size: 13px; margin-top: 6px; }
+      .footer { margin-top: 64px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to the index</a>
+  <div class="shell">
+    <header class="masthead">
+      <div>
+        <button class="wordmark" data-view="home" aria-label="Richard Photographs, back to the index">Richard Photographs</button>
+        <p class="tagline">The photographic archive of Richard — journeys, kept as plates.</p>
+      </div>
+      <nav class="nav" aria-label="Main navigation">
+        <button data-view="home" aria-current="page">Index</button>
+        <button data-view="archive">Archive</button>
+      </nav>
+    </header>
+    <main id="main" tabindex="-1"><p class="load-state" role="status">Preparing the index…</p></main>
+    <footer class="footer">
+      <p>Richard Photographs</p>
+      <p class="foot-stats" id="foot-stats"></p>
+      <button data-top>Back to top</button>
+    </footer>
+  </div>
+  <script src="/common.js"></script>
+  <script>
+    window.DesignLab.ready.then(data => {
+      const { escape: esc, image } = window.DesignLab;
+      const main = document.getElementById('main');
+
+      const homeList = data.galleries;
+      const archiveList = [...data.archive].sort((a, b) => a.date.localeCompare(b.date));
+      let current = homeList;
+
+      const photoSum = list => list.reduce((n, g) => n + g.count, 0);
+      const yearSpan = list => {
+        const years = list.map(g => Number(g.date.slice(0, 4)));
+        return `${Math.min(...years)}–${Math.max(...years)}`;
+      };
+      const statLine = list => `${list.length} journeys · ${yearSpan(list)} · ${photoSum(list)} photographs`;
+      const placeText = g => g.places.map(p => p.title).join(', ');
+      const num = i => String(i + 1).padStart(2, '0');
+
+      const rowHtml = (g, i) => `<li><button class="row" data-gallery="${esc(g.id)}" data-index="${i}" aria-label="Open ${esc(g.title)} — ${esc(g.date.slice(0, 4))}, ${esc(placeText(g))}, ${g.count} photographs"><span class="no" aria-hidden="true">${num(i)}</span><span class="thumb" aria-hidden="true">${image(g.cover, '76px')}</span><span class="entry"><span class="title">${esc(g.title)}</span><span class="desc">${esc(g.description)}</span></span><span class="year">${esc(g.date.slice(0, 4))}</span><span class="place">${esc(placeText(g))}</span><span class="count">${g.count}</span><span class="m-meta" aria-hidden="true">${num(i)} — ${esc(g.date.slice(0, 4))} · ${esc(placeText(g))} · ${g.count} photographs</span></button></li>`;
+
+      const plateHtml = (g, i, eager = false) => `<figure><div class="plate-frame">${image(g.cover, '(min-width: 1100px) 26vw, 100vw', eager)}</div><figcaption><span class="fig">Fig. ${num(i)} — ${esc(g.title)}</span><span class="plate-meta">${esc(g.date.slice(0, 4))} · ${esc(placeText(g))} · ${g.count} photographs</span></figcaption></figure>`;
+
+      const views = {
+        home: {
+          title: 'Contents',
+          list: homeList,
+          lede: 'Selected journeys, kept in their curated order.',
+          more: `<p class="more"><button data-view="archive">${data.archive.length - homeList.length} further journeys are kept in the archive — view all ${data.archive.length}.</button></p>`
+        },
+        archive: {
+          title: 'Archive',
+          list: archiveList,
+          lede: 'Every published journey, earliest first.',
+          more: ''
+        }
+      };
+
+      function render(name) {
+        const view = Object.hasOwn(views, name) ? views[name] : views.home;
+        const key = view === views.archive ? 'archive' : 'home';
+        current = view.list;
+        main.innerHTML = `<section class="view" aria-labelledby="page-title">
+          <header class="page-head"><h1 id="page-title">${view.title}</h1><p class="stats">${statLine(view.list)}</p><p class="lede">${view.lede}</p></header>
+          <div class="index-layout">
+            <div>
+              <div class="col-head" aria-hidden="true"><span>No.</span><span>Journey</span><span>Year</span><span>Place</span><span>Photos</span></div>
+              <ol class="index-list">${view.list.map(rowHtml).join('')}</ol>
+              ${view.more}
+            </div>
+            <aside class="plate" id="plate" aria-hidden="true">${plateHtml(view.list[0], 0, true)}</aside>
+          </div>
+        </section>`;
+        document.querySelectorAll('.nav [data-view]').forEach(button => {
+          if (button.dataset.view === key) button.setAttribute('aria-current', 'page');
+          else button.removeAttribute('aria-current');
+        });
+        document.title = `Richard Photographs — ${view.title}`;
+      }
+
+      // Plate preview: hover and keyboard focus are equivalent.
+      let plateIndex = 0;
+      const plate = () => document.getElementById('plate');
+      function showPlate(i) {
+        if (i === plateIndex || !current[i]) return;
+        plateIndex = i;
+        const node = plate();
+        if (node) node.innerHTML = plateHtml(current[i], i);
+      }
+      function resetPlate() {
+        if (plateIndex === 0) return;
+        plateIndex = 0;
+        const node = plate();
+        if (node) node.innerHTML = plateHtml(current[0], 0);
+      }
+      main.addEventListener('mouseover', event => {
+        const row = event.target.closest('.row');
+        if (row) showPlate(Number(row.dataset.index));
+      });
+      main.addEventListener('focusin', event => {
+        const row = event.target.closest('.row');
+        if (row) showPlate(Number(row.dataset.index));
+      });
+      main.addEventListener('mouseout', event => {
+        if (event.target.closest('.row') && !event.relatedTarget?.closest('.row')) resetPlate();
+      });
+      main.addEventListener('focusout', event => {
+        if (event.target.closest('.row') && !event.relatedTarget?.closest('.row')) resetPlate();
+      });
+
+      document.addEventListener('click', event => {
+        const button = event.target.closest('button');
+        if (!button) return;
+        if (button.dataset.view) {
+          const next = button.dataset.view;
+          if (location.hash === `#${next}`) render(next);
+          else location.hash = next;
+        }
+        if (button.hasAttribute('data-top')) {
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+      });
+
+      document.querySelector('.skip').addEventListener('click', event => {
+        event.preventDefault();
+        main.focus({ preventScroll: true });
+        main.scrollIntoView({ block: 'start', behavior: 'instant' });
+      });
+
+      window.addEventListener('hashchange', () => {
+        render(location.hash.slice(1));
+        main.focus({ preventScroll: true });
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      });
+
+      document.getElementById('foot-stats').textContent = statLine(data.archive);
+      render(location.hash.slice(1));
+    }).catch(() => {
+      document.getElementById('main').innerHTML = '<p class="load-state" role="alert">The index could not be prepared. Reload this page to try again.</p>';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+---
+/*
+ * src/components/SeoHead.astro - head-only SEO tags (WP-44).
+ *
+ * Frozen references: PRODUCTION_IMPLEMENTATION_PLAN WP-44; BUILD_AND_ROUTING
+ * section 4 (canonical routes); CONTENT_MODEL 8.3 (draft exclusion is owned
+ * by page scoping and the sitemap, not by this renderer).
+ *
+ * Contract: renders description + canonical + Open Graph tags from a PageMeta
+ * (src/lib/seo/meta.ts) against the single site origin (src/lib/seo/site.ts).
+ * No body markup, no visible UI change, no scripts. Pages inject it through
+ * the Base layout head slot; pages without SEO scope (404, qa-probe) omit it.
+ */
+import type { PageMeta } from "../lib/seo/meta";
+import { buildSiteOrigin, canonicalUrl } from "../lib/seo/site";
+
+interface Props {
+  meta: PageMeta;
+  /** Optional absolute-path image (gallery cover JPEG fallback) for og:image. */
+  imagePath?: string;
+}
+
+const { meta, imagePath } = Astro.props;
+const origin = buildSiteOrigin();
+const url = canonicalUrl(origin, meta.canonicalPath);
+---
+<meta name="description" content={meta.description} />
+<link rel="canonical" href={url} />
+<meta property="og:title" content={meta.title} />
+<meta property="og:description" content={meta.description} />
+<meta property="og:type" content={meta.ogType} />
+<meta property="og:url" content={url} />
+{imagePath && <meta property="og:image" content={canonicalUrl(origin, imagePath)} />}
+<meta name="twitter:card" content={imagePath ? "summary_large_image" : "summary"} />
+<meta name="twitter:title" content={meta.title} />
+<meta name="twitter:description" content={meta.description} />
+{imagePath && <meta name="twitter:image" content={canonicalUrl(origin, imagePath)} />}

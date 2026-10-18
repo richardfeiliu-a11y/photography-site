@@ -1,0 +1,42 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 12 (TWO DOCUMENTS)
+# next_gallery_id targets a draft Gallery in a production build
+# (§8.3/§9.2#2): published g_bad_13_12_pub → draft g_bad_13_12_draft.
+# The VALID corpus never points a published gallery at its drafts
+# (long-gallery-72 / essen-industrial-light have no inbound next).
+# Consumed by: tests/integration/production-validation.test.ts (WP-13);
+# tests/integration/gallery-validation.test.ts (WP-09, production mode).
+# =====================================================================
+id: g_bad_13_12_pub
+slug: invalid-next-to-draft
+status: published
+title: "Invalid — published pointing at a draft"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+published_at: "2026-08-29T00:00:00Z"
+places:
+  - pl_lofoten
+cover_photo_id: p_bad_13_12_001
+next_gallery_id: g_bad_13_12_draft
+photos:
+  - id: p_bad_13_12_001
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null
+
+---
+id: g_bad_13_12_draft
+slug: invalid-draft-target
+status: draft
+title: "Invalid — draft next target"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+places:
+  - pl_lofoten
+photos:
+  - id: p_bad_13_12_002
+    source_ref: lofoten-polar-night/DSC02262.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

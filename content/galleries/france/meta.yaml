@@ -1,0 +1,96 @@
+id: g_france
+slug: france
+status: published
+title: "France"
+description: "Paris and Reims: the Eiffel Tower at night, a summer walk, and the cathedral city."
+photographed_start: "2024-07-20"
+photographed_end: "2024-08-27"
+published_at: "2026-09-12T00:00:00Z"
+places:
+  - pl_paris
+  - pl_versailles
+  - pl_reims
+cover_photo_id: p_france_012
+next_gallery_id: g_cote_dazur
+photos:
+  - id: p_france_001
+    source_ref: france/DSC00341.jpg
+    place: pl_paris
+    captured_at: "2024-07-20T12:13:35"
+    caption: "Paris · July 2024"
+    rhythm_after: base
+    alt_text: "A large oil painting with a gold-carved frame hangs on the dark red wall of the gallery's exhibition hall: the painting depicts an uprising scene on a barricade. A half-naked woman holds a tricolor flag high and walks in front of the team. There are men with guns and boys with guns beside her. There are fallen people lying on the ground in the foreground, and the streets are filled with gunpowder smoke in the background. There are two small white explanatory signs at the bottom of the wall."
+  - id: p_france_002
+    place: pl_paris   # owner-approved 2026-09-15 (local review)
+    source_ref: france/DSC00355.jpg
+    caption: "Paris · July 2024"
+    rhythm_after: base
+    alt_text: "On a light-colored stone wall in the museum exhibition hall, three square ancient stone carving fragments are hung side by side. They are off-white and obviously weathered: the one on the left is a relief of a seated figure, and a fragment of a small human head hangs alone on the upper right; the one in the middle is a relief of a half-lying figure; the one on the right is a figure lying on his back and a fragment of a round shield; each exhibit has a small explanation board attached below it."
+  - id: p_france_003
+    source_ref: france/DSC00361.jpg
+    place: pl_versailles
+    captured_at: "2024-07-21T10:37:48"
+    caption: "Versailles · July 2024"
+    rhythm_after: base
+    alt_text: "Under the blue sky and white clouds, a corner of a magnificent palace building: the outer walls are made of alternating red bricks and light-colored stones, the roof is made of dark slate, and the cornices, window frames, railings and roof edges are decorated with a large number of gilded decorations; a blue, white and red tricolor flag floats on a flagpole high in the center; a white human bust is placed in the niche of the tower on the left, and there are stone statues at the corners of the railings."
+  - id: p_france_004
+    source_ref: france/DSC00393.jpg
+    place: pl_versailles
+    captured_at: "2024-07-21T11:47:09"
+    caption: "Versailles · July 2024"
+    rhythm_after: base
+    alt_text: "A regular French garden is overlooked from a high platform: directly in front is a central axis, flanked by geometrically trimmed lawns, hedges and rows of potted trees; at the end of the axis is a large pool, with many tourists scattered on the grass and walking trails; in the foreground is a circular fountain decorated with gold-plated sculptures, and the water jets form high water curtains on both sides of the frame."
+  - id: p_france_005
+    source_ref: france/DSC00399.jpg
+    place: pl_versailles
+    captured_at: "2024-07-21T11:56:02"
+    caption: "Versailles · July 2024"
+    rhythm_after: base
+    alt_text: "Fountain in the palace garden under a cloudy sky: on the lower right is a large multi-layered fountain. There are many gilded figures and animal sculptures standing on the edge and upper floor of the pool, with multiple arc-shaped water columns shooting out from their mouths; behind the fountain is a wide stone staircase and the palace facade. A tricolor flag flies in front of the palace, and many tourists gather on the stone steps; on the left side there is a high spray of water column."
+  - id: p_france_006
+    place: pl_versailles   # owner-approved 2026-09-15 (local review)
+    source_ref: france/DSC00404.jpg
+    caption: "France · July 2024"
+    rhythm_after: base
+    alt_text: "There is a row of nozzles spraying water in a large pool. About ten thin and tall water columns spray neatly into the air and fall back to the water surface to form white water spray and mist. Behind the pool is a gently sloping lawn. Above the lawn are tall green trees neatly trimmed and arranged in rows, forming a green wall. There are stone guardrails in front of the trees. The sky is filled with thick gray clouds, and there are several water birds on the water."
+  - id: p_france_007
+    source_ref: france/DSC00417.jpg
+    place: pl_paris
+    captured_at: "2024-07-25T22:23:13"
+    caption: "Paris · July 2024"
+    rhythm_after: base
+    alt_text: "There is an iron tower in the night scene. The entire tower is illuminated by golden lights, and a white five-ring pattern composed of luminous lines is hung on the tower; in the foreground on the left side of the frame is a black gymnastics figure statue, an inverted human sculpture standing on a square base, surrounded by silhouettes of dark trees, and there are branches on the right side of the frame; the sky is a thick gray-blue, and the overall lighting atmosphere is at night."
+  - id: p_france_008
+    place: pl_reims
+    source_ref: france/DSC01220.jpg
+    caption: "Reims · August 2024"
+    rhythm_after: base
+    alt_text: "European city street on a sunny day: On both sides are multi-story classical buildings made of beige stone and brick, with balconies and painted window decorations on the walls. On the left side of the building are shops with red awnings on the first floor; on the right side is a very eye-catching corner building with a dark gray dome and tower; in the center of the street is paved with light-colored stone slabs and embedded with tracks, and there are several pedestrians on the road; on the left side there are rows of large pruned trees, and the sky is blue."
+  - id: p_france_009
+    source_ref: france/DSC01229.jpg
+    place: pl_reims
+    captured_at: "2024-08-25T11:53:45"
+    caption: "Reims · August 2024"
+    rhythm_after: base
+    alt_text: "Looking up at the front of a magnificent Gothic cathedral: the church has two symmetrical towers, three pointed arch openings, a rose window in the center, dense stone carving details, and the overall color is grey-brown; the right side of the church is blocked by scaffolding and white enclosures and is under repair; the foreground and right side are lush green trees, partially blocking the lower part of the church, and the sky is blue and covered with large white clouds."
+  - id: p_france_010
+    source_ref: france/DSC01252.jpg
+    place: pl_reims
+    captured_at: "2024-08-25T13:08:49"
+    caption: "Reims · August 2024"
+    rhythm_after: base
+    alt_text: "City Pedestrian Square during the day: To the right of the center is a large fountain. The jetted water forms an umbrella-shaped white water curtain, with a circle of radiating blue tubular components in the water curtain. Behind it is a wide pedestrian street, lined with rows of tall green trees and shops, with strings of round white hollow garlands hanging between the trees. On the left are a child in blue and a woman sitting by the fountain with her back to the camera."
+  - id: p_france_011
+    source_ref: france/DSC01288.jpg
+    place: pl_paris
+    captured_at: "2024-08-27T20:50:26"
+    caption: "Paris · August 2024"
+    rhythm_after: base
+    alt_text: "Looking out from behind the high railing: a large number of red, white and blue heart-shaped pieces of paper are pasted on the glass or railing, densely arranged in two clusters of arcs; behind the paper is a panoramic view of the city in the twilight, with an orange-yellow sunset on the horizon, and the silhouette of the iron tower and the vague outline of the city can be recognized in the distance; there is a metal crossbar passing through the lower middle part of the frame."
+  - id: p_france_012
+    source_ref: france/DSC01336.jpg
+    place: pl_paris
+    captured_at: "2024-08-27T21:16:27"
+    caption: "Paris · August 2024"
+    rhythm_after: base
+    alt_text: "Overlooking the entire city from a height after sunset: the iron tower in the center of the frame is illuminated golden yellow by lights, with a bright flash on the top of the tower; the streets around the tower extend in a radial shape, the city is full of lights, and on the horizon in the distance is a dense outline of high-rise buildings; the sky gradually changes from orange-red at the horizon to dark blue above."

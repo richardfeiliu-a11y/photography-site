@@ -1,0 +1,351 @@
+---
+/*
+ * src/pages/places/[slug].astro — the Place detail page (WP-30).
+ *
+ * Frozen references: FDS §3.4 (name + location context leads; Gallery covers,
+ * titles, photographed dates follow; progressive year grouping reads as a
+ * chronology landmark — same visual language as Archive; no maps/geography
+ * devices), CONTENT_MODEL §6.3, BUILD_AND_ROUTING §4 (published-only
+ * getStaticPaths — a place with no published galleries produces NO route).
+ *
+ * Progressive year grouping rule (page-level presentation, recorded): year
+ * headings appear ONLY when the place's galleries span MORE THAN ONE
+ * photographed year (multi-year presence); a single-year place is a flat
+ * list. No invented numeric threshold — the frozen trigger is contextual.
+ *
+ * R3 place-photo aggregation (docs/reports/gallery-r3-fix-agent-handoff-
+ * 2026-09-13.md §3): when the place has photo-level references, the page
+ * LEADS with the cross-journey photo collection — one flat, chronologically
+ * descending set of photos actually taken here, each linking into its source
+ * gallery at the photo anchor with a "View full journey" affordance. The
+ * gallery list stays below, listing only the SOURCE journeys of those photos.
+ * R4 F1 (supersedes the R3 "keep the gallery list" wording): a place with NO
+ * confirmed photo-level mapping renders the migration status ONLY — the
+ * journeys that merely mention the place must not stand in as a substitute
+ * collection (pinned by tests/e2e/places.spec.ts).
+ */
+import { buildPlaceView } from "../../lib/views/place";
+import { loadPublishedDataSet } from "../../lib/pages/archive-data";
+import { createPhotoSelectors, getManifest } from "../../lib/assets/manifest";
+import { MEDIA_FRAME_SIZES_VALUE as MEDIA_FRAME_SIZES } from "../../lib/media";
+import { formatPhotographedDate } from "../../lib/presentation/photographed-date";
+import Base from "../../layouts/Base.astro";
+import SeoHead from "../../components/SeoHead.astro";
+import { placeMeta } from "../../lib/seo/meta";
+import GalleryCard from "../../components/GalleryCard.astro";
+import type { ViewGalleryCard } from "../../lib/views/types";
+
+export async function getStaticPaths() {
+  const { galleries, places, resolveCover, mode } = loadPublishedDataSet();
+  return places.map((place) => ({
+    params: { slug: place.slug },
+    props: { place, galleries, places, resolveCover, mode },
+  }));
+}
+
+const { place, galleries, places, resolveCover, mode } = Astro.props;
+const view = buildPlaceView({ place, galleries, places, resolveCover, mode });
+
+// R3 photo display resolution: same manifest authority as the Gallery page
+// (WP-24 selectors over the §3.1 media-frame slot). Production is
+// fail-closed on missing derivatives; preview renders the honest null
+// display for draft photos without manifest coverage (IMP-03 parity).
+const selectors = createPhotoSelectors(getManifest());
+const altTextByPhotoId = new Map(
+  galleries.flatMap((g) => g.photos.map((p) => [p.id, p.alt_text ?? null] as const)),
+);
+const resolvePhotoDisplay = (photoId: string) => {
+  try {
+    const v = selectors.getGalleryVariants(photoId, { sizes: MEDIA_FRAME_SIZES });
+    const avif = v.formats.find((f) => f.format === "avif");
+    return {
+      src: v.src,
+      srcset: v.srcset,
+      avifSrcset: avif?.srcset,
+      width: v.width,
+      height: v.height,
+      missing: false,
+      altText: altTextByPhotoId.get(photoId) ?? null,
+    };
+  } catch {
+    if (mode === "preview") {
+      return { src: "", srcset: "", avifSrcset: undefined, width: 0, height: 0, missing: true, altText: null };
+    }
+    throw new Error(`[place-photos] no display derivative for ${photoId}`);
+  }
+};
+
+const placePhotos = view.photos.map((ref) => ({
+  ...ref,
+  display: resolvePhotoDisplay(ref.photoId),
+  // The date shown is the photo's OWN captured date when evidence exists;
+  // otherwise the JOURNEY DATE RANGE (R4 F1: never a journey-start month
+  // presented as a precise photo date). Range photos carry a "–" range mark.
+  dateLabel: ref.capturedAt
+    ? formatPhotographedDate(ref.capturedAt.slice(0, 10))
+    : formatPhotographedDate(ref.photographedStart, ref.photographedEnd),
+  datePrecise: ref.capturedAt != null,
+  altText: ref.altText,
+}));
+
+// Disambiguation context (compact): the corpus's region strings already
+// embed the country ("North Rhine-Westphalia, Germany"), so country renders
+// only when it adds information beyond the region.
+const locationContext =
+  place.region && place.country && place.region.includes(place.country)
+    ? place.region
+    : [place.region, place.country].filter((v): v is string => v !== null).join(", ");
+---
+
+<Base title={place.name}>
+  <SeoHead
+    slot="head"
+    meta={placeMeta({
+      name: place.name,
+      locationContext,
+      slug: place.slug,
+      galleryCount: view.galleries.length,
+    })}
+  />
+  <div class="place-page">
+    <h1 class="place-title">{place.name}</h1>
+    {
+      locationContext && (
+        <p class="place-context mono-meta" data-place-context>
+          {locationContext}
+        </p>
+      )
+    }
+
+    {
+      placePhotos.length > 0 && (
+        <section class="place-photos" aria-label={`Photographs taken in ${place.name}`}>
+          <h2 class="place-photos-heading mono-label">
+            <span class="tnum">{placePhotos.length}</span>
+            {placePhotos.length === 1 ? " photograph" : " photographs"}
+          </h2>
+          <div class="place-photo-grid">
+            {placePhotos.map((photo) => (
+              <a
+                class="place-photo"
+                href={`/galleries/${photo.gallerySlug}#${photo.photoId}`}
+                aria-label={`${photo.galleryTitle}, ${photo.dateLabel} — view full journey (photo ${photo.photoId})`}
+              >
+                {!photo.display.missing && photo.display.src !== "" && (
+                  <picture>
+                    {photo.display.avifSrcset && (
+                      <source
+                        type="image/avif"
+                        srcset={photo.display.avifSrcset}
+                        sizes="(min-width: 900px) 33vw, 90vw"
+                      />
+                    )}
+                    <img
+                      src={photo.display.src}
+                      srcset={photo.display.srcset}
+                      sizes="(min-width: 900px) 33vw, 90vw"
+                      width={photo.display.width}
+                      height={photo.display.height}
+                      alt={photo.altText ?? ""}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
+                )}
+                <span class="place-photo-text">
+                  <span class="place-photo-date tnum mono-meta">{photo.dateLabel}</span>
+                  <span class="place-photo-source">{photo.galleryTitle}</span>
+                  <span class="place-photo-cta mono-label">
+                    View full journey
+                    <span class="place-photo-arrow" aria-hidden="true">→</span>
+                  </span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {placePhotos.length > 0 && view.sourceJourneys.length > 0 && (
+      <section class="place-journeys" aria-label={`Journey galleries featuring ${place.name}`}>
+        <h2 class="place-journeys-heading">Journey galleries</h2>
+        <div class="place-gallery-list">
+          {view.sourceJourneys.map((card: ViewGalleryCard) => (
+            <GalleryCard card={card} showCount={false} context="place" />
+          ))}
+        </div>
+      </section>
+    )}
+    {
+      /* R4 F1: a place whose photo-level mapping is still unconfirmed must NOT
+         offer a journey as a substitute collection (`view.galleries` here is
+         every journey that mentions the place, not a confirmed photo set).
+         The migration note is the honest page; tests/e2e/places.spec.ts pins
+         the "NO journey fallback" rule. */
+      placePhotos.length === 0 && (
+        <p class="place-migration-status" data-place-migration-status>
+          Photograph-to-place mapping for this place is still being verified; no
+          photographs are attributed here yet.
+        </p>
+      )
+    }
+  </div>
+</Base>
+
+<style>
+  /* Single reading column; artwork framed with the Monograph plate rules. */
+  .place-page {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-inline: var(--edge-inset);
+    padding-bottom: var(--space-6xl);
+  }
+
+  .place-title {
+    margin: var(--space-lg) 0 0;
+    font-family: var(--type-h1-family);
+    font-size: var(--type-h1-size);
+    font-weight: var(--type-h1-weight);
+    line-height: var(--type-h1-lh);
+    letter-spacing: var(--type-h1-tracking);
+    color: var(--color-text-primary);
+  }
+
+  /* The location context is catalogue information: the mono-meta primitive
+     supplies family/size/colour, this rule only places it. */
+  .place-context {
+    margin: var(--space-sm) 0 0;
+  }
+
+  .place-photos {
+    margin-top: var(--space-2xl);
+  }
+
+  /* The photo count is a catalogue line, not a title; the journey list below
+     keeps a real serif section heading. */
+  .place-photos-heading {
+    margin: 0;
+  }
+
+  .place-journeys-heading {
+    margin: 0 0 var(--space-lg);
+    font-family: var(--type-h2-family);
+    font-size: var(--type-h2-size);
+    font-weight: var(--type-h2-weight);
+    line-height: var(--type-h2-lh);
+    color: var(--color-text-primary);
+  }
+
+  .place-photo-grid,
+  .place-gallery-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2xl) var(--space-lg);
+    align-items: start;
+    margin-top: var(--space-lg);
+  }
+
+  @media (max-width: 1023px) {
+    .place-photo-grid,
+    .place-gallery-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 767px) {
+    .place-photo-grid,
+    .place-gallery-list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .place-photo {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* No frame, no mat: the photograph meets the field with the project's edge
+     treatment, and lifts a step under the pointer. */
+  .place-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    box-shadow: var(--photo-edge), var(--photo-shadow-sm);
+    transition: box-shadow var(--dur-medium) var(--ease-out-editorial);
+  }
+
+  .place-photo:hover img,
+  .place-photo:focus-visible img {
+    box-shadow: var(--photo-edge), var(--photo-shadow-lift);
+  }
+
+  .place-photo-text {
+    display: block;
+    margin-top: var(--space-sm);
+  }
+
+  .place-photo-date {
+    display: block;
+  }
+
+  .place-photo-source {
+    display: block;
+    margin-top: var(--space-2xs);
+    font-family: var(--font-serif);
+    font-size: var(--type-card-title-size);
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--color-text-primary);
+  }
+
+  .place-photo:hover .place-photo-source,
+  .place-photo:focus-visible .place-photo-source {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+
+  .place-photo-cta {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--space-2xs);
+    margin-top: var(--space-xs);
+  }
+
+  .place-photo:hover .place-photo-cta,
+  .place-photo:focus-visible .place-photo-cta {
+    color: var(--color-text-primary);
+  }
+
+  .place-photo-arrow {
+    transition: transform var(--dur-micro) var(--ease-out-editorial);
+  }
+
+  .place-photo:hover .place-photo-arrow,
+  .place-photo:focus-visible .place-photo-arrow {
+    transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .place-photo-arrow,
+    .place-photo img,
+    .place-photo-source {
+      transition: none;
+    }
+  }
+
+  .place-migration-status {
+    margin: var(--space-2xl) 0 0;
+    max-width: var(--reading-max);
+    font-family: var(--type-body-family);
+    font-size: var(--type-body-size);
+    line-height: var(--type-body-lh);
+    color: var(--color-text-secondary);
+  }
+
+  .place-journeys {
+    margin-top: var(--space-5xl-lg);
+  }
+</style>

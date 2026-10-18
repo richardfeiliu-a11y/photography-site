@@ -1,0 +1,156 @@
+---
+/*
+ * src/components/SiteFooter.astro — the site colophon (immersive direction).
+ *
+ * Reference: experiments/design-lab/variants/audit-c-immersive.html
+ * (.colophon). The closing block of every page is one voice: the imprint, the
+ * site's own statement (content/site/about.yaml — the same authored source the
+ * About page reads), the way on (the archive action, shown on the home page
+ * where it is the way out of the cover; the Journey/Places/About links
+ * everywhere), the contact address when one is authored, and the fine print.
+ *
+ * The former three-column sitemap grid is gone: it listed the same three
+ * destinations the header already carries. Framed with a top hairline, mono
+ * catalogue lines, no cards, no shadows; fully usable without JS.
+ */
+import { loadAboutSettings } from "../lib/content/about";
+import { repoRoot } from "../lib/pages/archive-data";
+
+const year = new Date().getFullYear();
+const { settings } = loadAboutSettings(repoRoot());
+const email = settings.contact?.email ?? null;
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isHome = path === "/";
+
+const navItems = [
+  { label: "Journeys", href: "/archive" },
+  { label: "Places", href: "/places" },
+  { label: "About", href: "/about" },
+];
+---
+
+<footer class="site-footer">
+  <a class="site-footer-sig" href="/">Richard Photographs</a>
+
+  {
+    settings.statement && (
+      <p class="site-footer-statement">{settings.statement}</p>
+    )
+  }
+
+  {
+    isHome && (
+      <a class="action site-footer-action" href="/archive">Browse the full archive</a>
+    )
+  }
+
+  <div class="site-footer-meta">
+    <nav class="site-footer-nav" aria-label="Footer">
+      <ul>
+        {
+          navItems.map((item) => (
+            <li>
+              <a class="mono-label" href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    {
+      email && (
+        <p class="site-footer-contact">
+          <a class="mono-label" href={`mailto:${email}`}>{email}</a>
+        </p>
+      )
+    }
+  </div>
+
+  <p class="site-footer-fine mono-label tnum">
+    © {year} Richard Photographs · Set in Source Serif 4 and Source Sans 3
+  </p>
+</footer>
+
+<style>
+  .site-footer {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    /* 96 keeps the WP-37 contract: on a gallery page this margin COLLAPSES
+       with GalleryContinuation's margin-bottom (96) and stays 96, rather
+       than the larger 168 overriding the frozen gap. */
+    margin-top: var(--space-4xl);
+    padding-inline: var(--edge-inset);
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-2xl);
+    border-top: 1px solid var(--color-hairline);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-lg);
+    color: var(--color-text-secondary);
+  }
+
+  .site-footer-sig {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    line-height: 1.25;
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  .site-footer-sig:hover {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+
+  .site-footer-statement {
+    margin: 0;
+    max-width: 56ch;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+  }
+
+  .site-footer-action {
+    margin-block: var(--space-xs);
+  }
+
+  /* Wayfinding + contact on one quiet mono line. */
+  .site-footer-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-xs) clamp(24px, 5vw, 56px);
+  }
+
+  .site-footer-nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+  }
+
+  .site-footer-contact {
+    margin: 0;
+  }
+
+  .site-footer a.mono-label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    text-decoration: none;
+  }
+
+  .site-footer a.mono-label:hover {
+    color: var(--color-text-primary);
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+
+  .site-footer-fine {
+    margin: 0;
+  }
+</style>

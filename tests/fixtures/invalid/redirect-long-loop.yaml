@@ -1,0 +1,21 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 16 (WP-12 RED set)
+# Longer redirect loop A -> B -> C -> A: /galleries/cycle-1 resolves to
+# /galleries/cycle-2 (g_cycle_2 slug cycle-2), which is the second
+# entry's old path; /galleries/cycle-2 -> g_cycle_3 -> /galleries/cycle-3;
+# /galleries/cycle-3 -> g_cycle_1 -> /galleries/cycle-1. Requires
+# unit-synthesized registries: g_cycle_1/2/3 (slugs cycle-1/2/3),
+# all published — see tests/unit/redirects.test.ts.
+# (Each old path also equals a canonical route of its same-named
+# gallery, so §13.1#15 fires too; this fixture targets §13.1#16.)
+# Consumed by: tests/unit/redirects.test.ts (WP-12);
+# tests/integration/production-validation.test.ts (WP-13).
+# =====================================================================
+/galleries/cycle-1:
+  gallery_id: g_cycle_2
+
+/galleries/cycle-2:
+  gallery_id: g_cycle_3
+
+/galleries/cycle-3:
+  gallery_id: g_cycle_1

@@ -1,0 +1,135 @@
+id: g_autumn_china
+slug: autumn-china
+status: published
+title: "Autumn in China"
+description: "Xi'an, Dali and Nanchang - an autumn that moves from city walls to lake water."
+photographed_start: "2024-09-01"
+photographed_end: "2024-09-29"
+published_at: "2026-09-12T00:00:00Z"
+places:
+  - pl_xian
+  - pl_dali
+  - pl_nanchang
+cover_photo_id: p_autumn_china_003
+next_gallery_id: g_winter_europe
+photos:
+  - id: p_autumn_china_001
+    source_ref: autumn-china/DSC01429.jpg
+    place: pl_xian
+    captured_at: "2024-09-01T09:39:12"
+    caption: "Xi'an · September 2024"
+    rhythm_after: base
+    alt_text: "In the city square during the day, to the left of the center is a seven-story square ancient tower with an earth-yellow body, retracted layer by layer, and a tower brake on the top. In the square in front of the tower, there is a bronze statue of a dark figure and a green tree, surrounded by antique gray tile roofs and red columns. Pedestrians are walking and holding umbrellas in the square, and a white car drives by on the road in the foreground."
+  - id: p_autumn_china_002
+    source_ref: autumn-china/DSC01438.jpg
+    place: pl_xian
+    captured_at: "2024-09-01T09:54:42"
+    caption: "Xi'an · September 2024"
+    rhythm_after: base
+    alt_text: "Under the blue sky, a close-up of the upper half of a square brick tower: the tower body is made of earth-yellow bricks, with small arched windows on each floor, and a pointed brake on the top of the tower; the lower part of the tower is blocked by dense green trees and bamboo forests, and at the bottom of the frame is a red wall and gray tile roof eaves."
+  - id: p_autumn_china_003
+    source_ref: autumn-china/DSC01469.jpg
+    place: pl_xian
+    captured_at: "2024-09-07T06:06:12"
+    caption: "Xi'an · September 2024"
+    rhythm_after: base
+    alt_text: "A gray stone sculpture of Buddha sitting in lotus position on a lotus seat is located in front of the right side of the frame. The Buddha statue is perched on a square stone platform. In front of the frame is a shallow round pool, with the water reflecting the sky and trees. The distant view on the left is the square brick tower. The middle ground is a neatly trimmed lawn and bushes. There are several white stone lamps on the grass. A man in black stands beside the Buddha statue and watches."
+  - id: p_autumn_china_004
+    source_ref: autumn-china/DSC01524.jpg
+    caption: "Xi'an · September 2024"
+    rhythm_after: base
+    alt_text: "Close-up of the eaves of an ancient Chinese building in the twilight: the upper right is a layer of raised cornices, and under the eaves are red, green, and gold painted beams and lattice windows. Rows of small lighted lights are densely covered on the eaves and roof ridges, and there are ridged beasts at both ends of the roof; a red flag is exposed in the lower left, the sky is a gradual blue-purple tone, and there is a thin moon in the lower part of the middle."
+  - id: p_autumn_china_005
+    source_ref: autumn-china/DSC01545.jpg
+    caption: "Xi'an · September 2024"
+    rhythm_after: base
+    alt_text: "Under the blue night sky, on the right side of the frame is a traditional Chinese-style building illuminated by lights. The multi-story angled eaves are warm orange and are equipped with strings of decorative lights. On the left side is a modern cylindrical high-rise building with illuminated signs and antennas, and some windows are illuminated. A thin moon hangs in the sky between the two."
+  - id: p_autumn_china_006
+    source_ref: autumn-china/DSC01547.jpg
+    caption: "Xi'an · September 2024"
+    rhythm_after: base
+    alt_text: "At a street stall after dark, a wooden cart converted into a small stall is lit with warm yellow lights. A wooden sign with Chinese characters is hung in front of the cart. The stall is filled with small commodities and hanging accessories. A stall owner in yellow is sitting with his head down and sorting the goods. On the right side of the stall, there is a colorful windmill and a blue light circle, and in the distance are antique buildings with gray tile roofs."
+  - id: p_autumn_china_007
+    source_ref: autumn-china/DSC01633.jpg
+    place: pl_dali
+    captured_at: "2024-09-26T18:02:31"
+    caption: "Dali · September 2024"
+    rhythm_after: base
+    alt_text: "The street scene of an ancient city commercial street, with gray tiles, angular eaves, and traditional shops with wooden doors and windows on both sides. There are awnings and red parasols in front of the shops. Red lanterns are hung on the street, and goods are piled up. Pedestrians are walking in the alley. The end of the street faces a huge mountain shrouded in clouds and mist. White clouds float on the mountainside, and the sky is filled with thick clouds."
+  - id: p_autumn_china_008
+    source_ref: autumn-china/DSC01660.jpg
+    caption: "Dali · September 2024"
+    rhythm_after: base
+    alt_text: "There is a shallow canal on the street of the ancient town. The water is covered with stones. Beside the canal, a little boy wearing a patterned top and jeans squats down and plays in the water. There are stone flower beds and green plants beside the stone road. A woman carrying a backpack walks by pushing a stroller. There are pedestrians and shops with red lanterns and carved doors and windows nearby. Yellow plastic buckets and warning signs can be seen at the rear right."
+  - id: p_autumn_china_009
+    source_ref: autumn-china/DSC01723.jpg
+    caption: "Dali · September 2024"
+    rhythm_after: base
+    alt_text: "Lakeside wetland scenery, the near shore is covered with water plants and lots of lotus leaves. Two men are standing on the grass facing the lake, one of them is farther to the left; a dead tree with sparse branches and leaves stands on the left, and dense weeping willow branches hang over the top of the frame; at the foot of the mountain on the opposite bank is a village and town composed of a large number of white-walled houses, with hills covered with green vegetation and blue sky and white clouds behind."
+  - id: p_autumn_china_010
+    source_ref: autumn-china/DSC01731.jpg
+    caption: "Dali · September 2024"
+    rhythm_after: base
+    alt_text: "In the lakeside village during the day, there is a large expanse of dense green reeds in the foreground, and above the reeds is the calm lake; on the opposite bank, there is a row of two- and three-story houses with white walls and gray tiles along the lake, one of which has painted decorations on the wall, and behind the house there is a communication tower and rows of trees; in the far distance are the continuous dark mountains and the blue sky with floating clouds."
+  - id: p_autumn_china_011
+    source_ref: autumn-china/DSC01788.jpg
+    caption: "Dali · September 2024"
+    rhythm_after: base
+    alt_text: "An asphalt road built along the mountain curves away into the distance. There are yellow double solid lines and white dotted line lane markings on the road; there is a row of street lights on the left side, and behind the street lights is a hillside covered with light green and autumn yellow shrubs. High-voltage transmission lines cross the top of the hillside; on the right side are tall street trees and road shoulders. Two cars, one white and one black, are parked on the roadside, and several people are standing on the sidewalk under the trees."
+  - id: p_autumn_china_012
+    source_ref: autumn-china/DSC01806.jpg
+    caption: "Dali · September 2024"
+    rhythm_after: base
+    alt_text: "On the lake surface in the evening, there are shoals covered with algae near the shore, and the water surface reflects the shadows of clouds and skylight; the foreground of the frame is framed by a few blurred slender grass blades, and in the distance is a dark mountain silhouette across the frame. Thick clouds accumulate on the top of the mountain, and the warm light of the setting sun shines through the gaps in the clouds. There is a building and a row of trees on the far right shore."
+  - id: p_autumn_china_013
+    source_ref: autumn-china/DSC01814.jpg
+    caption: "Dali · September 2024"
+    rhythm_after: base
+    alt_text: "At a corner of the lake, the foreground is framed by blurred branches and green leaves. The middle ground is a calm lake. On the red soil bank beside the water is a willow tree stretching diagonally toward the water. Under the tree, a man in white is sitting on a folding chair fishing. Weeds with small purple flowers grow beside the water. On the far left are green hillsides, telephone poles and several houses."
+  - id: p_autumn_china_014
+    source_ref: autumn-china/DSC01832.jpg
+    place: pl_nanchang
+    captured_at: "2024-09-28T15:49:56"
+    caption: "Nanchang · September 2024"
+    rhythm_after: base
+    alt_text: "Hundreds of red lanterns are hung densely in the frame. A few lanterns are very close in the foreground. The surface of the lanterns has golden patterns and black calligraphy, and the upper and lower edges are decorated with golden hollow cloud patterns. In the background, more lanterns are connected together and blurred into red spots."
+  - id: p_autumn_china_015
+    source_ref: autumn-china/DSC01837.jpg
+    place: pl_nanchang
+    captured_at: "2024-09-28T16:05:09"
+    caption: "Nanchang · September 2024"
+    rhythm_after: base
+    alt_text: "Looking up at a multi-story Chinese-style pavilion, dark red pillars and beams, multi-layered gray tile eaves are stacked up one after another. There are complicated brackets and painted decorations under the eaves, and there are ridge animals on the ridge. There is a blue-based gold plaque hanging on the front of the pavilion, and there is a dark plaque below; the foreground and left side are covered by dense green leaves, and the sky is clean and light blue."
+  - id: p_autumn_china_016
+    source_ref: autumn-china/DSC01857.jpg
+    place: pl_nanchang
+    captured_at: "2024-09-28T16:32:59"
+    caption: "Nanchang · September 2024"
+    rhythm_after: base
+    alt_text: "Two side-by-side light yellow woodcut frame panels are mounted in dark wooden frames. Each panel is lined with multiple columns of incised Chinese calligraphy. The layout has a thin border, and wood grain and wear marks can be seen on the surface of the panels."
+  - id: p_autumn_china_017
+    source_ref: autumn-china/DSC01873.jpg
+    place: pl_nanchang
+    captured_at: "2024-09-28T19:41:53"
+    caption: "Nanchang · September 2024"
+    rhythm_after: base
+    alt_text: "The front facade of a large public building under the night view. Square columns are arranged on the tall beige wall, and the glass windows between the columns reveal warm light. There is a red and gold circular decoration and a red flag-shaped relief in the center of the top of the building. There is a turret with a square tower on each side. There are people walking on the steps in front of the building, and there are vehicles passing by on the road below."
+  - id: p_autumn_china_018
+    source_ref: autumn-china/DSC01887.jpg
+    place: pl_nanchang
+    captured_at: "2024-09-28T19:47:54"
+    caption: "Nanchang · September 2024"
+    rhythm_after: base
+    alt_text: "In the corner of the square at night, a white stone guardrail and a low wall run across the middle of the frame. The low wall is inlaid with large golden inscriptions. In front of the wall are flower beds with railings and rows of shrubs. Behind the low wall is a city night scene, with many modern high-rise buildings and illuminated shops visible. One of the floors has a red horizontal light strip and several spherical street lights."
+  - id: p_autumn_china_019
+    source_ref: autumn-china/DSC01888.jpg
+    place: pl_nanchang
+    captured_at: "2024-09-28T19:48:06"
+    caption: "Nanchang · September 2024"
+    rhythm_after: base
+    alt_text: "In the memorial square at night, in the center of the frame is a towering obelisk-style memorial tower. The tower is engraved with large golden characters in vertical rows, and the top is decorated with a spire and red decoration. The base of the tower is a multi-layered stone step. Many people walking and taking photos gather in the square in front of the tower. Street lamps with spherical lampshades stand on both sides. High-rise buildings with bright lights can be seen in the distance, and the sky is dark blue."
+  - id: p_autumn_china_020
+    source_ref: autumn-china/DSC01918.jpg
+    caption: "Nanchang · September 2024"
+    rhythm_after: base
+    alt_text: "There is a small white porcelain cup in the museum display cabinet. The cup has a cylindrical body and is engraved with small vertical characters on the surface. It is milky white in color. The cup is placed on a round wooden base with radial wood grain and two layers of carved decoration on the edge. The background is a dark red exhibition wall and a gray exhibition table, and the light shines on the utensil."

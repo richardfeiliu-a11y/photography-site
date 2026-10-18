@@ -1,0 +1,12 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 15 (WP-12 RED set)
+# Invalid redirect entry: this old path carries NEITHER target field —
+# gallery_id XOR place_id, exactly ONE target type per entry (§11.1).
+# Sibling sub-cases: 13.15-invalid-redirect.yaml (BOTH targets);
+# redirect-old-path-canonical.yaml (old path equals a canonical route).
+# Referenced Gallery/Place IDs do not exist in the corpus; consumed with
+# unit-synthesized registries (see tests/unit/redirects.test.ts).
+# Consumed by: tests/unit/redirects.test.ts (WP-12);
+# tests/integration/production-validation.test.ts (WP-13).
+# =====================================================================
+/galleries/invalid-no-target: {}

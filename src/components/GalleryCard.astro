@@ -1,0 +1,213 @@
+---
+/*
+ * src/components/GalleryCard.astro — the ONE shared discovery-card component
+ * (WP-27, bounded reuse; immersive direction 2026-10-18).
+ *
+ * Metadata hierarchy (frozen order): cover → title (serif) → photographed
+ * date → Place(s) → count (showCount only; the Home strip and the Place
+ * detail pass true/false per composition). Places-index entries are names-led
+ * text rows (FDS §3.4), NOT cards — this component is not used there.
+ *
+ * Immersive treatment (experiments/design-lab/variants/audit-c-immersive.html):
+ * no mount board, no card frame, no rounded corners — the photograph sits on
+ * the field with the project's edge treatment only (--photo-edge + a soft
+ * shadow), and lifts to --photo-shadow-lift on hover. The picture is the
+ * card's own stage: a fixed-height track the photograph is anchored to at
+ * bottom-left, hugging its own ratio (never cropped, never stretched), so a
+ * row of cards shares one baseline. Catalogue voice: mono plate number above
+ * a serif title and a mono meta line.
+ *
+ * Cover: uncropped, aspect preserved (IMAGE_PIPELINE §15) — width/height are
+ * the manifest intrinsic dimensions (CLS prevention); src/srcset embed
+ * verbatim from the WP-25 ViewCover (no filename parsing anywhere).
+ * Loading: card covers are below-fold non-LCP (PERFORMANCE_BUDGET §6.1) —
+ * lazy + async, no preload, no fetchpriority.
+ *
+ * Whole card is one link to /galleries/{slug}. `context` exists for prop-level
+ * presentation differences; the component is never forked.
+ */
+import type { ViewGalleryCard } from "../lib/views/types";
+import { formatPhotographedDateLong } from "../lib/presentation/photographed-date";
+
+interface Props {
+  card: ViewGalleryCard;
+  showCount?: boolean;
+  /** Composition context — prop-level presentation only (never a fork). */
+  context?: "home" | "archive" | "place";
+  /** Layout-context sizes; templates may override the card-grid default. */
+  sizes?: string;
+  /** Catalogue plate number (e.g. 1 → "PL. 01"). Ordered compositions (the
+   * HOME strip) pass their position; unordered corpora omit it. */
+  plateNumber?: number;
+}
+
+const { card, showCount = false, context = "archive", sizes, plateNumber } = Astro.props;
+const cover = card.cover;
+const gridSizes = sizes ?? "(min-width: 900px) 33vw, 90vw";
+const plateLabel =
+  typeof plateNumber === "number" && Number.isInteger(plateNumber) && plateNumber > 0
+    ? `PL. ${String(plateNumber).padStart(2, "0")}`
+    : null;
+const placeNames = card.places.map((p) => p.name).join(", ");
+// Spec §6.2: drop the place line ONLY when the title fully duplicates the
+// single place name (trim + case-insensitive); multi-place cards never lose
+// their place list.
+const singlePlace = card.places.length === 1 ? card.places[0]!.name : null;
+const titleDuplicatesPlace =
+  singlePlace !== null &&
+  card.title.trim().toLowerCase() === singlePlace.trim().toLowerCase();
+---
+
+<a class={`gallery-card context-${context}${card.isDraft ? " is-draft" : ""}`} href={`/galleries/${card.slug}`}>
+  {
+    cover && cover.src !== "" && (
+      <picture>
+        {cover.avifSrcset && (
+          <source type="image/avif" srcset={cover.avifSrcset} sizes={gridSizes} />
+        )}
+        <img
+          class="card-cover"
+          src={cover.src}
+          srcset={cover.srcset}
+          sizes={gridSizes}
+          width={cover.width}
+          height={cover.height}
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+    )
+  }
+  <span class="card-text">
+    {plateLabel && <span class="card-plate-num">{plateLabel}</span>}
+    <span class="card-title">{card.title}</span>
+    <span class="card-meta">
+      <span class="card-date tnum">{formatPhotographedDateLong(card.photographedStart)}</span>
+      {!titleDuplicatesPlace && context !== "place" && card.places.length > 0 && (
+        <span class="card-place">{placeNames}</span>
+      )}
+      {/* "Draft" shows only when the view builder produced isDraft (WP-25
+          mode scoping is the production-safety owner: production views never
+          contain drafts). */}
+      {card.isDraft && <span class="card-draft">Draft</span>}
+      {showCount && (
+        <span class="card-count tnum">
+          {card.photoCount} {card.photoCount === 1 ? "photograph" : "photographs"}
+        </span>
+      )}
+    </span>
+  </span>
+</a>
+
+<style>
+  .gallery-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* The card's stage: a fixed-height track the photograph is anchored to at
+     its bottom-left corner. The photograph keeps its own ratio (width AND
+     height stay auto — a max-height cap shrinks it, never crops it), so mixed
+     orientations share one baseline instead of one box. */
+  .gallery-card picture {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    height: clamp(180px, 21vw, 260px);
+    margin-bottom: var(--space-md);
+  }
+
+  .card-cover {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    box-shadow: var(--photo-edge), var(--photo-shadow-sm);
+    transition: box-shadow var(--dur-medium) var(--ease-out-editorial);
+  }
+
+  /* Hover: the photograph lifts a step on the field — never a scale/zoom on
+     the picture itself (spec §6.1 "No scale zoom"). */
+  .gallery-card:hover .card-cover,
+  .gallery-card:focus-visible .card-cover {
+    box-shadow: var(--photo-edge), var(--photo-shadow-lift);
+  }
+
+  /* The catalogue block below the plate: mono index, serif title, mono meta.
+     No rule, no padding — the plate and its caption hang from one left edge. */
+  .card-text {
+    display: block;
+  }
+
+  .card-plate-num {
+    display: block;
+    margin-bottom: var(--space-2xs);
+    font-family: var(--font-mono-numbers, monospace);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    /* The plate index is real catalogue information, so it must clear the
+       4.5:1 floor for small text. At 0.7 the secondary ink composites to
+       3.16:1 on the field (3.75:1 in the darkroom) — a WCAG AA failure at
+       11.5px. 0.9 keeps the recessive editorial tone while measuring 4.86:1
+       light / 5.45:1 dark. Do not lower this without recomputing. */
+    opacity: 0.9;
+  }
+
+  .card-title {
+    display: block;
+    font-family: var(--type-card-title-family);
+    font-size: var(--type-card-title-size-min);
+    font-weight: var(--type-card-title-weight-min);
+    line-height: var(--type-card-title-lh-min);
+    color: var(--color-text-primary);
+  }
+
+  @media (min-width: 900px) {
+    .card-title {
+      font-size: var(--type-card-title-size-max);
+    }
+  }
+
+  .gallery-card:hover .card-title,
+  .gallery-card:focus-visible .card-title {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+
+  /* Every catalogue value speaks in the mono voice: date, place, count. */
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs) var(--space-sm);
+    margin-top: var(--space-xs);
+    font-family: var(--font-mono-numbers);
+    font-size: 11.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .card-draft {
+    color: var(--color-text-secondary);
+  }
+
+  /* Phones: a taller track keeps a portrait plate readable at one column. */
+  @media (max-width: 700px) {
+    .gallery-card picture {
+      height: 54vw;
+      max-height: 300px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-cover {
+      transition: none;
+    }
+  }
+</style>

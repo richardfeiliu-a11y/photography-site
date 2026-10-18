@@ -1,0 +1,5 @@
+#!/bin/sh
+# WP-02 pre-commit hook: fast lint + typecheck.
+# Hook file is committed; enable per clone/worktree with:
+#   git config core.hooksPath .githooks
+npm run check

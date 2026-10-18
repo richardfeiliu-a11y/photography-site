@@ -1,0 +1,193 @@
+id: g_netherlands
+slug: netherlands
+status: published
+title: "Netherlands"
+description: "Amsterdam and The Hague, in the long light of a July evening."
+photographed_start: "2024-07-12"
+photographed_end: "2024-08-14"
+published_at: "2026-09-12T00:00:00Z"
+places:
+  - pl_amsterdam
+  - pl_den_haag
+  - pl_zaanseschans
+  - pl_giethoorn
+  - pl_cologne
+cover_photo_id: p_netherlands_022
+next_gallery_id: g_france
+photos:
+  - id: p_netherlands_001
+    source_ref: netherlands/DSC00033.jpg
+    place: pl_den_haag
+    captured_at: "2024-07-12T21:22:44"
+    caption: "Den Haag · July 2024"
+    rhythm_after: base
+    alt_text: "The scene in front of the city square: a huge white square column on the left with a gold city emblem and words inlaid on the column; in the central background is a blue multi-story square building with a hotel sign on the roof. In front of the building there is a construction fence covered with colorful graffiti and a row of bicycles; in the foreground is a construction barbed wire fence with two yellow signboards."
+  - id: p_netherlands_002
+    source_ref: netherlands/DSC00035.jpg
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "A blue flag is flying on a flagpole under a cloudy sky. The words are written in large white characters on the flag, and there are smaller characters and a spiral logo below. Behind the flag are green trees with dense branches. Through the gaps between the trees, you can see an old brick building with a dark roof and a bell tower. There is also a metal pole and a black pole extending diagonally in the frame, and the sky is gray and white clouds."
+  - id: p_netherlands_003
+    source_ref: netherlands/DSC00039.jpg
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "In the evening urban street scene, a modern tram painted in red and white is driving out of the street, with the route number on the front display and the lights on; the tram passes through the lower passage of a dark brick apartment building, and there is a warm-colored mural on the inner wall of the passage; in the foreground is a slippery street paved with bricks and embedded with tram tracks, with a black and white striped signal pole standing on the left, and the overall light is blue at the moment."
+  - id: p_netherlands_004
+    source_ref: netherlands/DSC00044.jpg
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "Platform level inside the train station: In the mid-ground, an intercity train painted in blue and white is parked on the platform, with warm light shining through the windows, and a yellow train can be seen behind; a man wearing a red hooded jacket stands on the platform with his back to the camera; in the foreground is a row of silver automatic ticket gates with yellow panels, some of which display red crosses; a blue passenger information display hangs above."
+  - id: p_netherlands_005
+    source_ref: netherlands/DSC00045.jpg
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "In the evening, you can see through a huge curved glass curtain wall: inside the curtain wall is the interior of a bright public building, with a large number of point lights on the ceiling. There are figures and an escalator in the room; in the front of the frame is the edge of a light gray concrete arched building, with a pine tree on the right; in the background stands a reddish-brown multi-story tower with lights on in the windows and a dark blue twilight sky."
+  - id: p_netherlands_006
+    source_ref: netherlands/DSC00047.jpg
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "City business district in the evening: On the left is a huge light gray glass-walled office building with densely packed floors and some windows are lit; in the background on the right are several modern high-rise buildings, one with a blue sign on top and another with rows of warm lights on its facade; in the center is a sunken highway with vehicles driving on it, with concrete walls on both sides and blue railings on the right."
+  - id: p_netherlands_007
+    source_ref: netherlands/DSC00048.jpg
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "An urban pedestrian passage at dusk: The frame is covered by a set of huge metal structures, with thick tilted pillars on both sides. The staggered triangular slats between the pillars extend downward to form a tunnel-like visual channel, with warm yellow light shining from the depths. The ground is paved with stone tiles, which are illuminated by warm stripes by the light above. On both sides are dark blue glass curtain wall buildings and street trees."
+  - id: p_netherlands_008
+    source_ref: netherlands/DSC00050.jpg
+    place: pl_amsterdam
+    captured_at: "2024-07-13T09:04:26"
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "A European city canal on a cloudy day: the top of the frame is framed by dense green leaves, and on the right is a tree with a thick trunk and hanging willow branches; in the middle is the green river covered with duckweed and grass on both sides, and at the end stands a brick building with a spire and dormer windows; in the foreground is a long row of pink and purple hydrangeas in bloom, and there is a cyclist on the road to the left."
+  - id: p_netherlands_009
+    source_ref: netherlands/DSC00054.jpg
+    place: pl_amsterdam
+    captured_at: "2024-07-13T09:14:46"
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "The appearance of a modern art museum under a cloudy sky: the main body is a curved building with a translucent light-colored stone exterior wall and a dark oval eaves on the top. A signboard with the name of the museum in white letters on a black background is hung on the curved wall; on the right side of the building is a connected glass curtain wall part, and the internal stairs can be seen; on the left background are red old-fashioned spire houses and rows of green trees, and the sky is covered with dark clouds."
+  - id: p_netherlands_010
+    source_ref: netherlands/DSC00056.jpg
+    place: pl_amsterdam
+    captured_at: "2024-07-13T09:17:11"
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "The square and classical buildings on a cloudy day: in the central background is a majestic brick-red classical theater, with a pediment and rows of sculptural reliefs on the front, golden decorations on the edge of the roof, and large colorful performance posters hanging on the walls; in front of the building are broad lawns and trees, with a blue-and-white painted tram on the left; a paved brick walkway extends toward the building in the lower left corner."
+  - id: p_netherlands_011
+    source_ref: netherlands/DSC00068.jpg
+    place: pl_amsterdam
+    captured_at: "2024-07-13T11:03:24"
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "There is a high-open exhibition hall in the art museum: a huge classic group portrait oil painting hangs on the wall in front, with many characters and a dark and golden tone. The painting is mounted behind a glass partition wall. Through the glass, you can see the reflection of the bracket in front of the painting and the audience; there is a banner above the wall with the name of the artist; in the foreground is a group of spectators with their backs to the camera, one of whom is holding up a mobile phone to take pictures."
+  - id: p_netherlands_012
+    source_ref: netherlands/DSC00098.jpg
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "There is a gold-framed oil painting hanging on the exhibition wall of the museum: the painting depicts a large field of colorful tulips in bloom, red, yellow, and white. There are several dark windmills in the field, with the horizon and gray-white cloudy sky in the distance. The frame is a thick golden carved wooden frame, and there is a light-colored explanatory board on the right wall with information about the painting and the author. The wall is pure beige."
+  - id: p_netherlands_013
+    source_ref: netherlands/DSC00130.jpg
+    place: pl_amsterdam
+    captured_at: "2024-07-13T17:33:54"
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "Looking up from a low angle at a large painting hanging in a tall glass curtain wall: in the center of the painting is a long vertical yellow-toned painting of a sunflower in bloom, with flowers and leaves expressed with thick brushstrokes; behind the painting is a curved glass curtain wall, through which the gray sky and metal frames can be seen, and several spotlights are mounted above the painting."
+  - id: p_netherlands_014
+    source_ref: netherlands/DSC00141.jpg
+    place: pl_amsterdam
+    captured_at: "2024-07-13T20:57:24"
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "The water and the city pier in the evening: On the left side of the center of the frame, there is a bright pink round-headed small cruise ship parked on the water, with decorative paintings on the side; on the right is the pier area, with a high-rise modern board-type hotel building, in front of the building are low glass buildings and dark buildings with words; in the distance on the left are low shorelines and cranes, on the left side of the sky are thick dark gray rain clouds, and on the right side is the blue sky."
+  - id: p_netherlands_015
+    source_ref: netherlands/DSC00145.jpg
+    place: pl_amsterdam
+    captured_at: "2024-07-13T20:59:01"
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "City waterfront in the evening: On the left is the open water, rippled and reflecting the sky; on the opposite bank is a high-rise modern panel hotel building and the low glass building in front of it, and a white multi-story cruise ship parked further to the left; on the right and lower right is a wide water-friendly platform paved with dark wooden strips, where several people sit on the wooden steps to rest and chat, and in the distance there is a red-brown sloping roof building."
+  - id: p_netherlands_016
+    source_ref: netherlands/DSC00183.jpg
+    place: pl_amsterdam
+    captured_at: "2024-07-13T21:32:42"
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "The platform of an old-fashioned railway station: above is a dark green steel frame and glass canopy, with thick riveted steel columns standing on the platform; in the mid-ground is a row of wooden benches and a metal bus shelter. There are several trolley suitcases on the platform, and a long-haired lady is standing on the left pulling the suitcase; in the background is the brick station facade, with a row of arched doors and windows showing warm yellow light, and passengers waiting on the platform are scattered around."
+  - id: p_netherlands_017
+    source_ref: netherlands/DSC00224.jpg
+    place: pl_zaanseschans
+    captured_at: "2024-07-14T10:19:18"
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "Canal and Windmill Village on a Sunny Day: In the middle of the frame is a wide canal, with dark wooden walls, green and white traditional wooden houses with red tile roofs on both sides; three tall traditional windmills stand on the bank, with white and green towers equipped with four long blades; in the distance, the low fields extend to the horizon, and the sky is blue with large cumulus clouds."
+  - id: p_netherlands_018
+    source_ref: netherlands/DSC00227.jpg
+    place: pl_zaanseschans
+    captured_at: "2024-07-14T10:22:14"
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "Street scene of a wooden house village during the day: On the left is a long row of traditional houses with dark green wooden walls and dark tile roofs. There is a wooden staircase in front of the house; in front of the house is a neat garden with patches of blooming pink, red, and white flowers and pruned shrubs; there are several groups of tourists walking along a paved path. A group of three people in the foreground have their backs to the camera, and there is a large tree with lush branches on the right."
+  - id: p_netherlands_019
+    source_ref: netherlands/DSC00245.jpg
+    place: pl_zaanseschans
+    captured_at: "2024-07-14T10:47:35"
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "Look at several traditional windmills from a low angle: in the front right of the frame is a tall dark brown tower-shaped windmill, with four huge lattice wind blades on the top partially covered with orange-red canvas. At the bottom of the windmill is a house with dark wooden walls and green window frames; there are two windmills of the same shape in the distance on the left; in the foreground are dense and tall green reeds, and the sky is filled with large gray and white clouds."
+  - id: p_netherlands_020
+    source_ref: netherlands/DSC00255.jpg
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "A macro close-up of a plant: in the center of the frame is a wild plant with an umbel-like inflorescence. There are clusters of small white flowers on multiple thin stems. The flowers are composed of many tiny petals. There is a small insect sitting on the top cluster of flowers. The background is blurred green grass and wide leaves, and there are several unopened flower buds and buds at the bottom of the frame."
+  - id: p_netherlands_021
+    source_ref: netherlands/DSC00259.jpg
+    caption: "Amsterdam · July 2024"
+    rhythm_after: base
+    alt_text: "Country pasture during the day: in the middle is a flat green meadow, with three sheep lying on the grass and a few black birds; behind the meadow is a dense green reed belt, and behind the reeds are rows of trees and a house with a dark roof; in front there is a shallow ditch and another grassland, and the sky is blue sky filled with cumulus clouds."
+  - id: p_netherlands_022
+    source_ref: netherlands/DSC00274.jpg
+    place: pl_giethoorn
+    captured_at: "2024-07-14T17:55:57"
+    caption: "Giethoorn · July 2024"
+    rhythm_after: base
+    alt_text: "Next to the village water channel in summer: The upper part is covered by the dense branches of big trees. On the opposite bank is a traditional house with brick walls and a large reed thatch roof. The bank in front of the house is covered with large blooming pink hydrangeas. There are several small wooden boats parked next to the wooden boardwalk on the shore, and there are a few wild ducks on the water. On the right bank, a boy in a green T-shirt stands at the water's edge and leans forward, as if he wants to throw something or feed the ducks."
+  - id: p_netherlands_023
+    source_ref: netherlands/DSC00283.jpg
+    place: pl_giethoorn
+    captured_at: "2024-07-14T18:00:40"
+    caption: "Giethoorn · July 2024"
+    rhythm_after: base
+    alt_text: "Houses on the canal under the sun: On the opposite bank is a traditional house with brick walls and a huge reed thatched roof. In front of the house is a neatly trimmed green lawn. On the left side of the lawn is a large cluster of pink and purple hydrangeas in bloom; the canal bank is reinforced with wooden piles. A wooden flat-bottomed boat is parked on the water in the lower right corner. There are orange-red seats and wooden backrests in the boat."
+  - id: p_netherlands_024
+    source_ref: netherlands/DSC00286.jpg
+    place: pl_giethoorn
+    captured_at: "2024-07-14T18:01:24"
+    caption: "Giethoorn · July 2024"
+    rhythm_after: base
+    alt_text: "Looking from the shade of the trees to a village water channel: on both sides are green lawns and patches of blooming pink and purple hydrangeas. On the opposite bank to the left is a brick house with a large reed and thatch roof. In the water channel, a small light-colored cruise ship carrying several tourists is slowly passing by, with dark stripes on the hull. On the right side of the bank, there are people sitting on benches under the trees and resting on the grass. The leaves form a natural frame frame above the frame."
+  - id: p_netherlands_025
+    source_ref: netherlands/DSC00295.jpg
+    place: pl_giethoorn
+    captured_at: "2024-07-14T18:04:20"
+    caption: "Giethoorn · July 2024"
+    rhythm_after: base
+    alt_text: "Houses by the canal on a sunny day: In the center of the frame is a traditional single-story brick house with a large reed thatched roof and a brick chimney. Black solar panels are lined up on the roof. In front of the house is a flat green lawn, with a long row of blooming pink, purple and white hydrangeas planted along the water bank. A small white wooden bridge crosses the waterway on the right bank. The calm water reflects the scenery on the shore and the blue sky."
+  - id: p_netherlands_026
+    source_ref: netherlands/DSC01111.jpg
+    place: pl_cologne
+    captured_at: "2024-08-14T15:57:15"
+    caption: "Cologne · August 2024"
+    rhythm_after: base
+    alt_text: "A panoramic view of the city from a high place on a cloudy day: in the center of the frame is a huge Gothic cathedral with two dark towering spiers reaching into the sky. The main body of the church is made of dark gray stone. It is surrounded by dense urban buildings and streets. A towering TV tower stands on the right. On the lower right is the curved glass roof of a large train station and an iron bridge across the river. The sky is gray and white."
+  - id: p_netherlands_027
+    source_ref: netherlands/DSC01135.jpg
+    place: pl_cologne
+    captured_at: "2024-08-14T16:30:18"
+    caption: "Cologne · August 2024"
+    rhythm_after: base
+    alt_text: "Riverside landscape on a cloudy day: The right half of the frame is a porous arch bridge with a green steel structure. The bridge body is composed of multiple arch trusses. There are many pedestrians walking on the bridge. The bridge piers are heavy stone structures. In the center of the background is a Gothic twin-tower cathedral, surrounded by green trees and urban buildings. A barge loaded with colorful containers is sailing on the river on the left."
+  - id: p_netherlands_028
+    source_ref: netherlands/DSC01207.jpg
+    caption: "Cologne & The Hague · August 2024"
+    rhythm_after: base
+    alt_text: "A railway station yard under a cloudy sky: above is a criss-crossed network of catenary wires and signal lamp posts; in the middle ground is a long row of green and white trains parked or entering an arc; there are many people waiting on the platform; in the lower left corner a green train with its lights on is approaching; in the foreground are railroad tracks, signal poles and guardrails, and on the lower right wall is a section of colorful graffiti."

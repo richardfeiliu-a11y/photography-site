@@ -1,0 +1,97 @@
+---
+/*
+ * src/components/Lightbox.astro — the immersive viewer: the same room, read
+ * one plate at a time (C direction, 2026-10-18).
+ *
+ * Native <dialog>, installed from a <template>, so there is no dialog, trigger
+ * or extra image transfer without JS. The behavior lives in
+ * src/lib/js/lightbox.ts (hooks, keyboard, swipe, focus restoration and
+ * scroll-lock are unchanged by the reskin).
+ *
+ * Layout: an opaque top bar (serif collection title + mono collection meta on
+ * the left, an outlined mono CLOSE on the right) over a scrolling room whose
+ * content column is the SAME measure as the gallery page's plate column. The
+ * photograph sits on the room field with the soft edge treatment; under it run
+ * the mono caption and the mono plaque line (plate index + capture run).
+ */
+import "../styles/lightbox.css";
+
+export interface LightboxItem {
+  id: string;
+  /** Widest JPEG fallback (single candidate). */
+  src: string;
+  /** Responsive AVIF candidate set (the primary). */
+  avifSrcset?: string;
+  width: number;
+  height: number;
+  alt: string;
+  caption: string | null;
+  camera: string;
+  lens: string;
+  tech: string;
+  index: number;
+}
+
+interface Props {
+  items: LightboxItem[];
+  title: string;
+  /** Collection line for the viewer bar — e.g. "Feb 2025 · 11 photographs".
+   *  Static (build-time), so the bar reads correctly with zero JS work. */
+  collectionMeta: string;
+}
+
+const { items, title, collectionMeta } = Astro.props;
+// Escape "</script" for the JSON island.
+const json = JSON.stringify(items).replace(/</g, "\\u003c");
+---
+
+<template data-lightbox-template>
+  <script is:inline type="application/json" data-lightbox-data set:html={json} />
+  <dialog class="lightbox" data-lightbox aria-label="Photo viewer" data-gallery-title={title}>
+    {/* Opaque bar: the plate scrolls under it, never through it. */}
+    <div class="lb-bar">
+      <div class="lb-bar-id">
+        <h2 class="lb-bar-title" data-lb-title></h2>
+        <p class="lb-bar-meta mono-meta">{collectionMeta}</p>
+      </div>
+      <button type="button" class="lb-close" data-lb-close>Close</button>
+    </div>
+
+    <div class="lb-room" data-lb-stage tabindex="0" aria-label="Photograph sequence">
+      <div class="lb-column">
+        <figure class="lb-figure">
+          <picture>
+            <source type="image/avif" data-lb-avif />
+            <img class="lightbox-img" data-lb-img alt="" />
+          </picture>
+          <p class="lb-caption mono-meta" data-lb-caption></p>
+          {/* Plaque line: plate index + the whole capture run, one mono line.
+              `data-lb-exif`/`data-lb-exif-box` mark the always-visible EXIF
+              surface the e2e contract audits for non-sensitive camera labels. */}
+          <figcaption class="lb-plaque mono-meta" data-lb-exif>
+            <span class="lb-index tnum" data-lb-count></span>
+            <span class="lb-tech tnum" data-lb-tech data-lb-exif-box></span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <button type="button" class="lb-arrow lb-prev" data-lb-prev aria-label="Previous photo">‹</button>
+    <button type="button" class="lb-arrow lb-next" data-lb-next aria-label="Next photo">›</button>
+  </dialog>
+</template>
+
+<script is:inline>
+  (function () {
+    var tpl = document.querySelector("[data-lightbox-template]");
+    if (tpl && tpl.content) {
+      var host = tpl.parentElement;
+      host.insertBefore(tpl.content.cloneNode(true), tpl);
+      tpl.remove();
+    }
+  })();
+</script>
+<script>
+  import { initLightbox } from "../lib/js/lightbox";
+  initLightbox();
+</script>

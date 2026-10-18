@@ -1,0 +1,24 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §4.3 forbidden fields (UD-004)
+# Per-Gallery featured flag: featured state lives ONLY in
+# content/site/home.yaml. Consumed by: tests/unit/gallery-schema.test.ts
+# (WP-09, forbidden-field RED case; is_featured/is_curated/featured all
+# fail identically).
+# =====================================================================
+id: g_bad_forbidden_featured
+slug: invalid-forbidden-featured
+status: published
+title: "Invalid — per-gallery featured flag"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+published_at: "2026-08-29T00:00:00Z"
+places:
+  - pl_lofoten
+cover_photo_id: p_bad_forbidden_featured_001
+is_featured: true
+photos:
+  - id: p_bad_forbidden_featured_001
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

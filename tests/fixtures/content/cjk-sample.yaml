@@ -1,0 +1,29 @@
+# WP-05 Option B demonstration fixture — mixed Latin/CJK authored strings.
+#
+# Test-only data exercising scripts/fonts/subset-poc.mjs (build-derived subset
+# scan). NOT production content; makes no claim about the WP-09/WP-12 schema.
+#
+# Deliberate composition:
+#   - Ordinary GB2312-level hanzi (in the Option A broad static subset).
+#   - 堃 昇 邨 濬 — GBK-only glyphs OUTSIDE GB2312, hence outside the Option A
+#     subset: Option B picks them up from authored content; Option A relies on
+#     the system CJK fallback for them (PERFORMANCE_BUDGET §7.4 trade-off).
+#   - The outside-subset probe char 喆 (tests/e2e/fonts.spec.ts) is
+#     deliberately NOT present here.
+site:
+  id: cjk-sample
+  title: "影像志 Visual Notes"
+  status: published
+  description: "A bilingual demonstration fixture for the CJK subset proof of concept."
+
+galleries:
+  - id: g_cjk_sample
+    title: "昇平街的早晨 — Morning on Shengping Street"
+    place: "葵涌邨 Kwai Chung Estate"
+    captions:
+      - "老面馆的堃字招牌还挂着。"
+      - "濬河边,早市的声音比天亮得更早。"
+    metadata:
+      year: 2025
+      camera: "Leica M6"
+      frames: "12 / 36"

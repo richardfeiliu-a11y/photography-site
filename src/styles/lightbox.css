@@ -1,0 +1,262 @@
+/*
+ * src/styles/lightbox.css — the immersive viewer, "the same room".
+ *
+ * The C direction's rule: the viewer is not another place. It paints the
+ * room's own deep field (--color-lightbox-bg → --ground-deep, per gallery
+ * ambient), and every surface — bar, plate, caption, plaque — is the page's
+ * own language. No graphite mat, no blurred darkroom scrim, no plaque board:
+ * the photograph sits on the room with the soft edge treatment, at the same
+ * plate measure as the gallery column.
+ *
+ * Structure: opaque top bar (never scrolled over) + a scrolling room whose
+ * content column mirrors the page column; arrows overlay the room at the
+ * viewport's vertical center. Buttons keep ≥44px touch targets; the
+ * photograph is never cropped.
+ *
+ * The scrim/blur tokens (--color-lightbox-scrim, --lightbox-blur) are no
+ * longer consumed here: the opaque field replaced the translucent darkroom.
+ */
+
+.lightbox {
+  width: 100vw;
+  width: 100svw;
+  height: 100vh;
+  height: 100svh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  /* The room's deep field, opaque: browser chrome and page never show through. */
+  background: var(--color-lightbox-bg);
+  color: var(--color-lightbox-text);
+  outline: none;
+  overflow: hidden;
+  --lightbox-bar-h: 66px;
+}
+
+/* NOTE: `[open]` is required — an author `display` on the bare .lightbox rule
+   would beat the UA's `dialog:not([open]) { display: none }` and show a closed
+   dialog. */
+.lightbox[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.lightbox::backdrop {
+  background: var(--color-lightbox-bg);
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+/* ---- Top bar: opaque, holds still while the room scrolls ---- */
+.lb-bar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs) var(--space-lg);
+  min-height: var(--lightbox-bar-h);
+  padding: var(--space-xs) clamp(16px, 4vw, 56px);
+  background: var(--color-lightbox-bg);
+  border-bottom: 1px solid var(--color-lightbox-line);
+}
+
+.lb-bar-id {
+  min-width: 0;
+}
+
+.lb-bar-title {
+  margin: 0;
+  font-family: var(--type-display-family);
+  font-size: clamp(1.25rem, 1.4vw + 0.6rem, 1.75rem);
+  font-weight: var(--type-display-weight);
+  line-height: 1.2;
+  color: var(--color-lightbox-text);
+}
+
+.lb-bar-meta {
+  margin: var(--space-2xs) 0 0;
+}
+
+.lb-close {
+  flex: none;
+  min-height: 44px;
+  padding: 10px 22px;
+  border: 1px solid var(--color-lightbox-line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-lightbox-muted);
+  font-family: var(--font-mono-numbers);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-micro) var(--ease-out-editorial),
+    border-color var(--dur-micro) var(--ease-out-editorial),
+    color var(--dur-micro) var(--ease-out-editorial);
+}
+
+.lb-close:hover,
+.lb-close:focus-visible {
+  background: var(--color-lightbox-text);
+  border-color: var(--color-lightbox-text);
+  color: var(--color-lightbox-bg);
+}
+
+/* ---- Room: the one scrolling surface ---- */
+.lb-room {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* The content column mirrors the gallery page: same max measure, same edge
+   inset — so the plate in the viewer is the plate on the page. */
+.lb-column {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: clamp(24px, 4vh, 48px) var(--edge-inset) clamp(64px, 9vh, 104px);
+}
+
+.lb-figure {
+  margin: 0;
+}
+
+.lb-figure picture {
+  display: block;
+}
+
+/* ONE plate measure, exactly as the gallery sequence: the column sets the
+   width, the aspect ratio sets the height. The box hugs the photograph, so
+   the soft edge lands on the picture and never on a letterbox. */
+.lightbox-img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: var(--photo-edge), var(--photo-shadow);
+  opacity: 1;
+  transition: opacity var(--dur-medium) var(--ease-out-editorial);
+}
+
+.lightbox-img.is-fading {
+  opacity: 0;
+}
+
+/* ---- Caption + plaque: mono catalogue lines on the plate's leading edge ---- */
+.lb-caption:not([hidden]) {
+  margin-top: 12px;
+}
+
+.lb-plaque {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2px var(--space-lg);
+  margin-top: 6px;
+}
+
+.lb-index {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.lb-tech {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+/* ---- Arrows: thin, quiet, over the room (never inside the scroller) ---- */
+.lb-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  width: 48px;
+  height: 96px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-lightbox-muted);
+  font-family: var(--font-sans);
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 1;
+  opacity: 0.5;
+  cursor: pointer;
+  transition:
+    opacity var(--dur-micro) var(--ease-out-editorial),
+    color var(--dur-micro) var(--ease-out-editorial);
+}
+
+.lb-arrow:hover,
+.lb-arrow:focus-visible {
+  opacity: 1;
+  color: var(--color-lightbox-text);
+}
+
+.lb-prev {
+  left: clamp(var(--space-sm), 2vw, var(--space-2xl));
+}
+
+.lb-next {
+  right: clamp(var(--space-sm), 2vw, var(--space-2xl));
+}
+
+@media (max-width: 899px) {
+  .lightbox {
+    --lightbox-bar-h: 58px;
+  }
+
+  .lb-bar {
+    padding-inline: var(--edge-inset);
+  }
+
+  .lb-arrow {
+    width: 44px;
+    height: 64px;
+    font-size: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox-img,
+  .lb-arrow,
+  .lb-close {
+    transition: none;
+  }
+}
+
+/* Figure-level open control (installed by JS): transparent overlay over the
+   media slot only — never the figcaption, whose text must stay selectable. */
+.figure-open {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.figure-open:focus-visible {
+  outline: var(--focus-outline-width) solid var(--color-focus);
+  outline-offset: -2px;
+}

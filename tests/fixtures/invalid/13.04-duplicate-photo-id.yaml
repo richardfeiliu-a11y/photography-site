@@ -1,0 +1,39 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 4 (TWO DOCUMENTS)
+# Duplicate Photo ID: photo p_bad_13_04_shared appears in BOTH
+# documents — "two Photos anywhere in the archive share the same id"
+# (the cross-gallery form; the same validator rejects the
+# within-one-gallery form).
+# Consumed by: tests/unit/gallery-schema.test.ts (WP-09);
+# tests/integration/production-validation.test.ts (WP-13).
+# =====================================================================
+id: g_bad_13_04_a
+slug: invalid-dup-photo-a
+status: draft
+title: "Invalid duplicate photo id — A"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+places:
+  - pl_lofoten
+photos:
+  - id: p_bad_13_04_shared
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null
+
+---
+id: g_bad_13_04_b
+slug: invalid-dup-photo-b
+status: draft
+title: "Invalid duplicate photo id — B"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+places:
+  - pl_lofoten
+photos:
+  - id: p_bad_13_04_shared
+    source_ref: lofoten-polar-night/DSC02262.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

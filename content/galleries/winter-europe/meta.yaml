@@ -1,0 +1,115 @@
+id: g_winter_europe
+slug: winter-europe
+status: published
+title: "Rhine, Lowlands and London"
+description: "Cities of the Rhine, the Low Countries and London, photographed between late autumn and early spring."
+photographed_start: "2024-11-17"
+photographed_end: "2025-04-05"
+published_at: "2026-09-12T00:00:00Z"
+places:
+  - pl_dusseldorf
+  - pl_ruhr
+  - pl_wuppertal
+  - pl_nuremberg
+  - pl_rhine_valley
+  - pl_brussels
+  - pl_amsterdam
+  - pl_london
+cover_photo_id: p_winter_europe_015
+next_gallery_id: g_lofoten_polar_night
+photos:
+  - id: p_winter_europe_001
+    source_ref: winter-europe/DSC01927.jpg
+    caption: "Düsseldorf · November 2024"
+    rhythm_after: base
+    alt_text: "Streetside in a residential area in autumn: In the center of the frame is a tree with its crown almost gone but with golden leaves still on its branches; on both sides of the tree are several modern multi-story residential buildings, one with a curved facade and a glass balcony on the left; the ground is covered with yellow leaves, a silver-gray and a black car are parked on the roadside, there are several dark trash cans beside the roadside, and the sky is light blue with white clouds."
+  - id: p_winter_europe_002
+    source_ref: winter-europe/DSC01936.jpg
+    place: pl_dusseldorf
+    captured_at: "2024-12-01T02:54:37"
+    caption: "Düsseldorf · December 2024"
+    rhythm_after: base
+    alt_text: "Christmas market at night: In the center of the frame is a tall carousel-style lighting installation with a red pinwheel-shaped wheel on the top. The lower part is divided into two floors. Each floor is surrounded by green garlands, gold and red lights and puppets. The installation is illuminated with warm lights. Below the installation are market stalls, crowded with tourists wearing winter clothes. The background is dark city buildings, and a shop sign on the lower right is lit with yellow light."
+  - id: p_winter_europe_003
+    source_ref: winter-europe/DSC01943.jpg
+    caption: "Düsseldorf · December 2024"
+    rhythm_after: base
+    alt_text: "A stall at the Christmas market: The wooden stall is filled with dozens of glowing star-shaped paper lanterns in red, white, yellow, green, and gold colors. There are many lighted small house models and Christmas tree-shaped ornaments on the stall. Inside the stall, a bearded man and a long-haired woman are lowering their heads to sort out the goods. Two customers are standing on the right side of the stall looking in."
+  - id: p_winter_europe_004
+    source_ref: winter-europe/DSC01958.jpg
+    place: pl_dusseldorf
+    captured_at: "2024-12-01T03:26:41"
+    caption: "Düsseldorf · December 2024"
+    rhythm_after: base
+    alt_text: "A corner of the night playground: The upper part of the frame is occupied by a huge Ferris wheel. The wheel body is composed of a white steel structure, the skeleton is illuminated by blue and white lights, and multiple square cabins are hung; on the left side of the Ferris wheel is an old-fashioned building with an octagonal tower and a red tile roof; in the foreground are several Christmas market stalls and a few bare trees trimmed into spherical branches, and the sky is dark blue."
+  - id: p_winter_europe_005
+    source_ref: winter-europe/DSC02005.jpg
+    caption: "Ruhr · December 2024"
+    rhythm_after: base
+    alt_text: "The passage between the modern buildings on a sunny day: on both sides are two huge deep brick buildings, with rows of slender glass window strips arranged horizontally on the facades; in the middle is a straight passage paved with dark stone slabs and grass strips leading to a horizontal building in the distance, with bright green lawns on both sides of the passage; at the end of the passage there are several pedestrians walking with their backs to the camera, and the sky is light blue with an airplane cloud."
+  - id: p_winter_europe_006
+    source_ref: winter-europe/DSC02160.jpg
+    caption: "Brussels & Amsterdam & London · January 2025"
+    rhythm_after: base
+    alt_text: "The indoor atrium of a large train station: above is a ceiling covered with strips of grilles and light strips; a square display frame hangs above the center, showing an image of a circular clock that an athlete is climbing; below is a long dark red festive decorative board with white gift patterns and holiday messages; on the left is a glass escalator with many passengers carrying luggage passing by."
+  - id: p_winter_europe_007
+    source_ref: winter-europe/DSC02918.jpg
+    place: pl_wuppertal
+    captured_at: "2025-03-02T16:42:34"
+    caption: "Wuppertal · March 2025"
+    rhythm_after: base
+    alt_text: "Sunny winter city street scene: A green steel structure truss bridge spans the center of the frame, with a reddish-brown bridge deck underneath; behind the bridge is a light gray multi-story building with rows of sunshades hanging under the windows; at the rear right is a green arched steel bridge and pedestrian walkway. Two pedestrians walked under the bridge. There are many traffic signs and a blue and white striped warning pole on the roadside, and the sky is blue."
+  - id: p_winter_europe_008
+    source_ref: winter-europe/DSC02944.jpg
+    place: pl_wuppertal
+    captured_at: "2025-03-02T17:55:38"
+    caption: "Wuppertal · March 2025"
+    rhythm_after: base
+    alt_text: "Under a green steel-framed elevated track bridge: the huge steel frame structure is gathered from the top and sides of the frame to the middle, forming a row of heavy suspended tracks, with a square rail car cabin hanging below the track; under the bridge is a shallow river, with stones and shoals scattered on the riverbed; on both sides are stone retaining walls, bare trees and red brick and white factory-style buildings, with the sun shining slantingly on the steel frame."
+  - id: p_winter_europe_009
+    source_ref: winter-europe/DSC02963.jpg
+    place: pl_nuremberg
+    captured_at: "2025-03-08T12:19:24"
+    caption: "Nuremberg · March 2025"
+    rhythm_after: base
+    alt_text: "The indoor exhibition hall of the Railway Museum: The main body of the frame is an old-fashioned locomotive. The front of the locomotive is black and covered with rivets. The lower skirt is bright red. There are two circular buffers and lights in front of the locomotive. Red wheels and connecting rod structures can be seen on the side of the locomotive. A black information board stands next to the locomotive. On the left is a long exhibition hall passage, with the backs of two visitors in the distance."
+  - id: p_winter_europe_010
+    source_ref: winter-europe/DSC02965.jpg
+    place: pl_nuremberg
+    captured_at: "2025-03-08T12:21:12"
+    caption: "Nuremberg · March 2025"
+    rhythm_after: base
+    alt_text: "A train in the exhibition hall of the Railway Museum: the streamlined front of a modern high-speed train, with a white body and a bright red horizontal strip. The cab has a dark windshield and glass side windows. There is a red sign and two bright lights on the front. The train is parked on a gravel-paved display track. On the left is a long dark reflective ground passage. Other carriages on display can be seen in the distance."
+  - id: p_winter_europe_011
+    source_ref: winter-europe/DSC03039.jpg
+    place: pl_nuremberg
+    captured_at: "2025-03-09T12:48:22"
+    caption: "Nuremberg · March 2025"
+    rhythm_after: base
+    alt_text: "A historical court room: in the front is a dark brown wooden wainscot, with a dark wooden cross hanging in the center above the wall; two crystal chandeliers hang from the ceiling; in front of the wall is a row of high-backed dark seats and a long judge's desk; in the foreground are rows of wooden benches, with two people sitting in the second row facing away from the camera."
+  - id: p_winter_europe_012
+    source_ref: winter-europe/DSC03042.jpg
+    place: pl_nuremberg
+    captured_at: "2025-03-09T12:49:17"
+    caption: "Nuremberg · March 2025"
+    rhythm_after: base
+    alt_text: "A historical court or meeting hall: on the left and directly in front is a dark brown wooden wainscot; a dark wooden cross hangs in the center of the high wall, and two crystal chandeliers hang from the ceiling; in front of the wall is a row of dark seats and a long wooden railing; on the right, a large window with a square window is hung with long dark green curtains, and the sunlight casts square spots of light on the ground."
+  - id: p_winter_europe_013
+    source_ref: winter-europe/DSC03096.jpg
+    place: pl_rhine_valley
+    captured_at: "2025-04-05T12:38:43"
+    caption: "Rhine Valley · April 2025"
+    rhythm_after: base
+    alt_text: "A magnificent stone monument under the clear blue sky: the monument is a semicircular stone building, with a heavy base with arched niches on the lower floor, and a column structure with square openings on the upper floor; a statue of an equestrian figure stands on the top of the monument; there is a large tree with almost bare branches on each side of the monument, and a new green grassland is on the lower left, and the sky is pure dark blue."
+  - id: p_winter_europe_014
+    source_ref: winter-europe/DSC03104.jpg
+    place: pl_rhine_valley
+    captured_at: "2025-04-05T14:17:18"
+    caption: "Rhine Valley · April 2025"
+    rhythm_after: base
+    alt_text: "A panoramic view of the valley peninsula seen from a height: a wide river bends into a huge horseshoe shape in the frame, with a flat peninsula surrounded by the river in the center; on the peninsula are large ridges, vegetable fields, and groves of woods, with a village clustered in the middle, and a church among the densely packed houses with dark pitched roofs; on the other side of the river and in the distance are rolling low hills, and a barge is sailing on the river."
+  - id: p_winter_europe_015
+    source_ref: winter-europe/DSC03106.jpg
+    caption: "Rhine Valley · April 2025"
+    rhythm_after: base
+    alt_text: "A high-angle view of a river valley town: a wide river bends in the middle of the frame, the water surface is grey-blue, and a long barge is sailing in the middle of the river; there are dense town buildings on both sides, mostly multi-story houses with white walls and dark sloped roofs. There is a road and a row of street trees along the river; there is a church with a steeple near the left bank; the background is continuous low hills covered by forests."

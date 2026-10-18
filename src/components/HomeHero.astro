@@ -1,0 +1,233 @@
+---
+/*
+ * src/components/HomeHero.astro — the immersive home cover (C direction).
+ *
+ * Authority: docs/plans/2026-10-18-immersive-direction-production-port.md
+ * (C direction) + experiments/design-lab/variants/audit-c-immersive.html
+ * (the approved reference). The opening is ONE curated journey presented as a
+ * cover screen that fills the first viewport:
+ *   - the field (page ground) comes from the cover's own ambient pair, set by
+ *     Base on the page, NOT here — this component never paints a color;
+ *   - the photograph is shown complete (object-fit: contain), never cropped,
+ *     never matted, never framed: a 1px rim + a wide soft shadow give it its
+ *     edge on the field (--photo-edge / --photo-shadow);
+ *   - the lockup below the plate is the catalogue voice: mono kicker, serif
+ *     display title (the page's only h1 and its one typographic weight), mono
+ *     meta line, one outlined .action, and a mono scroll cue;
+ *   - stage + lockup are ONE native link to the gallery (same accessibility
+ *     contract as the previous cover: the whole plate is the affordance, works
+ *     with JS disabled, and the h1 lives inside it).
+ *
+ * The preload contract (RUNTIME §11.1) is owned by the page: cover.sizes is
+ * handed in verbatim so the LCP preload and the <source sizes> stay
+ * character-identical.
+ */
+import type { ViewGalleryCard } from "../lib/views/types";
+import { formatPhotographedDateLong } from "../lib/presentation/photographed-date";
+
+export interface HeroCover {
+  /** JPEG fallback URL — embed verbatim as `<img src>`. */
+  src: string;
+  /** JPEG `"url w"` srcset — embed verbatim as `<img srcset>`. */
+  srcset: string;
+  /** AVIF `"url w"` srcset for the `<source type="image/avif">` primary. */
+  avifSrcset?: string;
+  /** Layout-honest slot (the page's content column), shared with the preload. */
+  sizes?: string;
+  /** Intrinsic dimensions for the LCP image (CLS prevention). */
+  width?: number;
+  height?: number;
+}
+
+interface Props {
+  card: ViewGalleryCard;
+  cover: HeroCover;
+  /** How many collections the page shows below the cover (scroll cue). */
+  moreCollections: number;
+}
+
+const { card, cover, moreCollections } = Astro.props;
+const placeNames = card.places.map((p) => p.name).join(", ");
+const metaLine = [
+  formatPhotographedDateLong(card.photographedStart),
+  placeNames,
+  `${card.photoCount} ${card.photoCount === 1 ? "photograph" : "photographs"}`,
+]
+  .filter(Boolean)
+  .join(" · ");
+---
+
+<section class="cover" aria-labelledby="cover-title">
+  <a class="cover-link home-cover" href={`/galleries/${card.slug}`}>
+    <span class="cover-stage">
+      <picture>
+        {
+          cover.avifSrcset && (
+            <source type="image/avif" srcset={cover.avifSrcset} sizes={cover.sizes ?? "100vw"} />
+          )
+        }
+        <img
+          class="cover-img home-cover-img"
+          src={cover.src}
+          srcset={cover.srcset}
+          sizes={cover.sizes ?? "100vw"}
+          width={cover.width}
+          height={cover.height}
+          alt=""
+          fetchpriority="high"
+        />
+      </picture>
+    </span>
+
+    <span class="lockup">
+      <span class="lockup-text">
+        <span class="kicker mono-label">Featured collection — No. 01</span>
+        <h1 class="cover-title" id="cover-title">{card.title}</h1>
+        <span class="cover-meta mono-meta">{metaLine}</span>
+      </span>
+      <span class="lockup-actions">
+        <span class="action cover-cta">View collection</span>
+        {
+          /* Wayfinding for the strip below, not link text: the same information
+             is announced by the "More collections" section heading. */
+          moreCollections > 0 && (
+            <span class="scroll-cue" aria-hidden="true">
+              {moreCollections} more {moreCollections === 1 ? "collection" : "collections"} below
+            </span>
+          )
+        }
+      </span>
+    </span>
+  </a>
+</section>
+
+<style>
+  /* One cover screen: the stage takes the rest of the first viewport, the
+     lockup closes it. `min-height` (not height) so a long title or a very
+     short viewport grows the section instead of clipping the lockup; the
+     plain-unit line above the dvh line is the small-viewport fallback. */
+  .cover-link {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    min-height: calc(100vh - var(--bar-h));
+    min-height: calc(100dvh - var(--bar-h));
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* The room around the plate: the photograph is centered in the field with
+     the page's own gutter, never bled to the viewport edge. */
+  .cover-stage {
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(14px, 3.5vh, 40px) var(--edge-inset) clamp(10px, 2vh, 20px);
+  }
+
+  /* The picture is the flex item; `height: 100%` gives it a definite height so
+     the img's percentage max-height resolves against the stage (no crop, no
+     letterboxing: width/height stay auto). */
+  .cover-stage picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    max-height: 100%;
+    height: 100%;
+  }
+
+  .cover-img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    /* The opening plate carries the same edge treatment as every other
+       photograph surface: 1px rim + wide soft shadow on the field. */
+    box-shadow: var(--photo-edge), var(--photo-shadow);
+  }
+
+  .lockup {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-xl);
+    padding: 0 var(--edge-inset) clamp(22px, 4.5vh, 48px);
+  }
+
+  .lockup-text {
+    display: block;
+    min-width: 0;
+  }
+
+  .kicker {
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+
+  .cover-title {
+    margin: 0;
+    max-width: 16ch;
+    overflow-wrap: anywhere;
+    font-family: var(--type-display-family);
+    font-size: var(--type-display-size);
+    font-weight: var(--type-display-weight);
+    line-height: var(--type-display-lh);
+    letter-spacing: var(--type-display-tracking);
+    color: var(--color-text-primary);
+  }
+
+  .cover-meta {
+    display: block;
+    margin-top: var(--space-sm);
+  }
+
+  .lockup-actions {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-md);
+  }
+
+  /* Hovering anywhere on the plate is the same affordance as the CTA, so the
+     outlined action inverts with the cover, not only under its own pointer. */
+  .cover-link:hover .cover-cta,
+  .cover-link:focus-visible .cover-cta {
+    background: var(--color-text-primary);
+    border-color: var(--color-text-primary);
+    color: var(--color-canvas);
+  }
+
+  .scroll-cue {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .scroll-cue::before {
+    content: "";
+    width: 30px;
+    height: 1px;
+    background: var(--color-text-secondary);
+  }
+
+  @media (max-width: 700px) {
+    .lockup {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-lg);
+    }
+
+    .lockup-actions {
+      align-items: flex-start;
+    }
+
+    .scroll-cue::before {
+      width: 22px;
+    }
+  }
+</style>

@@ -1,0 +1,11 @@
+# About colophon (Monograph spec §6.7).
+# Only verifiable minimal content for now. Add approach / gear / contact /
+# portrait when the owner supplies them — the page renders sections
+# conditionally and never fabricates placeholders.
+statement: "Photographs by Richard. A personal archive of places and journeys."
+approach: "Beautiful things don't ask for attention."
+contact:
+  email: "contact@example.com"
+gear:
+  - "Sony A7CR"
+  - "FE 24-70mm F2.8 GM II"

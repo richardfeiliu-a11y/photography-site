@@ -1,0 +1,173 @@
+---
+/*
+ * src/components/ArchiveRow.astro — one row of the immersive archive index
+ * (C direction; reference: experiments/design-lab/variants/
+ * audit-c-immersive.html .arow).
+ *
+ * A flat catalogue row, not a card grid: a hugging thumbnail, the serif title
+ * with its mono meta line (No. 0X · month · place · count), and the mono OPEN
+ * marker, on one hairline-ruled line. The WHOLE row is a single link to the
+ * gallery (the row IS the affordance; the visible title supplies the
+ * accessible name, so no aria-label overrides it) and the row shows a hover
+ * tint — no frame, no shadow kit, no cropped thumbnail.
+ *
+ * The thumbnail keeps the photograph's own ratio (width/height stay auto, so
+ * the edge treatment lands on the picture, not on a letterboxed box).
+ */
+import type { ViewGalleryCard } from "../lib/views/types";
+import { formatPhotographedDateLong } from "../lib/presentation/photographed-date";
+
+interface Props {
+  card: ViewGalleryCard;
+  /** 1-based catalogue position on the page ("No. 01"). */
+  number: number;
+}
+
+const { card, number } = Astro.props;
+const cover = card.cover;
+const placeNames = card.places.map((p) => p.name).join(", ");
+const no = `No. ${String(number).padStart(2, "0")}`;
+const metaLine = [
+  no,
+  formatPhotographedDateLong(card.photographedStart),
+  placeNames,
+  `${card.photoCount} ${card.photoCount === 1 ? "photograph" : "photographs"}`,
+]
+  .filter(Boolean)
+  .join(" · ");
+---
+
+<li class="arow-item">
+  <a class="arow" href={`/galleries/${card.slug}`}>
+    {
+      cover && cover.src !== "" && (
+        <picture>
+          {cover.avifSrcset && (
+            <source type="image/avif" srcset={cover.avifSrcset} sizes="110px" />
+          )}
+          <img
+            class="arow-img"
+            src={cover.src}
+            srcset={cover.srcset}
+            sizes="110px"
+            width={cover.width}
+            height={cover.height}
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+      )
+    }
+    <span class="arow-body">
+      <span class="arow-title">{card.title}</span>
+      <span class="arow-meta mono-meta">{metaLine}</span>
+    </span>
+    <span class="arow-open mono-label" aria-hidden="true">Open</span>
+  </a>
+</li>
+
+<style>
+  .arow-item {
+    list-style: none;
+  }
+
+  .arow {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-lg);
+    padding-block: var(--space-md);
+    border-bottom: 1px solid var(--color-hairline);
+    color: inherit;
+    text-decoration: none;
+    transition: background-color var(--dur-micro) var(--ease-out-editorial);
+  }
+
+  .arow:hover,
+  .arow:focus-visible {
+    background: var(--hover);
+  }
+
+  /* Hug the photograph (auto box) so the edge treatment lands on the picture
+     itself, never on a letterboxed slot. */
+  .arow picture {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 0;
+  }
+
+  .arow-img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 72px;
+    box-shadow: var(--photo-edge), var(--photo-shadow-sm);
+    transition: box-shadow var(--dur-medium) var(--ease-out-editorial);
+  }
+
+  .arow:hover .arow-img,
+  .arow:focus-visible .arow-img {
+    box-shadow: var(--photo-edge), var(--photo-shadow-lift);
+  }
+
+  .arow-body {
+    display: block;
+    min-width: 0;
+  }
+
+  .arow-title {
+    display: block;
+    margin-bottom: var(--space-2xs);
+    font-family: var(--type-h2-family);
+    font-size: clamp(1.25rem, 1.6vw + 0.5rem, 1.75rem);
+    font-weight: var(--type-h2-weight);
+    line-height: 1.2;
+    color: var(--color-text-primary);
+  }
+
+  .arow:hover .arow-title,
+  .arow:focus-visible .arow-title {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+
+  .arow-meta {
+    display: block;
+  }
+
+  .arow-open {
+    color: var(--color-text-secondary);
+  }
+
+  .arow:hover .arow-open,
+  .arow:focus-visible .arow-open {
+    color: var(--color-text-primary);
+  }
+
+  @media (max-width: 700px) {
+    /* Phone: no OPEN marker (the whole row is the link) and a narrower
+       thumbnail track. */
+    .arow {
+      grid-template-columns: 84px minmax(0, 1fr);
+      gap: var(--space-md);
+    }
+
+    .arow-img {
+      max-height: 58px;
+    }
+
+    .arow-open {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .arow,
+    .arow-img {
+      transition: none;
+    }
+  }
+</style>

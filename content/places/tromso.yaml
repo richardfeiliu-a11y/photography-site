@@ -1,0 +1,10 @@
+# =====================================================================
+# WP-08 TEST FIXTURE CORPUS — NOT real site content.
+# Derived from REAL_PHOTO_FIXTURE_MANIFEST.md §4.1 (non-ASCII name "ø"
+# rendering check). ONE PLACE = ONE FILE (CONTENT_MODEL §6).
+# =====================================================================
+id: pl_tromso
+slug: tromso
+name: "Tromsø"
+region: "Troms, Norway"
+country: "Norway"

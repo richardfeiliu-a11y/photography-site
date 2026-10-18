@@ -1,0 +1,23 @@
+# =====================================================================
+# WARNING FIXTURE — CONTENT_MODEL.md §13.2 (warning case 1)
+# Missing cover_photo_id on a DRAFT Gallery: valid shape, loads and
+# passes in preview mode; preview validation emits a WARNING (never an
+# error). If this gallery were published as-is, §13.1 rule 8 fires.
+# Consumed by: tests/unit/gallery-schema.test.ts (WP-09, preview mode);
+# tests/integration/production-validation.test.ts (WP-13, §13.2 pass).
+# =====================================================================
+id: g_bad_warn_cover
+slug: invalid-warn-draft-no-cover
+status: draft
+title: "Warning — draft without cover_photo_id"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+published_at: "2026-08-29T00:00:00Z"
+places:
+  - pl_lofoten
+photos:
+  - id: p_bad_warn_cover_001
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

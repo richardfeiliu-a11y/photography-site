@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eef1f2">
+  <title>Fieldnotes · Richard</title>
+  <link rel="stylesheet" href="/common.css">
+  <style>
+    :root {
+      --paper: #eef1f2;
+      --page: #f8faf9;
+      --ink: #183c4b;
+      --forest: #315648;
+      --muted: #53656d;
+      --rule: #c3ced1;
+      font-family: 'Lab Sans', sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    body { --viewer-bg: var(--paper); --viewer-ink: var(--ink); }
+    button, a, summary { touch-action: manipulation; }
+    button { border: 0; background: none; }
+    a { text-underline-offset: .25em; }
+    button:focus-visible, a:focus-visible, summary:focus-visible {
+      outline: 3px solid var(--forest);
+      outline-offset: 5px;
+    }
+    [hidden] { display: none !important; }
+    h1, h2, h3, p, figure { margin: 0; }
+    h1, h2, h3 { font-family: 'Lab Serif', serif; font-weight: 400; }
+    h1 { font-size: clamp(44px, 5.7vw, 82px); line-height: 1.05; letter-spacing: -.045em; }
+    h2 { font-size: clamp(30px, 3.3vw, 48px); line-height: 1.13; letter-spacing: -.025em; }
+    h3 { font-size: 26px; line-height: 1.2; }
+    p { line-height: 1.65; }
+    .skip { position: absolute; top: -100px; left: 20px; z-index: 5; padding: 12px; background: var(--page); }
+    .skip:focus { top: 12px; }
+    .shell { max-width: 1440px; margin: auto; padding-inline: clamp(22px, 5vw, 76px); }
+    .masthead { display: flex; justify-content: space-between; align-items: center; gap: 28px; padding-block: 28px; }
+    .signature { text-decoration: none; font-family: 'Lab Serif', serif; font-size: 26px; }
+    .signature small { display: block; font-family: 'Lab Sans', sans-serif; font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .navigation { display: flex; flex-wrap: wrap; gap: 8px 26px; }
+    .navigation a { padding-block: 8px; text-decoration: none; border-bottom: 2px solid transparent; }
+    .navigation a[aria-current="page"] { border-color: var(--forest); color: var(--forest); }
+    main { min-height: 70vh; }
+    .opening { display: grid; grid-template-columns: 1.3fr 1fr; gap: 45px; align-items: end; padding-block: 42px 56px; }
+    .opening p { max-width: 35ch; color: var(--muted); font-size: 18px; }
+    .opening .small { margin-top: 18px; font-size: 14px; }
+    .entry { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 76px); align-items: center; margin-bottom: 112px; }
+    .entry:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 1.65fr); }
+    .entry:nth-child(even) .entry-image { order: 2; }
+    .entry:nth-child(even) .entry-notes { order: 1; padding-left: 24px; }
+    .entry-image { width: 100%; padding: 0; text-align: left; }
+    .entry-image img { width: 100%; max-height: 760px; object-fit: contain; }
+    .image-label { display: flex; justify-content: space-between; gap: 16px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+    .entry-notes { max-width: 40ch; padding-block: 22px; }
+    .entry-date { display: block; font-size: 15px; color: var(--forest); margin-bottom: 18px; }
+    .entry-notes h2 { margin-bottom: 22px; }
+    .description { font-family: 'Lab Serif', serif; font-size: 19px; line-height: 1.7; }
+    .entry-places { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-block: 24px; }
+    .entry-places a { font-size: 14px; color: var(--forest); }
+    .text-button { padding: 7px 0; border-bottom: 1px solid var(--ink); text-align: left; }
+    .home-end { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-block: 32px 60px; border-top: 1px solid var(--rule); }
+    .home-end a { display: block; width: fit-content; font-family: 'Lab Serif', serif; font-size: 29px; margin-bottom: 8px; }
+    .home-end p { color: var(--muted); }
+    .archive-layout { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 50px; padding-bottom: 90px; }
+    .year-filter { align-self: start; position: sticky; top: 30px; }
+    .year-filter h2 { font: inherit; margin-bottom: 14px; }
+    .year-filter button { display: block; width: 100%; padding: 10px 12px; text-align: left; border-left: 2px solid transparent; }
+    .year-filter button[aria-pressed="true"] { background: var(--page); border-color: var(--forest); color: var(--forest); }
+    .archive-status { font-size: 14px; color: var(--muted); margin-bottom: 32px; }
+    .year-section { margin-bottom: 54px; }
+    .year-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 18px; border-bottom: 1px solid var(--rule); }
+    .year-heading span { color: var(--muted); font-size: 14px; }
+    .archive-entry { display: grid; grid-template-columns: 104px minmax(0, 1fr) 172px; gap: 24px; padding-block: 30px; border-bottom: 1px solid var(--rule); align-items: start; }
+    .archive-entry time { color: var(--forest); font-size: 14px; padding-top: 6px; }
+    .archive-entry h3 button { padding: 0; text-align: left; font-family: inherit; }
+    .archive-entry p { margin-top: 12px; color: var(--muted); max-width: 52ch; }
+    .archive-entry .entry-places { margin-block: 14px 0; }
+    .archive-photo { padding: 0; width: 100%; }
+    .archive-photo img { width: 100%; height: 130px; object-fit: contain; }
+    .archive-photo span { display: block; font-size: 12px; color: var(--muted); margin-top: 8px; }
+    .places-layout { display: grid; grid-template-columns: minmax(230px, .8fr) minmax(0, 1.8fr); gap: 70px; padding-bottom: 100px; }
+    .place-index { align-self: start; }
+    .place-index button { display: flex; width: 100%; gap: 24px; justify-content: space-between; text-align: left; padding: 18px 12px; border-bottom: 1px solid var(--rule); }
+    .place-index button span:first-child { font-family: 'Lab Serif', serif; font-size: 23px; }
+    .place-index button span:last-child { font-size: 13px; padding-top: 6px; color: var(--muted); }
+    .place-index button[aria-pressed="true"] { color: var(--forest); background: var(--page); border-left: 3px solid var(--forest); }
+    .place-heading { padding: 4px 0 28px; }
+    .place-heading p { margin-top: 14px; color: var(--muted); }
+    .place-note { margin-bottom: 48px; }
+    .place-note > button { display: block; width: 100%; padding: 0; }
+    .place-note img { width: 100%; max-height: 450px; object-fit: contain; }
+    .place-note-text { padding-top: 22px; display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 24px; }
+    .place-note-text time { color: var(--forest); font-size: 14px; }
+    .place-note-text p { color: var(--muted); margin-block: 12px 16px; }
+    .about-layout { display: grid; grid-template-columns: 1.25fr 1fr; gap: 70px; padding-bottom: 100px; }
+    .about-photo img { width: 100%; max-height: 700px; object-fit: contain; }
+    .about-photo figcaption { color: var(--muted); font-size: 14px; margin-top: 14px; }
+    .about-text { padding-block: 20px; }
+    .about-text h2 { margin-bottom: 26px; }
+    .about-text p { font-family: 'Lab Serif', serif; font-size: 20px; margin-bottom: 26px; max-width: 38ch; }
+    .facts { margin-block: 36px; }
+    .facts div { display: flex; justify-content: space-between; gap: 20px; padding-block: 14px; border-bottom: 1px solid var(--rule); }
+    .facts dt { color: var(--muted); }
+    .facts dd { margin: 0; text-align: right; }
+    .footer { display: flex; justify-content: space-between; gap: 24px; padding-block: 25px 34px; border-top: 1px solid var(--rule); font-size: 14px; color: var(--muted); }
+    .footer a { color: var(--ink); }
+    .lab-viewer-bar { border-color: var(--rule); padding: 14px 5vw; }
+    .lab-viewer-title { font-family: 'Lab Serif', serif; font-size: 23px; }
+    .lab-viewer-count { color: var(--muted); }
+    .lab-viewer-bar button { border-color: var(--rule); }
+    .lab-viewer-content { padding: 50px 6vw 90px; }
+    .journal-opening { max-width: 1100px; margin: 0 auto 60px; display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 60px; }
+    .journal-opening h1 { font-size: clamp(40px, 5vw, 72px); }
+    .journal-opening p { font-family: 'Lab Serif', serif; font-size: 20px; margin-top: 26px; max-width: 48ch; }
+    .journal-meta { padding-top: 8px; }
+    .journal-meta dt { color: var(--muted); font-size: 13px; margin-bottom: 5px; }
+    .journal-meta dd { margin: 0 0 24px; line-height: 1.6; }
+    .journal-index { max-width: 1100px; margin: 0 auto 60px; border-block: 1px solid var(--rule); padding-block: 18px; }
+    .journal-index summary { cursor: pointer; color: var(--forest); padding-block: 6px; }
+    .index-photos { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; margin-top: 24px; }
+    .index-photos button { text-align: left; padding: 0; }
+    .index-photos img { width: 100%; height: 100px; object-fit: contain; }
+    .index-photos span { display: block; font-size: 13px; margin-top: 9px; color: var(--muted); }
+    .lab-viewer-sequence { max-width: 1200px; }
+    .lab-viewer-sequence figure { display: grid; grid-template-columns: minmax(0, 1fr) 180px; gap: 38px; align-items: end; margin: 0 0 100px; scroll-margin-top: 100px; }
+    .lab-viewer-sequence figure img { width: 100%; height: auto; max-height: 80vh; object-fit: contain; }
+    .lab-viewer-sequence figcaption { display: block; margin: 0; width: 100%; font-family: 'Lab Serif', serif; font-size: 17px; line-height: 1.6; }
+    .lab-viewer-sequence figcaption span { display: block; font-family: 'Lab Sans', sans-serif; font-size: 13px; color: var(--forest); margin-bottom: 12px; }
+    .lab-viewer-sequence figure:focus { outline: 2px solid var(--forest); outline-offset: 10px; }
+    .journal-end { text-align: center; border-top: 1px solid var(--rule); padding-top: 30px; }
+    .journal-end p { color: var(--muted); margin-bottom: 14px; }
+    @media (max-width: 850px) {
+      .masthead { align-items: start; }
+      .navigation { gap: 4px 16px; }
+      .entry { gap: 28px; margin-bottom: 78px; }
+      .entry:nth-child(even) .entry-notes { padding-left: 0; }
+      .archive-layout { grid-template-columns: 130px minmax(0, 1fr); gap: 24px; }
+      .archive-entry { grid-template-columns: 80px minmax(0, 1fr); gap: 18px; }
+      .archive-photo { grid-column: 2; max-width: 220px; }
+      .places-layout { grid-template-columns: 210px minmax(0, 1fr); gap: 28px; }
+      .about-layout { gap: 35px; }
+      .lab-viewer-sequence figure { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+      .lab-viewer-sequence figcaption { max-width: 650px; margin-inline: auto; }
+      .journal-opening { gap: 30px; }
+    }
+    @media (max-width: 600px) {
+      .masthead { display: block; padding-block: 22px 14px; }
+      .signature small { display: inline; margin-left: 12px; }
+      .navigation { margin-top: 18px; justify-content: space-between; gap: 8px; font-size: 15px; }
+      .opening { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-block: 32px 36px; }
+      .opening p { max-width: 40ch; font-size: 17px; }
+      .entry, .entry:nth-child(even) { grid-template-columns: minmax(0, 1fr); gap: 0; margin-bottom: 58px; }
+      .entry:nth-child(even) .entry-image, .entry:nth-child(even) .entry-notes { order: initial; }
+      .entry-notes { padding-block: 26px 0; }
+      .entry-date { margin-bottom: 12px; }
+      .entry-notes h2 { margin-bottom: 15px; }
+      .description { font-size: 18px; }
+      .home-end { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+      .archive-layout { display: block; }
+      .year-filter { position: static; margin-bottom: 30px; }
+      .year-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+      .year-filter button { width: auto; padding: 8px 12px; }
+      .archive-entry { grid-template-columns: minmax(0, 1fr) 100px; gap: 14px; }
+      .archive-entry time { grid-column: 1 / -1; }
+      .archive-photo { grid-column: 2; grid-row: 2; }
+      .archive-photo img { height: 110px; }
+      .archive-entry h3 { font-size: 24px; }
+      .archive-entry p { font-size: 15px; }
+      .places-layout { display: block; }
+      .place-index { margin-bottom: 38px; }
+      .place-index button { padding-block: 14px; }
+      .place-note-text { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+      .about-layout { display: flex; flex-direction: column; gap: 28px; }
+      .about-text { padding: 0; }
+      .footer { flex-direction: column; gap: 12px; }
+      .lab-viewer-bar { gap: 14px; padding-inline: 22px; }
+      .lab-viewer-title { font-size: 19px; }
+      .lab-viewer-bar button { padding: 8px 12px; }
+      .lab-viewer-content { padding: 35px 22px 60px; }
+      .journal-opening { grid-template-columns: minmax(0, 1fr); gap: 22px; margin-bottom: 30px; }
+      .journal-meta { display: flex; flex-wrap: wrap; gap: 12px 30px; }
+      .journal-meta dd { margin-bottom: 8px; }
+      .index-photos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      .index-photos img { height: 80px; }
+      .lab-viewer-sequence figure { margin-bottom: 60px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+    h1, h2, h3, p, dd, .lab-viewer-title, .image-label, .place-index { overflow-wrap: anywhere; }
+    .opening > *, .entry > *, .archive-entry > *, .about-layout > * { min-width: 0; }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to photographs</a>
+  <header class="masthead shell">
+    <a class="signature" href="#home" data-view="home"><span id="author">Richard</span><small>Photographic fieldnotes</small></a>
+    <nav class="navigation" aria-label="Main navigation">
+      <a href="#home" data-view="home">Fieldnotes</a>
+      <a href="#archive" data-view="archive">Archive</a>
+      <a href="#places" data-view="places">Places</a>
+      <a href="#about" data-view="about">About</a>
+    </nav>
+  </header>
+  <main id="main" class="shell" tabindex="-1">
+    <section data-page="home" aria-labelledby="home-heading">
+      <div class="opening">
+        <h1 id="home-heading">Fieldnotes</h1>
+        <div>
+          <p>Photographs, collected by date and place. A few pages to begin with.</p>
+          <p class="small" id="home-range"></p>
+        </div>
+      </div>
+      <div id="home-entries"></div>
+      <div class="home-end">
+        <div>
+          <a href="#archive" data-view="archive">Read the archive</a>
+          <p>Every published collection, in the order it was photographed.</p>
+        </div>
+        <div>
+          <a href="#places" data-view="places">Browse the place notes</a>
+          <p>Find collections through the places they record.</p>
+        </div>
+      </div>
+    </section>
+    <section data-page="archive" aria-labelledby="archive-heading" hidden>
+      <div class="opening">
+        <h1 id="archive-heading">Archive</h1>
+        <p>A diary in photographs. The shooting date gives each collection its place on these pages.</p>
+      </div>
+      <div class="archive-layout">
+        <aside class="year-filter" aria-label="Filter by photographed year">
+          <h2>Photographed in</h2>
+          <div id="year-buttons" class="year-buttons"></div>
+        </aside>
+        <div>
+          <p id="archive-status" class="archive-status" role="status"></p>
+          <div id="archive-entries"></div>
+        </div>
+      </div>
+    </section>
+    <section data-page="places" aria-labelledby="places-heading" hidden>
+      <div class="opening">
+        <h1 id="places-heading">Places</h1>
+        <p>A directory of the places named in these collections. Choose a place to open its photographic notes.</p>
+      </div>
+      <div class="places-layout">
+        <nav id="place-index" class="place-index" aria-label="Place directory"></nav>
+        <div id="place-detail" aria-live="polite"></div>
+      </div>
+    </section>
+    <section data-page="about" aria-labelledby="about-heading" hidden>
+      <div class="opening"><h1 id="about-heading">About these notes</h1><p>Photography by <span id="about-author">Richard</span>.</p></div>
+      <div id="about-content" class="about-layout"></div>
+    </section>
+  </main>
+  <footer class="footer shell"><p>Photographs by <span id="footer-author">Richard</span></p><p>Fieldnotes <span id="footer-range"></span></p><a href="#home" data-view="home">Return to the first page</a></footer>
+  <script src="/common.js"></script>
+  <script>
+    window.DesignLab.ready.then(data => {
+      const { escape: esc, image } = window.DesignLab;
+      const archive = [...data.archive].sort((a, b) => b.date.localeCompare(a.date) || a.id.localeCompare(b.id));
+      const years = [...new Set(archive.map(gallery => gallery.date.slice(0, 4)))];
+      const places = new Map();
+      archive.forEach(gallery => gallery.places.forEach(place => {
+        if (!places.has(place.id)) places.set(place.id, { ...place, galleries: [] });
+        places.get(place.id).galleries.push(gallery);
+      }));
+      const orderedPlaces = [...places.values()].sort((a, b) => a.title.localeCompare(b.title));
+      const date = value => new Date(value + 'T12:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+      const shortDate = value => new Date(value + 'T12:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' });
+      const placeLinks = gallery => gallery.places.map(place => `<a href="#places/${esc(encodeURIComponent(place.id))}" data-view="places">${esc(place.title)}</a>`).join('');
+      const range = `${archive.at(-1).date.slice(0, 4)}–${archive[0].date.slice(0, 4)}`;
+      let selectedYear = 'all';
+      let selectedPlace = orderedPlaces[0]?.id;
+      ['author', 'about-author', 'footer-author'].forEach(id => { document.getElementById(id).textContent = data.author; });
+      document.title = `Fieldnotes · ${data.author}`;
+      document.getElementById('footer-range').textContent = range;
+      document.getElementById('home-range').textContent = `${data.galleries.length} selected collections from ${range}`;
+      document.getElementById('home-entries').innerHTML = data.galleries.map((gallery, index) => `
+        <article class="entry">
+          <button class="entry-image" data-gallery="${esc(gallery.id)}" aria-label="Open ${esc(gallery.title)}">
+            ${image(gallery.cover, '(max-width: 600px) 90vw, 55vw', index === 0)}
+            <span class="image-label"><span>${esc(gallery.title)}</span><span>${gallery.count} photographs</span></span>
+          </button>
+          <div class="entry-notes"><time class="entry-date" datetime="${esc(gallery.date)}">${date(gallery.date)}</time><h2>${esc(gallery.title)}</h2><p class="description">${esc(gallery.description)}</p><div class="entry-places">${placeLinks(gallery)}</div><button class="text-button" data-gallery="${esc(gallery.id)}">Read this collection</button></div>
+        </article>`).join('');
+      function renderArchive() {
+        const filtered = selectedYear === 'all' ? archive : archive.filter(gallery => gallery.date.startsWith(selectedYear));
+        document.getElementById('year-buttons').innerHTML = ['all', ...years].map(year => `<button data-year="${year}" aria-pressed="${selectedYear === year}">${year === 'all' ? 'All years' : year}</button>`).join('');
+        document.getElementById('archive-status').textContent = `${filtered.length} collections · ${filtered.reduce((total, gallery) => total + gallery.count, 0)} photographs`;
+        document.getElementById('archive-entries').innerHTML = years.filter(year => filtered.some(gallery => gallery.date.startsWith(year))).map(year => {
+          const entries = filtered.filter(gallery => gallery.date.startsWith(year));
+          return `<section class="year-section" aria-label="${year}"><div class="year-heading"><h2>${year}</h2><span>${entries.length} collections</span></div>${entries.map(gallery => `
+            <article class="archive-entry"><time datetime="${esc(gallery.date)}">${shortDate(gallery.date)}</time><div><h3><button data-gallery="${esc(gallery.id)}">${esc(gallery.title)}</button></h3><p>${esc(gallery.description)}</p><div class="entry-places">${placeLinks(gallery)}</div></div><button class="archive-photo" data-gallery="${esc(gallery.id)}" aria-label="Open ${esc(gallery.title)}">${image(gallery.cover, '180px')}<span>${gallery.count} photographs</span></button></article>`).join('')}</section>`;
+        }).join('');
+      }
+      function renderPlace() {
+        const place = places.get(selectedPlace);
+        document.getElementById('place-index').innerHTML = orderedPlaces.map(item => `<button data-place="${esc(item.id)}" aria-pressed="${item.id === selectedPlace}"><span>${esc(item.title)}</span><span>${item.galleries.length} collections</span></button>`).join('');
+        document.getElementById('place-detail').innerHTML = place ? `<div class="place-heading"><h2>${esc(place.title)}</h2><p>${place.galleries.length} collections, ordered by shooting date</p></div>${place.galleries.map(gallery => `<article class="place-note"><button data-gallery="${esc(gallery.id)}" aria-label="Open ${esc(gallery.title)}">${image(gallery.cover, '(max-width: 600px) 90vw, 55vw')}</button><div class="place-note-text"><time datetime="${esc(gallery.date)}">${date(gallery.date)}</time><div><h3>${esc(gallery.title)}</h3><p>${esc(gallery.description)}</p><button class="text-button" data-gallery="${esc(gallery.id)}">Read ${gallery.count} photographs</button></div></div></article>`).join('')}` : '<p>No place notes are available.</p>';
+      }
+      const first = data.galleries[0];
+      document.getElementById('about-content').innerHTML = `<figure class="about-photo">${image(first.cover, '(max-width: 600px) 90vw, 50vw')}<figcaption>${esc(first.title)} · ${date(first.date)}</figcaption></figure><div class="about-text"><h2>${esc(data.author)}</h2><p>These pages gather ${archive.length} published collections and ${archive.reduce((total, gallery) => total + gallery.count, 0)} photographs. Each collection keeps its own description, shooting date and image sequence.</p><p>Read by date in the archive, or follow a place through the collections in which it appears.</p><dl class="facts"><div><dt>Photographed</dt><dd>${range}</dd></div><div><dt>Published collections</dt><dd>${archive.length}</dd></div><div><dt>Places named</dt><dd>${places.size}</dd></div></dl><a href="#archive" data-view="archive">Explore the full archive</a></div>`;
+      window.DesignLab.renderGallery = gallery => `
+        <header class="journal-opening"><div><h1>${esc(gallery.title)}</h1><p>${esc(gallery.description)}</p></div><dl class="journal-meta"><div><dt>Photographed</dt><dd><time datetime="${esc(gallery.date)}">${date(gallery.date)}</time></dd></div><div><dt>Places</dt><dd>${gallery.places.map(place => esc(place.title)).join('<br>')}</dd></div><div><dt>Photographs</dt><dd>${gallery.count}</dd></div></dl></header>
+        <details class="journal-index"><summary>Open the photograph index</summary><div class="index-photos">${gallery.photos.map((photo, index) => `<button data-photo-jump="${index}" aria-label="Go to photograph ${index + 1}: ${esc(photo.alt)}">${image(photo, '160px')}<span>${index + 1} / ${gallery.count}</span></button>`).join('')}</div></details>
+        <div class="lab-viewer-sequence">${gallery.photos.map((photo, index) => `<figure data-photo-id="${esc(photo.id)}" tabindex="-1">${image(photo, '(max-width: 850px) 90vw, 75vw', index === 0)}<figcaption><span>Photograph ${index + 1} / ${gallery.count}</span>${esc(photo.caption || photo.alt)}</figcaption></figure>`).join('')}</div>
+        <footer class="journal-end"><p>End of ${esc(gallery.title)}</p><button class="text-button" data-journal-top>Return to the opening note</button></footer>`;
+      function navigate(moveFocus = false) {
+        const [requested, value] = location.hash.slice(1).split('/');
+        const view = ['home', 'archive', 'places', 'about'].includes(requested) ? requested : 'home';
+        if (view === 'archive') {
+          selectedYear = years.includes(value) ? value : 'all';
+          renderArchive();
+        }
+        if (view === 'places') {
+          let id;
+          try { id = decodeURIComponent(value || ''); } catch { id = ''; }
+          selectedPlace = places.has(id) ? id : orderedPlaces[0]?.id;
+          renderPlace();
+        }
+        document.querySelectorAll('[data-page]').forEach(page => { page.hidden = page.dataset.page !== view; });
+        document.querySelectorAll('.navigation [data-view]').forEach(link => {
+          if (link.dataset.view === view) link.setAttribute('aria-current', 'page');
+          else link.removeAttribute('aria-current');
+        });
+        if (moveFocus) document.getElementById('main').focus({ preventScroll: true });
+      }
+      document.addEventListener('click', event => {
+        const year = event.target.closest('[data-year]');
+        if (year) location.hash = year.dataset.year === 'all' ? 'archive' : `archive/${year.dataset.year}`;
+        const place = event.target.closest('[data-place]');
+        if (place) location.hash = `places/${encodeURIComponent(place.dataset.place)}`;
+        const jump = event.target.closest('[data-photo-jump]');
+        if (jump) {
+          const viewer = jump.closest('.lab-viewer');
+          const figure = viewer.querySelectorAll('.lab-viewer-sequence figure')[Number(jump.dataset.photoJump)];
+          viewer.querySelector('.journal-index').open = false;
+          figure.focus({ preventScroll: true });
+          figure.scrollIntoView({ block: 'start', behavior: 'instant' });
+        }
+        if (event.target.closest('[data-journal-top]')) {
+          const viewer = event.target.closest('.lab-viewer');
+          viewer.scrollTo({ top: 0, behavior: 'instant' });
+          viewer.querySelector('.journal-index summary').focus({ preventScroll: true });
+        }
+      });
+      window.addEventListener('hashchange', () => navigate(true));
+      renderArchive();
+      renderPlace();
+      navigate();
+    });
+  </script>
+</body>
+</html>

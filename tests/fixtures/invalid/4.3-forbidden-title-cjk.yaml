@@ -1,0 +1,24 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §4.3 forbidden fields
+# title_cjk: not part of the canonical schema; CJK rendering is the
+# font system's job (the VALID corpus proves CJK inline in
+# tengwang-pavilion's title and captions). Consumed by:
+# tests/unit/gallery-schema.test.ts (WP-09, forbidden-field RED case).
+# =====================================================================
+id: g_bad_forbidden_title_cjk
+slug: invalid-forbidden-title-cjk
+status: published
+title: "Tengwang Pavilion"
+title_cjk: "滕王阁"
+photographed_start: "2024-11-01"
+photographed_end: "2024-11-05"
+published_at: "2026-08-29T00:00:00Z"
+places:
+  - pl_nanchang
+cover_photo_id: p_bad_forbidden_cjk_001
+photos:
+  - id: p_bad_forbidden_cjk_001
+    source_ref: autumn-china/DSC01429.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

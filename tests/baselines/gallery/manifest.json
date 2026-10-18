@@ -1,0 +1,120 @@
+{
+  "generatedAt": "2026-10-18T02:33:16.810Z",
+  "tool": "tests/capture/capture.mjs (copied by tests/capture/baseline-update.mjs)",
+  "chromiumVersion": "151.0.7922.34",
+  "note": "SHA-256 values are file-integrity metadata inside one controlled baseline workflow only. They are NOT visual-equivalence proof across browsers, operating systems, font rasterizers, or machines (TESTING_AND_VISUAL_REGRESSION.md §8.1).",
+  "captures": [
+    {
+      "state": "gallery-desktop-base",
+      "path": "/galleries/lofoten-polar-night",
+      "group": "gallery",
+      "buildMode": "production",
+      "viewport": "1440x900",
+      "deviceScaleFactor": 1,
+      "fullPage": true,
+      "gates": {
+        "status": 200,
+        "heading": "Lofoten, Polar Night"
+      },
+      "file": "tests/baselines/gallery/gallery-desktop-base/index.png",
+      "bytes": 15075809,
+      "sha256": "8b2ad6ca293d29c5412098c1a694c837587f76f6bf6e2b98a88fe7b3b65680aa"
+    },
+    {
+      "state": "gallery-desktop-breathing",
+      "path": "/galleries/winter-europe",
+      "group": "gallery",
+      "buildMode": "production",
+      "viewport": "1440x900",
+      "deviceScaleFactor": 1,
+      "fullPage": true,
+      "gates": {
+        "status": 200,
+        "heading": "Rhine, Lowlands and London"
+      },
+      "file": "tests/baselines/gallery/gallery-desktop-breathing/index.png",
+      "bytes": 24600096,
+      "sha256": "f538ca93cddaf6600f1c0d8070681cc63f5c24800261e96c0d0bc5995ea84c86"
+    },
+    {
+      "state": "gallery-desktop-ending",
+      "path": "/galleries/autumn-china",
+      "group": "gallery",
+      "buildMode": "production",
+      "viewport": "1440x900",
+      "deviceScaleFactor": 1,
+      "fullPage": true,
+      "gates": {
+        "status": 200,
+        "heading": "Autumn in China"
+      },
+      "file": "tests/baselines/gallery/gallery-desktop-ending/index.png",
+      "bytes": 36909451,
+      "sha256": "c9eeca0367ebba7dbbaa532ccff855f9309c641a91fa3d666d4d3df8cea4dfa9"
+    },
+    {
+      "state": "gallery-desktop-no-next",
+      "path": "/galleries/bavaria-konigssee",
+      "group": "gallery",
+      "buildMode": "production",
+      "viewport": "1440x900",
+      "deviceScaleFactor": 1,
+      "fullPage": true,
+      "gates": {
+        "status": 200,
+        "heading": "Bavaria: Königssee and Neuschwanstein"
+      },
+      "file": "tests/baselines/gallery/gallery-desktop-no-next/index.png",
+      "bytes": 12111688,
+      "sha256": "c479c3a08e5abcb3f827b83fab91f8a4c7042c3f8e1319e12c42a24d1e777c67"
+    },
+    {
+      "state": "gallery-mobile-plate",
+      "path": "/galleries/lofoten-polar-night",
+      "group": "gallery",
+      "buildMode": "production",
+      "viewport": "390x844",
+      "deviceScaleFactor": 1,
+      "fullPage": false,
+      "gates": {
+        "status": 200,
+        "heading": "Lofoten, Polar Night"
+      },
+      "file": "tests/baselines/gallery/gallery-mobile-plate/index.png",
+      "bytes": 249649,
+      "sha256": "835c985166716d4cfa6d8d7d199aa1e08a5107c1a66f09f8e6f237fc929d8bb8"
+    },
+    {
+      "state": "gallery-desktop-landscape",
+      "path": "/galleries/south-china-summer",
+      "group": "gallery",
+      "buildMode": "production",
+      "viewport": "1440x900",
+      "deviceScaleFactor": 1,
+      "fullPage": true,
+      "gates": {
+        "status": 200,
+        "heading": "South China, Summer"
+      },
+      "file": "tests/baselines/gallery/gallery-desktop-landscape/index.png",
+      "bytes": 29003845,
+      "sha256": "59096c3960a4fb38dd01377a538e8fa3f3924b0a5399d31e7d86e74cb531ce74"
+    },
+    {
+      "state": "gallery-desktop-portrait",
+      "path": "/galleries/iceland",
+      "group": "gallery",
+      "buildMode": "production",
+      "viewport": "1440x900",
+      "deviceScaleFactor": 1,
+      "fullPage": true,
+      "gates": {
+        "status": 200,
+        "heading": "Iceland"
+      },
+      "file": "tests/baselines/gallery/gallery-desktop-portrait/index.png",
+      "bytes": 21063304,
+      "sha256": "50ae0a5948f2ba0ff23353f5d074ca550f75df1b311bdc115e093605b9364692"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 3 (TWO DOCUMENTS)
+# Duplicate Gallery slug: two different Gallery IDs share slug
+# invalid-dup-slug — the data-level duplicate that produces two
+# indistinguishable /galleries/invalid-dup-slug routes.
+# Expected: cross-item validation rejects the second occurrence.
+# Consumed by: tests/unit/gallery-schema.test.ts (WP-09);
+# tests/integration/production-validation.test.ts (WP-13).
+# =====================================================================
+id: g_bad_13_03_a
+slug: invalid-dup-slug
+status: draft
+title: "Invalid duplicate gallery slug — A"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+places:
+  - pl_lofoten
+photos:
+  - id: p_bad_13_03_a
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null
+
+---
+id: g_bad_13_03_b
+slug: invalid-dup-slug
+status: draft
+title: "Invalid duplicate gallery slug — B"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+places:
+  - pl_lofoten
+photos:
+  - id: p_bad_13_03_b
+    source_ref: lofoten-polar-night/DSC02262.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Viewfinder mark: four focus corners + a central aperture dot.
+       Adapts to light/dark via prefers-color-scheme. -->
+  <g stroke="#181816" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 12 V7 a1 1 0 0 1 1 -1 H12" />
+    <path d="M20 6 H25 a1 1 0 0 1 1 1 V12" />
+    <path d="M6 20 V25 a1 1 0 0 0 1 1 H12" />
+    <path d="M20 26 H25 a1 1 0 0 0 1 -1 V20" />
+    <circle cx="16" cy="16" r="3.2" />
+  </g>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      g { stroke: #edece8; }
+    }
+  </style>
+</svg>

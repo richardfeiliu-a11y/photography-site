@@ -1,0 +1,115 @@
+id: g_south_china_summer
+slug: south-china-summer
+status: published
+title: "South China, Summer"
+description: "Nanjing, Zhangjiajie, Liuzhou and Hong Kong in the heat of August."
+photographed_start: "2025-08-12"
+photographed_end: "2025-08-25"
+published_at: "2026-09-12T00:00:00Z"
+places:
+  - pl_nanjing
+  - pl_zhangjiajie
+  - pl_liuzhou
+  - pl_hong_kong
+cover_photo_id: p_south_china_summer_002
+next_gallery_id: g_kota_kinabalu
+photos:
+  - id: p_south_china_summer_001
+    source_ref: south-china-summer/DSC03355.jpg
+    place: pl_nanjing
+    captured_at: "2025-08-12T06:56:28"
+    caption: "Nanjing · August 2025"
+    rhythm_after: base
+    alt_text: "Part of a large public building on a cloudy day: several large golden characters are arranged horizontally above the light gray stone facade to the right of the center, and the facade is decorated with stone lines and columns; a thick tree trunk with mottled bark and dense leaves extends from the left side of the foreground, almost covering the left third of the frame; on the right is a thick white column; the sky is gray."
+  - id: p_south_china_summer_002
+    place: pl_nanjing   # owner-approved 2026-09-15 (local review)
+    source_ref: south-china-summer/DSC03369.jpg
+    caption: "Nanjing · August 2025"
+    rhythm_after: base
+    alt_text: "A city street under the green shade of summer: there are rows of tall plane trees on both sides, and the dense branches and leaves gather together to form a green tunnel above the street; the road is an asphalt road with a solid yellow line and a white dotted line in the middle. There are several people riding electric scooters and bicycles on the road, and one person is riding a blue bicycle in the front right; there are also pedestrians on the sidewalk on the left, and the light shines through the leaves and casts mottled light and shadow."
+  - id: p_south_china_summer_003
+    source_ref: south-china-summer/DSC03392.jpg
+    caption: "Nanjing · August 2025"
+    rhythm_after: base
+    alt_text: "Inside a dense summer broad-leaved forest: numerous straight and slender dark tree trunks extend from the bottom of the frame to the top. The branches and leaves form a dense green crown above the head. Sunlight penetrates through the gaps in the tree crown and shines on the tree trunks and forest floor. There is a dark green broad-leaved shrub in the foreground at the bottom of the frame. The understory is relatively dark, and no direct light from the sky can be seen."
+  - id: p_south_china_summer_004
+    source_ref: south-china-summer/DSC03393.jpg
+    place: pl_nanjing
+    captured_at: "2025-08-12T11:12:37"
+    caption: "Nanjing · August 2025"
+    rhythm_after: base
+    alt_text: "A large light gray stone monumental building is located in front of a green forest: the monument is rectangular, with a crest on the top and rows of carved decorations, and several vertical grooves on the surface; there are many white birds on the top and sides of the monument; there are dozens of tourists in summer clothes gathered on the platform in front of the monument, and some are taking a group photo; below the frame are neatly trimmed hedges and stone walls."
+  - id: p_south_china_summer_005
+    place: pl_zhangjiajie
+    source_ref: south-china-summer/DSC03436.jpg
+    caption: "Zhangjiajie · August 2025"
+    rhythm_after: base
+    alt_text: "A high-angle view of a mountainous canyon: several red cable cars are suspended on cableways, traversing high altitude along one side of the canyon, arranged diagonally in the frame; below are steep ridges and valleys covered with dense green forests, on the lower right is a winding road, a large parking lot and villages at the foot of the mountain, and in the distance are open plains and towns."
+  - id: p_south_china_summer_006
+    source_ref: south-china-summer/DSC03439.jpg
+    place: pl_zhangjiajie
+    captured_at: "2025-08-15T05:40:14"
+    caption: "Zhangjiajie · August 2025"
+    rhythm_after: base
+    alt_text: "A panoramic view of the mountainous area from the top of the mountain: the frame is dotted with pinnacles covered by dark green vegetation, and a winding mountain road winds down the mountain with dense switchbacks; rows of cable car cableways and a group of buildings in the valley can be seen in the remote position on the lower left, and in the distance are cities and foggy outlines on the plain; the tops of several peaks in the close view are exposed rock pillars."
+  - id: p_south_china_summer_007
+    source_ref: south-china-summer/DSC03456.jpg
+    place: pl_zhangjiajie
+    captured_at: "2025-08-15T06:03:00"
+    caption: "Zhangjiajie · August 2025"
+    rhythm_after: base
+    alt_text: "A natural mountain cave landscape: there is a large oval hole in the center of the huge mountain, with a bright white sky revealing the entrance, surrounded by dense white clouds; there is a steep and extremely long stone staircase from the foot of the mountain leading directly to the entrance of the cave, and the steps are densely packed with tourists climbing up; both sides of the mountain are covered with dense green vegetation, and a thin white waterfall flows down the left side."
+  - id: p_south_china_summer_008
+    place: pl_zhangjiajie   # owner-approved 2026-09-15 (local review)
+    source_ref: south-china-summer/DSC03467.jpg
+    caption: "Zhangjiajie · August 2025"
+    rhythm_after: base
+    alt_text: "A group of stone pillar-like peaks under a clear blue sky: Three towering, almost vertical stone pillar-like mountains stand on the right side of the center of the frame. The rock walls are grey-brown and the surface is covered with longitudinal textures. Green trees grow between the tops and gaps of the stone pillars. They are surrounded by dark green forest slopes. The sky is blue, with large white fluffy cumulus clouds floating in the air."
+  - id: p_south_china_summer_009
+    source_ref: south-china-summer/DSC03518.jpg
+    place: pl_zhangjiajie
+    captured_at: "2025-08-16T08:55:20"
+    caption: "Zhangjiajie · August 2025"
+    rhythm_after: base
+    alt_text: "Panoramic view of the peak forest from a high place: countless densely packed quartz sandstone pillars rise from the deep valley. The pillars are grey-brown, with vertical grooves and weathering marks on the surface. Green trees grow in the gaps between the pillar tops and the pillar bodies. The mountains in the distance extend to the horizon in layers. The tops of the mountains are flat and the slopes are covered with forests. There are thick clouds in the sky, revealing a few patches of blue sky. The foreground at the bottom of the frame is a dark green tree crown."
+  - id: p_south_china_summer_010
+    source_ref: south-china-summer/DSC03546.jpg
+    place: pl_zhangjiajie
+    captured_at: "2025-08-16T09:53:40"
+    caption: "Zhangjiajie · August 2025"
+    rhythm_after: base
+    alt_text: "Looking up at a multi-story Chinese-style wooden pavilion: the pavilion is mainly bright red, with multiple overlapping eaves that retract upwards, and the ends of the eaves are raised. There are red railings and columns on each floor, and the bracket structure can be seen under the eaves; a dark blue background with gold letters hangs on the front of the pavilion; there is a gray-white stone guardrail on the left side of the foreground, and leaves extend into the upper right corner of the frame; the sky is blue, with large white clouds floating."
+  - id: p_south_china_summer_011
+    place: pl_liuzhou   # owner-approved 2026-09-15 (local review)
+    source_ref: south-china-summer/DSC03559.jpg
+    caption: "Liuzhou · August 2025"
+    rhythm_after: base
+    alt_text: "The atrium of an indoor commercial street: hundreds of painted paper umbrellas in red, pink, blue, white and other colors are hung in the space, densely covering the top of the entire frame; the background is an antique Chinese-style building, with gray tile sloping roofs, dark wooden grille doors and windows, second-story wooden railings and several red lanterns; there is a dark plaque with golden Chinese characters in the middle of the lower part of the frame, and underneath it is a circular light-emitting device."
+  - id: p_south_china_summer_012
+    source_ref: south-china-summer/DSC03664.jpg
+    place: pl_hong_kong
+    captured_at: "2025-08-25T12:05:10"
+    caption: "Hong Kong · August 2025"
+    rhythm_after: base
+    alt_text: "A panoramic view of a port city viewed from a high place under a cloudy sky: in the middle of the frame is a wide harbor with several ships on the sea; near the shore is a large area of ​​extremely dense high-rise buildings, with a high-rise building with an obvious cross-steel frame pattern in the middle of the glass curtain wall building group; on the other side there are also high-rise buildings and neat buildings, behind it is a continuous green mountain range, and the sky is thick with clouds."
+  - id: p_south_china_summer_013
+    source_ref: south-china-summer/DSC03688.jpg
+    place: pl_hong_kong
+    captured_at: "2025-08-25T14:19:59"
+    caption: "Hong Kong · August 2025"
+    rhythm_after: base
+    alt_text: "The harbor city skyline at night: dense skyscrapers are lit up in the night, mostly with white and warm yellow window lights. Several buildings have pink, blue, and green colored lights. In the middle right of the frame, there is a super high-rise cylindrical building that is illuminated as a whole; behind the buildings are dark mountain shadows, and there is a Ferris wheel with colored lights nearby; in front of the broad sea reflected the colored lights of the city."
+  - id: p_south_china_summer_014
+    source_ref: south-china-summer/DSC03689.jpg
+    place: pl_hong_kong
+    captured_at: "2025-08-25T14:20:44"
+    caption: "Hong Kong · August 2025"
+    rhythm_after: base
+    alt_text: "The night view of the harbor, the composition is slightly wider: the high-rise buildings on both sides of the strait are brightly lit in the night, the super-tall cylindrical building on the right is particularly eye-catching, and there is a high-rise building with an obvious cross steel frame pattern on the left; behind the buildings on the other side is the dark outline of the mountain, with a Ferris wheel with colored lights in the middle in front of the buildings; there are several cruise ships lying across the sea, and the water is full of colorful light reflections."
+  - id: p_south_china_summer_015
+    source_ref: south-china-summer/DSC03693.jpg
+    place: pl_hong_kong
+    captured_at: "2025-08-25T14:23:25"
+    caption: "Hong Kong · August 2025"
+    rhythm_after: base
+    alt_text: "Another angle of the same harbor under the night scene: a traditional Chinese sailing ship is sailing on the water, with two orange-red sails illuminated by lights; in the background is a group of modern skyscrapers full of lights, with a tall cylindrical building to the left of the center, and a Ferris wheel with colored lights can be seen in the middle; the water in the foreground is full of ripples, reflecting orange-red and purple lights."

@@ -1,0 +1,247 @@
+/*
+ * src/styles/global.css — WP-04 global styling foundation.
+ *
+ * Scope: base reset, canvas/text defaults, the frozen focus contract
+ * (FINAL_DESIGN_SPECIFICATION §5.2 / RUNTIME_AND_PROGRESSIVE_ENHANCEMENT
+ * §8.1–8.2), skip-link styles, CJK line-height rule (§2.2), and the
+ * tabular-numerals utility (§2.2). No page layouts — pages arrive in P4.
+ * All values come from src/styles/tokens.css; this file never hardcodes a
+ * color (enforced by tests/unit/design-tokens.test.ts).
+ */
+
+/* ---- Base reset ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Reserve scrollbar space so overlay openings (Overview/Lightbox) do not
+   * shift layout — gate-passed Stage 3C prototype behavior. */
+  scrollbar-gutter: stable;
+  /* The room's field also paints above and below the document, so rubber-band
+     overscroll never flashes a different colour than the page. */
+  background: var(--color-canvas);
+}
+
+/* Theme switching is a variable swap: surfaces settle, nothing moves.
+   --dur-medium is zeroed under prefers-reduced-motion (tokens.css). */
+html,
+body,
+header,
+footer,
+main,
+section {
+  transition:
+    background-color var(--dur-medium) var(--ease-out-editorial),
+    color var(--dur-medium) var(--ease-out-editorial),
+    border-color var(--dur-medium) var(--ease-out-editorial);
+}
+
+body {
+  margin: 0;
+  /* §2.1: Canvas is the default page surface; primary text on top. */
+  background: var(--color-canvas);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  /* Body role magnitudes use the frozen range endpoints (§2.2); a page may
+   * compose any magnitude within --type-body-size-min/max (P4 decision). */
+  font-size: var(--type-body-size-min);
+  font-weight: var(--type-body-weight);
+  line-height: var(--type-body-lh-min);
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+/* §2.1: Raised doubles as the photo backing while images decode. */
+img {
+  background: var(--color-surface-raised);
+}
+
+/* Monograph §7.4 — artwork is never rounded (photographs map to physical
+ * paper). The 3-4px radius allowance belongs to buttons/chips/dialogs only. */
+img {
+  border-radius: 0;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+/* §2.2 typography rules → redesign spec §4: CJK body/captions keep lh 1.75;
+ * Chinese HEADINGS use the real Noto Sans SC 400 weight, lh 1.4, tracking 0
+ * (no synthetic 500/600 bolding of CJK titles). Pages tag CJK content with
+ * lang="zh". */
+:lang(zh) {
+  line-height: var(--line-height-cjk);
+}
+
+:lang(zh) :is(h1, h2, h3, .card-title) {
+  line-height: 1.4;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* ---- Visible focus contract (§5.2, RUNTIME §8.1) — FROZEN ---- */
+/* 2px solid focus-accent outline with 3px offset on all focusable elements,
+ * applied via :focus-visible (keyboard focus indication). The focus accent is
+ * functional only; this contract is its single permitted consumer. */
+:focus-visible {
+  outline: var(--focus-outline-width) solid var(--color-focus);
+  outline-offset: var(--focus-outline-offset);
+}
+
+/* Programmatic skip target (§5.2): the ring is suppressed on the <main>
+ * skip-link destination, which is focused programmatically, not read. */
+main:focus {
+  outline: none;
+}
+
+/* ---- Skip link (RUNTIME §8.2) ---- */
+/* Visually hidden until focused; works as native HTML with JS disabled. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  /* Raised backing, primary text (§2.1 usage policy). Offsets/padding use
+   * frozen spacing steps (S=8, M=16) — gate-passed prototype geometry. */
+  background: var(--color-surface-raised);
+  color: var(--color-text-primary);
+  padding: var(--space-xs) var(--space-md);
+}
+
+.skip-link:focus {
+  left: var(--space-xs);
+  top: var(--space-xs);
+}
+
+/* ---- Tabular numerals utility (§2.2) ---- */
+/* "Tabular numerals for years, dates, n / total, no exceptions." Apply .tnum
+ * to any element rendering counts, dates, or position annotations. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Small-viewport units (svh) availability note — P4 contract ----
+ * The support matrix floor is Safari ≥ 14, but svh/lvh/dvh units only ship
+ * from Safari 15.4. WP-04 uses no viewport units. When P4 hero work (Gallery
+ * hero, §3.1) first uses svh, it MUST keep a plain-unit fallback on the line
+ * immediately BEFORE the svh line (later declaration wins where svh parses,
+ * early Safari drops the svh line and keeps the fallback), e.g. a max-height
+ * declared twice: first "75vh", then "75svh".
+ * -------------------------------------------------------------------- */
+
+/* ---- One-shot entrance reveals (Monograph §2.8/§7.5) ----
+ * Content is VISIBLE by default; JS adds .reveal-pending, and the first
+ * viewport intersection swaps in .is-in for a single quiet fade-up. No JS,
+ * IntersectionObserver absence, or prefers-reduced-motion ⇒ fully visible
+ * static content (anchors, print, and script failures never leave blanks).
+ *
+ * The pending state is scoped to `html.js` (set by the same inline bootstrap
+ * that installs the reveals). Without it a stylesheet-only render — a print
+ * engine, a headless snapshot, a page whose module never executed — can never
+ * hide a card behind an opacity the script is no longer alive to lift. */
+.reveal-pending {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity var(--dur-medium) var(--ease-out-editorial),
+    transform var(--dur-medium) var(--ease-out-editorial);
+}
+
+/* Static/no-script default: the class is inert without the JS bootstrap. */
+html:not(.js) .reveal-pending {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.reveal-pending[data-reveal="hero"] {
+  transform: translateY(16px);
+  transition:
+    opacity var(--dur-major) var(--ease-out-editorial),
+    transform var(--dur-major) var(--ease-out-editorial);
+}
+
+.reveal-pending.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Print: a sheet has no scroll, so nothing can ever fire the observer.
+   Assert visibility unconditionally — the reveal is a screen-only flourish. */
+@media print {
+  .reveal-pending {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-pending {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ============================================================
+ * Immersive direction primitives (2026-10-18 port).
+ * ============================================================ */
+
+/* Outlined action: the single button shape for entry/exit links
+ * (cover CTA, colophon, archive exit). Hairline rectangle that inverts to
+ * the room's ink on hover/focus — never a filled brand button. */
+.action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 10px 26px;
+  border: 1px solid var(--color-hairline);
+  color: var(--color-text-primary);
+  font-size: 0.9375rem;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+}
+
+.action:hover,
+.action:focus-visible {
+  background: var(--color-text-primary);
+  border-color: var(--color-text-primary);
+  color: var(--color-canvas);
+}
+
+/* Mono label: every piece of catalogue information (equipment, contact,
+   counts, section wayfinding) speaks in this voice. */
+.mono-label {
+  font-family: var(--font-mono-numbers);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* Mono meta line: dates, places, counts inside lockups and captions. */
+.mono-meta {
+  font-family: var(--font-mono-numbers);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}

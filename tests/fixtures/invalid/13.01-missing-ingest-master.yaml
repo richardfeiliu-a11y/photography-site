@@ -1,0 +1,25 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 1
+# Missing WEB INGEST MASTER: this Photo's source_ref does not resolve
+# to any file under media/ingest-masters/ (no ghost-gallery/ dir exists).
+# Expected: production validation fails naming gallery g_bad_13_01,
+# photo p_bad_13_01_001, field source_ref, rule 13.1#1.
+# Consumed by: tests/integration/production-validation.test.ts (WP-13);
+# tests/unit/gallery-schema.test.ts (WP-09, source_ref shape only).
+# =====================================================================
+id: g_bad_13_01
+slug: invalid-missing-master
+status: published
+title: "Invalid — missing ingest master"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+published_at: "2026-08-29T00:00:00Z"
+places:
+  - pl_lofoten
+cover_photo_id: p_bad_13_01_001
+photos:
+  - id: p_bad_13_01_001
+    source_ref: ghost-gallery/DSC00000.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

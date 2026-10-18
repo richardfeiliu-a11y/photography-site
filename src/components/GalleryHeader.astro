@@ -1,0 +1,90 @@
+---
+/*
+ * src/components/GalleryHeader.astro — the immersive Gallery header.
+ *
+ * C direction (2026-10-18): the collection opens with a quiet mono return
+ * link, a serif display title, a mono meta line (photographed date · place),
+ * and the authored description in the reading measure. The Contact Sheet
+ * trigger and its template installer were pruned with the Overview layer
+ * (owner decision) — the header now ends its own content order.
+ *
+ * Frozen references: FDS §3.1 content order (Back to {origin} → Gallery title
+ * serif Display → photographed date/range · Place(s) → [optional description]);
+ * RUNTIME §10.2 (reading column, leading-edge aligned with captions, NOT
+ * sticky); §5.5 (the title is the page's only h1); §2.2 (metadata numerals
+ * tabular).
+ *
+ * data-* hooks are the e2e assertion surface.
+ */
+import type { GalleryHeaderData } from "../lib/views/gallery";
+import { formatPhotographedDateLong } from "../lib/presentation/photographed-date";
+
+interface Props {
+  header: GalleryHeaderData;
+  /** Back-to-origin target (WP-33 contract: the safe static fallback). */
+  originHref: string;
+  originLabel?: string;
+  /** Page-level placement class (R4 T2: the gallery page's grid column). */
+  class?: string;
+}
+
+const { header, originHref, originLabel = "Back to Journeys", class: className } = Astro.props;
+---
+
+<header class:list={["gallery-header", className]}>
+  <a class="back-to-origin mono-label" href={originHref}>{originLabel}</a>
+  <h1 class="gallery-title">{header.title}</h1>
+  <p class="gallery-meta mono-meta" data-gallery-meta>
+    <span class="tnum">
+      {formatPhotographedDateLong(header.photographedStart, header.photographedEnd)}
+    </span>
+    {header.places.map((p) => <span> · {p.name}</span>)}
+  </p>
+  {
+    header.description && (
+      <p class="gallery-description" data-gallery-description>
+        {header.description}
+      </p>
+    )
+  }
+</header>
+
+<style>
+  .gallery-header {
+    max-width: var(--reading-max);
+  }
+
+  /* The return link stays a link (underline affordance) but speaks in the
+     catalogue voice and keeps out of the title's way. */
+  .back-to-origin {
+    display: inline-block;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .back-to-origin:hover {
+    color: var(--color-text-primary);
+  }
+
+  .gallery-title {
+    margin: var(--space-md) 0 0;
+    font-family: var(--type-display-family);
+    font-size: var(--type-display-size);
+    font-weight: var(--type-display-weight);
+    line-height: var(--type-display-lh);
+    letter-spacing: var(--type-display-tracking);
+    color: var(--color-text-primary);
+  }
+
+  .gallery-meta {
+    margin: var(--space-sm) 0 0;
+  }
+
+  .gallery-description {
+    margin: var(--space-lg) 0 0;
+    font-family: var(--type-body-family);
+    font-size: var(--type-body-size-min);
+    line-height: var(--type-body-lh-min);
+    color: var(--color-text-secondary);
+  }
+</style>

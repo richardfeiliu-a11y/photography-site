@@ -1,0 +1,221 @@
+---
+/*
+ * src/pages/about.astro — the colophon, re-skinned (immersive direction).
+ *
+ * Reference: experiments/design-lab/variants/audit-c-immersive.html (.about-*).
+ * Every block is conditional on content/site/about.yaml; the page never
+ * invents contact details, gear, or a portrait.
+ *
+ * Voice: the statement is the page's one large sans paragraph; the approach
+ * is the room's quotation (serif, at display scale) with its attribution as a
+ * mono line; equipment and contact are catalogue columns under mono labels.
+ * The previous "Gear & Craft" / "Copyright & Contact" serif section headings
+ * are gone — the labels replace them.
+ */
+import Base from "../layouts/Base.astro";
+import SeoHead from "../components/SeoHead.astro";
+import { aboutMeta } from "../lib/seo/meta";
+import { loadAboutSettings } from "../lib/content/about";
+import { repoRoot } from "../lib/pages/archive-data";
+
+const { settings } = loadAboutSettings(repoRoot());
+
+const gear = settings.gear ?? [];
+const email = settings.contact?.email ?? null;
+const url = settings.contact?.url ?? null;
+
+// The approach is a quotation when it carries its attribution:
+// "<quote> — <who said it>". Without the separator it is only the line.
+const [quote, attribution] = settings.approach
+  ? String(settings.approach).split(/\s+—\s+/)
+  : [null, null];
+---
+
+<Base title="About">
+  <Fragment slot="head">
+    <SeoHead meta={aboutMeta()} />
+  </Fragment>
+
+  <div class="about-page">
+    <header class="about-head">
+      <h1 class="about-title">About</h1>
+    </header>
+
+    <div class="about-grid">
+      {
+        settings.portrait && (
+          <figure class="about-portrait">
+            {/* No intrinsic dimensions are authored for the portrait, so none
+                are invented here. */}
+            <img
+              src={settings.portrait.src}
+              alt={settings.portrait.alt}
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        )
+      }
+
+      <div class="about-body">
+        {
+          settings.statement && (
+            <p class="about-statement">
+              {settings.statement}
+            </p>
+          )
+        }
+
+        {
+          quote && (
+            <blockquote class="about-quote">
+              <p class="about-quote-text">{quote}</p>
+              {attribution && <cite class="about-quote-cite mono-label">— {attribution}</cite>}
+            </blockquote>
+          )
+        }
+
+        {
+          (gear.length > 0 || email || url) && (
+            <div class="about-meta">
+              {gear.length > 0 && (
+                <div class="about-meta-col">
+                  <p class="about-label mono-label">Equipment</p>
+                  <ul class="about-gear">
+                    {gear.map((item) => <li>{item}</li>)}
+                  </ul>
+                </div>
+              )}
+              {(email || url) && (
+                <div class="about-meta-col">
+                  <p class="about-label mono-label">Contact</p>
+                  <ul class="about-contact">
+                    {email && (
+                      <li><a href={`mailto:${email}`}>{email}</a></li>
+                    )}
+                    {url && <li><a href={url} rel="me">{url}</a></li>}
+                  </ul>
+                </div>
+              )}
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .about-page {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-inline: var(--edge-inset);
+    padding-bottom: var(--space-6xl);
+  }
+
+  .about-head {
+    padding-block: var(--space-2xl) var(--space-lg);
+  }
+
+  .about-title {
+    margin: 0;
+    font-family: var(--type-h1-family);
+    font-size: var(--type-h1-size);
+    font-weight: var(--type-h1-weight);
+    line-height: var(--type-h1-lh);
+    letter-spacing: var(--type-h1-tracking);
+    color: var(--color-text-primary);
+  }
+
+  /* Portrait column when the owner supplies one; the body keeps the reading
+     measure on its own otherwise (no empty column is ever rendered). */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3xl);
+  }
+
+  @media (min-width: 1024px) {
+    .about-grid:has(.about-portrait) {
+      grid-template-columns: 5fr 7fr;
+    }
+  }
+
+  .about-portrait {
+    margin: 0;
+  }
+
+  .about-portrait img {
+    display: block;
+    width: 100%;
+    height: auto;
+    box-shadow: var(--photo-edge), var(--photo-shadow-sm);
+  }
+
+  .about-body {
+    max-width: var(--reading-max);
+  }
+
+  .about-statement {
+    margin: 0;
+    font-family: var(--type-body-family);
+    font-size: clamp(1.15rem, 1vw + 0.8rem, 1.5rem);
+    line-height: 1.6;
+    color: var(--color-text-primary);
+  }
+
+  /* The room's quotation: serif, at display scale, with the attribution as a
+     mono line under it (the prototype's blockquote). */
+  .about-quote {
+    margin: var(--space-2xl) 0 0;
+  }
+
+  .about-quote-text {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-weight: var(--type-display-weight);
+    font-size: clamp(1.3rem, 1.6vw + 0.8rem, 2rem);
+    line-height: 1.35;
+    color: var(--color-text-primary);
+  }
+
+  .about-quote-cite {
+    display: block;
+    margin-top: var(--space-sm);
+    font-style: normal;
+  }
+
+  /* Equipment + Contact: catalogue columns on one hairline. */
+  .about-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xl) clamp(32px, 6vw, 80px);
+    margin-top: var(--space-3xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-hairline);
+  }
+
+  .about-label {
+    margin: 0 0 var(--space-sm);
+  }
+
+  .about-gear,
+  .about-contact {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--type-body-family);
+    font-size: 0.9375rem;
+    line-height: 1.9;
+    color: var(--color-text-secondary);
+  }
+
+  .about-contact a {
+    color: var(--color-text-primary);
+    text-underline-offset: 5px;
+  }
+
+  .about-contact a:hover {
+    color: var(--color-text-secondary);
+  }
+</style>

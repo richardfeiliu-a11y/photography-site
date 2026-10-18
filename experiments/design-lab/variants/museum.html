@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Photography — Museum</title>
+  <link rel="stylesheet" href="/common.css">
+  <style>
+    :root { --ink: #000; --muted: #595959; --line: #dedede; --plinth: #f6f6f6; }
+    body { font-family: 'Lab Sans', sans-serif; background: #fff; color: var(--ink); --viewer-bg: #fff; --viewer-ink: #000; }
+    [hidden] { display: none !important; }
+    h1, h2, h3, p, figure { margin: 0; }
+    h1, h2, h3 { font-weight: 400; overflow-wrap: anywhere; }
+    .exhibit-title, .lab-viewer-title { overflow-wrap: anywhere; }
+    button { background: transparent; border: 0; padding: 0; text-align: left; }
+    a { text-decoration: none; }
+    button, a { touch-action: manipulation; }
+    button:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid #000; outline-offset: 5px; }
+    button:hover .exhibit-title, .text-link:hover { text-decoration: underline; text-underline-offset: 5px; }
+    img { background: var(--plinth); }
+    .skip { position: fixed; left: 20px; top: -100px; background: #fff; padding: 16px; z-index: 10; }
+    .skip:focus { top: 10px; }
+    .masthead { display: grid; grid-template-columns: 1fr auto; padding: 24px 4vw; align-items: center; gap: 24px; border-bottom: 1px solid var(--line); }
+    .identity { font-size: 23px; line-height: 1.1; width: fit-content; }
+    .identity small { display: block; font-size: 14px; margin-top: 7px; color: var(--muted); }
+    .navigation { display: flex; gap: 34px; flex-wrap: wrap; }
+    .navigation a { font-size: 16px; min-height: 44px; display: flex; align-items: center; position: relative; }
+    .navigation a[aria-current="page"]::after { content: ''; position: absolute; height: 3px; background: #000; bottom: 0; left: 0; right: 0; }
+    main { min-height: 72vh; }
+    .view { min-width: 0; }
+    .entrance { display: grid; grid-template-columns: 29% minmax(0, 1fr); min-height: 710px; }
+    .entrance-guide { padding: 60px 3.8vw 42px; border-right: 1px solid var(--line); display: flex; flex-direction: column; align-items: flex-start; }
+    .entrance h1 { font-size: clamp(45px, 5vw, 78px); line-height: 1.02; letter-spacing: -.045em; }
+    .entrance-intro { font-family: 'Lab Serif', serif; font-size: 20px; line-height: 1.55; margin-top: 34px; max-width: 28ch; }
+    .guide-link { margin-top: 24px; display: inline-block; padding: 12px 0; border-bottom: 1px solid #000; min-height: 44px; }
+    .entrance-guide .guide-note { margin-top: auto; padding-top: 60px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .feature-wall { padding: 82px 6vw 44px; display: flex; flex-direction: column; justify-content: center; }
+    .feature-art { display: block; width: 100%; }
+    .feature-art img { width: 100%; height: 420px; object-fit: contain; background: #fff; }
+    .wall-label { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; padding-top: 35px; align-items: start; }
+    .wall-label h2 { font-size: 27px; line-height: 1.2; }
+    .label-meta { display: block; color: var(--muted); font-size: 14px; line-height: 1.6; margin-top: 9px; }
+    .entry-button { border: 1px solid #000; padding: 12px 20px; min-height: 46px; white-space: nowrap; }
+    .entry-button:hover { background: #000; color: #fff; }
+    .exhibition-header { padding: 34px 4vw; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: 20px; align-items: baseline; }
+    .exhibition-header h2 { font-size: 28px; }
+    .exhibition-header p { font-size: 15px; color: var(--muted); }
+    .exhibition-rooms { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+    .exhibit { min-width: 0; padding: 75px 6vw 65px; border-bottom: 1px solid var(--line); }
+    .exhibit:nth-child(odd) { border-right: 1px solid var(--line); }
+    .exhibit:nth-child(even) { padding-top: 165px; }
+    .exhibit:last-child:nth-child(odd) { grid-column: 1 / -1; border-right: 0; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 6vw; align-items: center; }
+    .exhibit-art { width: 100%; display: block; }
+    .exhibit-art img { width: 100%; height: 330px; object-fit: contain; background: #fff; }
+    .exhibit:nth-child(even) .exhibit-art img { height: 270px; }
+    .exhibit-title { font-size: 26px; line-height: 1.2; }
+    .exhibit .wall-label { display: block; padding-top: 32px; }
+    .exhibit .text-link { margin-top: 14px; display: inline-block; min-height: 44px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .page-head { padding: 66px 4vw 54px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .48fr); gap: 5vw; align-items: end; }
+    .page-head h1 { font-size: clamp(52px, 7vw, 102px); line-height: 1; letter-spacing: -.04em; }
+    .page-head p { font-family: 'Lab Serif', serif; font-size: 20px; line-height: 1.55; max-width: 34ch; }
+    .archive-layout { display: grid; grid-template-columns: 23% minmax(0, 1fr); border-top: 1px solid var(--line); }
+    .archive-guide { padding: 35px 4vw; border-right: 1px solid var(--line); }
+    .archive-guide label { display: block; font-size: 18px; margin-bottom: 18px; }
+    .archive-guide select { width: 100%; padding: 12px 10px; font: inherit; color: #000; border: 1px solid #000; background: #fff; border-radius: 0; }
+    .archive-guide p { margin-top: 22px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+    .archive-list { padding: 0 4vw 70px; }
+    .archive-year { padding-top: 34px; font-size: 32px; margin-bottom: 8px; }
+    .archive-entry { display: grid; grid-template-columns: minmax(0, 1fr) 140px; gap: 28px; align-items: center; width: 100%; padding: 26px 0; border-bottom: 1px solid var(--line); }
+    .archive-entry h3 { font-size: 25px; line-height: 1.25; }
+    .archive-entry img { width: 140px; height: 96px; object-fit: contain; background: #fff; }
+    .archive-entry .label-meta { margin-top: 8px; }
+    .archive-entry:hover { background: var(--plinth); }
+    .place-layout { display: grid; grid-template-columns: 32% minmax(0, 1fr); border-top: 1px solid var(--line); }
+    .place-guide { border-right: 1px solid var(--line); padding: 20px 4vw 65px; }
+    .place-button { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--line); font-size: 23px; }
+    .place-button span { font-size: 14px; color: var(--muted); }
+    .place-button[aria-pressed="true"] { box-shadow: inset 4px 0 #000; padding-left: 18px; }
+    .place-results { padding: 40px 5vw 75px; min-width: 0; }
+    .place-results h2 { font-size: 34px; line-height: 1.2; }
+    .place-results > p { margin: 12px 0 35px; color: var(--muted); }
+    .place-exhibit { margin-top: 46px; }
+    .place-exhibit .exhibit-art img { height: 300px; }
+    .place-exhibit .wall-label { padding-top: 24px; }
+    .about-layout { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border-top: 1px solid var(--line); }
+    .about-wall { padding: 75px 7vw; border-right: 1px solid var(--line); }
+    .about-wall img { width: 100%; height: 430px; object-fit: contain; background: #fff; }
+    .about-wall figcaption { margin-top: 32px; color: var(--muted); font-size: 14px; }
+    .about-note { padding: 55px 5vw 85px; }
+    .about-note h2 { font-size: 35px; }
+    .about-note > p { font-family: 'Lab Serif', serif; font-size: 22px; line-height: 1.65; margin-top: 30px; max-width: 35ch; }
+    .collection-facts { margin: 45px 0 20px; }
+    .collection-facts div { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 17px 0; border-top: 1px solid var(--line); }
+    .collection-facts dt { color: var(--muted); }
+    .collection-facts dd { margin: 0; font-size: 22px; }
+    .footer { display: flex; align-items: center; justify-content: space-between; padding: 34px 4vw; gap: 24px; border-top: 1px solid var(--line); font-size: 14px; }
+    .footer a { min-height: 44px; display: flex; align-items: center; }
+    .footer p { color: var(--muted); }
+    .loading { padding: 70px 4vw; font-size: 22px; }
+    .lab-viewer-bar { padding: 17px 4vw; border-bottom: 1px solid var(--line); gap: 16px; }
+    .lab-viewer-title { font-size: 18px; }
+    .lab-viewer-count { color: var(--muted); }
+    .lab-viewer-bar button { font-size: 15px; min-height: 44px; }
+    .lab-viewer-content { padding: 0 4vw 60px; }
+    .gallery-intro { padding: 38px 0 30px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .65fr); gap: 40px; align-items: end; }
+    .gallery-intro h1 { font-size: clamp(32px, 3.7vw, 55px); letter-spacing: -.03em; line-height: 1.12; }
+    .gallery-intro p { font-family: 'Lab Serif', serif; font-size: 17px; line-height: 1.55; max-width: 55ch; }
+    .gallery-controls { display: flex; gap: 16px; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding: 15px 0; }
+    .mode-switch, .wall-pagination { display: flex; align-items: center; gap: 8px; }
+    .gallery-controls button { padding: 10px 16px; min-height: 44px; border: 1px solid var(--line); }
+    .gallery-controls button[aria-pressed="true"] { border-color: #000; background: #000; color: #fff; }
+    .gallery-controls button:disabled { color: #767676; cursor: default; }
+    .wall-position { padding: 0 14px; font-size: 14px; min-width: 84px; text-align: center; }
+    .lab-viewer-sequence { max-width: none; margin: 0; }
+    .lab-viewer-sequence figure { margin: 0; padding: 26px 5vw 0; }
+    .lab-viewer-sequence figure img { width: 100%; height: min(60vh, 650px); max-height: none; object-fit: contain; background: #fff; }
+    .lab-viewer-sequence figcaption { max-width: none; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 30px; padding: 30px 0 20px; margin: 0; color: var(--muted); }
+    .gallery-overview { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 35px; padding: 40px 0; }
+    .overview-entry { min-width: 0; width: 100%; }
+    .overview-entry img { height: 170px; width: 100%; object-fit: contain; background: #fff; }
+    .overview-entry span { display: block; text-align: center; padding-top: 16px; font-size: 14px; }
+    .overview-entry[aria-current="true"] span { text-decoration: underline; text-underline-offset: 5px; }
+    @media (max-width: 900px) {
+      .masthead { padding: 20px 5vw; gap: 16px; }
+      .navigation { gap: 22px; }
+      .entrance { grid-template-columns: 34% minmax(0, 1fr); min-height: 600px; }
+      .entrance-guide { padding-top: 44px; }
+      .entrance h1 { font-size: 46px; }
+      .feature-wall { padding: 45px 4vw; }
+      .feature-art img { height: 350px; }
+      .wall-label { grid-template-columns: 1fr; gap: 14px; }
+      .wall-label .entry-button { justify-self: start; }
+      .exhibit { padding: 60px 4vw; }
+      .exhibit:nth-child(even) { padding-top: 110px; }
+      .gallery-overview { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .about-wall { padding: 55px 4vw; }
+    }
+    @media (max-width: 600px) {
+      .masthead { grid-template-columns: 1fr; padding: 21px 24px 12px; }
+      .identity { font-size: 21px; }
+      .navigation { justify-content: space-between; gap: 12px; }
+      .navigation a { font-size: 15px; }
+      .entrance { display: block; }
+      .entrance-guide { border-right: 0; padding: 42px 24px 30px; }
+      .entrance h1 { font-size: 58px; max-width: 7ch; }
+      .entrance-intro { font-size: 18px; max-width: 30ch; margin-top: 25px; }
+      .entrance-guide .guide-note { margin-top: 28px; padding: 0; }
+      .feature-wall { padding: 32px 24px 40px; border-top: 1px solid var(--line); }
+      .feature-art img { height: 290px; }
+      .wall-label { padding-top: 22px; }
+      .wall-label h2 { font-size: 24px; }
+      .exhibition-header { padding: 25px 24px; display: block; }
+      .exhibition-header p { margin-top: 10px; }
+      .exhibition-rooms { display: block; }
+      .exhibit, .exhibit:nth-child(even) { padding: 50px 24px; border-right: 0; }
+      .exhibit:last-child:nth-child(odd) { display: block; }
+      .exhibit-art img, .exhibit:nth-child(even) .exhibit-art img { height: 270px; }
+      .page-head { display: block; padding: 45px 24px 35px; }
+      .page-head h1 { font-size: 60px; }
+      .page-head p { margin-top: 24px; font-size: 18px; }
+      .archive-layout, .place-layout, .about-layout { display: block; }
+      .archive-guide { padding: 24px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .archive-guide select { max-width: 210px; }
+      .archive-guide p { margin-top: 15px; }
+      .archive-list { padding: 0 24px 45px; }
+      .archive-entry { grid-template-columns: minmax(0, 1fr) 82px; gap: 18px; }
+      .archive-entry h3 { font-size: 22px; }
+      .archive-entry img { width: 82px; height: 80px; }
+      .place-guide { padding: 0 24px 20px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .place-button { font-size: 21px; padding-top: 18px; padding-bottom: 18px; }
+      .place-results { padding: 32px 24px 45px; }
+      .place-exhibit .exhibit-art img { height: 260px; }
+      .about-wall { padding: 45px 24px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .about-wall img { height: 320px; }
+      .about-note { padding: 40px 24px 55px; }
+      .footer { flex-wrap: wrap; padding: 25px 24px; gap: 14px 25px; }
+      .footer p { flex-basis: 100%; }
+      .lab-viewer-bar { padding: 12px 20px; }
+      .lab-viewer-bar button { padding: 8px 12px; }
+      .lab-viewer-title { font-size: 16px; }
+      .lab-viewer-count { font-size: 12px; }
+      .lab-viewer-content { padding: 0 20px 40px; }
+      .gallery-intro { display: block; padding: 26px 0; }
+      .gallery-intro p { margin-top: 16px; }
+      .gallery-controls { flex-wrap: wrap; gap: 12px; }
+      .gallery-controls button { padding: 10px 12px; }
+      .wall-position { min-width: 65px; padding: 0 8px; }
+      .lab-viewer-sequence figure { padding: 20px 0 0; }
+      .lab-viewer-sequence figure img { height: 48vh; }
+      .lab-viewer-sequence figcaption { gap: 16px; padding-top: 22px; }
+      .gallery-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 20px; }
+      .overview-entry img { height: 140px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to exhibitions</a>
+  <header class="masthead">
+    <a class="identity" href="#home" data-view="home"><span id="author">Photography</span><small>Photographic collection</small></a>
+    <nav class="navigation" aria-label="Museum guide">
+      <a href="#home" data-view="home" aria-current="page">Exhibitions</a>
+      <a href="#archive" data-view="archive">Archive</a>
+      <a href="#places" data-view="places">Places</a>
+      <a href="#about" data-view="about">About</a>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1">
+    <p class="loading" role="status">Opening the collection…</p>
+    <section class="view" id="home" aria-labelledby="home-title" hidden></section>
+    <section class="view" id="archive" aria-labelledby="archive-title" hidden></section>
+    <section class="view" id="places" aria-labelledby="places-title" hidden></section>
+    <section class="view" id="about" aria-labelledby="about-title" hidden></section>
+  </main>
+  <footer class="footer">
+    <a href="#home" data-view="home" id="footer-author">Photography</a>
+    <p id="footer-facts">Photographs, presented in sequence.</p>
+    <a href="#archive" data-view="archive" class="text-link">Collection directory</a>
+  </footer>
+  <script src="/common.js"></script>
+  <script>
+    (() => {
+    const { escape: esc, image } = window.DesignLab;
+    const viewNames = ['home', 'archive', 'places', 'about'];
+    const placesText = gallery => gallery.places.map(place => place.title).join(', ');
+    const meta = gallery => `<span class="label-meta"><time datetime="${esc(gallery.date)}">${esc(gallery.date)}</time><br>${gallery.count} photographs${gallery.places.length ? ` / ${esc(placesText(gallery))}` : ''}</span>`;
+    const art = (gallery, eager = false) => `<button class="exhibit-art" data-gallery="${esc(gallery.id)}" aria-label="Enter ${esc(gallery.title)}">${image(gallery.cover, '(max-width: 600px) 88vw, 46vw', eager)}</button>`;
+    const exhibit = gallery => `<article class="exhibit">${art(gallery)}<div class="wall-label"><h3 class="exhibit-title">${esc(gallery.title)}</h3>${meta(gallery)}<button class="text-link" data-gallery="${esc(gallery.id)}">Enter exhibition</button></div></article>`;
+    let collection;
+    let currentView = '';
+    function showView(focus = false) {
+      if (!collection) return;
+      const requested = location.hash.slice(1);
+      const view = requested === 'main' ? (currentView || 'home') : viewNames.includes(requested) ? requested : 'home';
+      viewNames.forEach(name => { document.getElementById(name).hidden = name !== view; });
+      document.querySelectorAll('[data-view]').forEach(link => {
+        if (link.dataset.view === view) link.setAttribute('aria-current', 'page');
+        else link.removeAttribute('aria-current');
+      });
+      document.title = `${collection.author} — ${view === 'home' ? 'Exhibitions' : view[0].toUpperCase() + view.slice(1)} / Museum`;
+      if (focus && view !== currentView) {
+        document.getElementById('main').focus({ preventScroll: true });
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      currentView = view;
+    }
+    window.addEventListener('hashchange', () => showView(true));
+    window.DesignLab.ready.then(data => {
+      collection = data;
+      const archive = [...data.archive].sort((a, b) => b.date.localeCompare(a.date) || a.id.localeCompare(b.id));
+      const featured = data.galleries[0];
+      const total = archive.reduce((sum, gallery) => sum + gallery.count, 0);
+      const years = [...new Set(archive.map(gallery => gallery.date.slice(0, 4)))];
+      const placeMap = new Map();
+      archive.forEach(gallery => gallery.places.forEach(place => {
+        if (!placeMap.has(place.id)) placeMap.set(place.id, { ...place, galleries: [] });
+        placeMap.get(place.id).galleries.push(gallery);
+      }));
+      document.getElementById('author').textContent = data.author;
+      document.getElementById('footer-author').textContent = data.author;
+      document.getElementById('footer-facts').textContent = `${archive.length} collections / ${total} photographs`;
+      document.getElementById('home').innerHTML = `
+        <div class="entrance">
+          <div class="entrance-guide"><h1 id="home-title">Selected exhibitions</h1>
+            <p class="entrance-intro">A collection of photographs. Each exhibition is a place to pause, look, and follow a sequence.</p>
+            <a class="guide-link" href="#archive" data-view="archive">Explore the full collection</a>
+            <p class="guide-note">${data.galleries.length} selected exhibitions<br>Photography by ${esc(data.author)}</p>
+          </div>
+          <article class="feature-wall"><button class="feature-art" data-gallery="${esc(featured.id)}" aria-label="Enter ${esc(featured.title)}">${image(featured.cover, '(max-width: 600px) 88vw, 60vw', true)}</button>
+            <div class="wall-label"><div><h2>${esc(featured.title)}</h2>${meta(featured)}</div><button class="entry-button" data-gallery="${esc(featured.id)}">Enter exhibition</button></div>
+          </article>
+        </div>
+        <div class="exhibition-header"><h2>Further exhibitions</h2><p>Individual collections. Independent rooms.</p></div>
+        <div class="exhibition-rooms">${data.galleries.slice(1).map(exhibit).join('')}</div>`;
+      document.getElementById('archive').innerHTML = `
+        <div class="page-head"><h1 id="archive-title">Archive</h1><p>The complete exhibition directory, arranged by the date the photographs were taken.</p></div>
+        <div class="archive-layout"><aside class="archive-guide"><label for="archive-year">Year of photography</label>
+          <select id="archive-year"><option value="all">All years</option>${years.map(year => `<option value="${esc(year)}">${esc(year)}</option>`).join('')}</select>
+          <p id="archive-count" aria-live="polite"></p></aside><div class="archive-list" id="archive-list"></div></div>`;
+      function renderArchive(year) {
+        const filtered = archive.filter(gallery => year === 'all' || gallery.date.startsWith(year));
+        document.getElementById('archive-count').textContent = `${filtered.length} exhibitions / ${filtered.reduce((sum, gallery) => sum + gallery.count, 0)} photographs`;
+        let previousYear;
+        document.getElementById('archive-list').innerHTML = filtered.map(gallery => {
+          const thisYear = gallery.date.slice(0, 4);
+          const heading = thisYear !== previousYear ? `<h2 class="archive-year">${esc(thisYear)}</h2>` : '';
+          previousYear = thisYear;
+          return `${heading}<button class="archive-entry" data-gallery="${esc(gallery.id)}"><span><span class="exhibit-title">${esc(gallery.title)}</span>${meta(gallery)}</span>${image(gallery.cover, '(max-width: 600px) 82px, 140px')}</button>`;
+        }).join('');
+      }
+      renderArchive('all');
+      document.getElementById('archive-year').addEventListener('change', event => renderArchive(event.target.value));
+      document.getElementById('places').innerHTML = `
+        <div class="page-head"><h1 id="places-title">Places</h1><p>Choose a place to see the collections made there. A collection can include more than one place.</p></div>
+        <div class="place-layout"><nav class="place-guide" aria-label="Exhibition places">${[...placeMap.values()].map(place => `<button class="place-button" data-place="${esc(place.id)}" aria-pressed="false">${esc(place.title)}<span>${place.galleries.length} collections</span></button>`).join('')}</nav>
+          <div class="place-results" id="place-results" role="region" aria-labelledby="place-heading"></div></div>`;
+      function choosePlace(id) {
+        const place = placeMap.get(id);
+        document.querySelectorAll('[data-place]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.place === id)));
+        document.getElementById('place-results').innerHTML = `<h2 id="place-heading">${esc(place.title)}</h2><p>${place.galleries.length} collections / ${place.galleries.reduce((sum, gallery) => sum + gallery.count, 0)} photographs</p>${place.galleries.map(gallery => `<article class="place-exhibit">${art(gallery)}<div class="wall-label"><div><h3 class="exhibit-title">${esc(gallery.title)}</h3>${meta(gallery)}</div><button class="entry-button" data-gallery="${esc(gallery.id)}">Enter exhibition</button></div></article>`).join('')}`;
+      }
+      if (placeMap.size) choosePlace(placeMap.keys().next().value);
+      document.querySelector('.place-guide').addEventListener('click', event => {
+        const button = event.target.closest('[data-place]');
+        if (button) choosePlace(button.dataset.place);
+      });
+      document.getElementById('about').innerHTML = `
+        <div class="page-head"><h1 id="about-title">About the collection</h1><p>Photography by ${esc(data.author)}.</p></div>
+        <div class="about-layout"><figure class="about-wall">${image(featured.cover, '(max-width: 600px) 88vw, 48vw')}<figcaption>${esc(featured.cover.caption)}<br>From ${esc(featured.title)}</figcaption></figure>
+          <div class="about-note"><h2>${esc(data.author)}</h2><p>This collection brings together ${archive.length} published photographic sequences. Browse by the date of photography, enter through a place, or spend time with an individual exhibition.</p>
+            <dl class="collection-facts"><div><dt>Published collections</dt><dd>${archive.length}</dd></div><div><dt>Photographs</dt><dd>${total}</dd></div><div><dt>Places in the directory</dt><dd>${placeMap.size}</dd></div><div><dt>Photography dates</dt><dd>${esc(years.at(-1))}–${esc(years[0])}</dd></div></dl>
+            <a class="guide-link" href="#archive" data-view="archive">Visit the collection directory</a>
+          </div></div>`;
+      document.querySelector('.loading').remove();
+      showView();
+    }).catch(() => { document.querySelector('.loading').textContent = 'The collection could not be loaded. Reload this page to try again.'; });
+    window.DesignLab.renderGallery = gallery => `
+      <div class="gallery-intro"><h1>${esc(gallery.title)}</h1><p>${esc(gallery.description)}</p></div>
+      <div class="gallery-controls"><div class="mode-switch" role="group" aria-label="Exhibition display">
+        <button data-gallery-mode="wall" aria-pressed="true">Exhibition wall</button><button data-gallery-mode="overview" aria-pressed="false">Overview</button></div>
+        <div class="wall-pagination" role="group" aria-label="Photograph sequence"><button data-wall-step="-1" aria-label="Previous photograph" disabled>Previous</button><span class="wall-position" aria-live="polite">1 / ${gallery.photos.length}</span><button data-wall-step="1" aria-label="Next photograph" ${gallery.photos.length < 2 ? 'disabled' : ''}>Next</button></div>
+      </div>
+      <div class="lab-viewer-sequence" data-active-photo="0">${gallery.photos.map((photo, index) => `<figure data-photo-id="${esc(photo.id)}" ${index ? 'hidden' : ''}>${image(photo, '(max-width: 600px) 90vw, 82vw', index === 0)}<figcaption><span>${esc(photo.caption)}</span><span>${index + 1} / ${gallery.photos.length}</span></figcaption></figure>`).join('')}</div>
+      <div class="gallery-overview" hidden>${gallery.photos.map((photo, index) => `<button class="overview-entry" data-wall-photo="${index}" aria-label="View photograph ${index + 1}: ${esc(photo.alt)}" aria-current="${index === 0}">${image(photo, '(max-width: 600px) 42vw, 21vw')}<span>${index + 1}</span></button>`).join('')}</div>`;
+    function setGalleryMode(mode) {
+      const content = document.querySelector('.lab-viewer-content');
+      content.querySelector('.lab-viewer-sequence').hidden = mode !== 'wall';
+      content.querySelector('.gallery-overview').hidden = mode !== 'overview';
+      content.querySelector('.wall-pagination').hidden = mode !== 'wall';
+      content.querySelectorAll('[data-gallery-mode]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.galleryMode === mode)));
+    }
+    function showPhoto(index) {
+      const content = document.querySelector('.lab-viewer-content');
+      const sequence = content.querySelector('.lab-viewer-sequence');
+      const figures = [...sequence.querySelectorAll('figure[data-photo-id]')];
+      const active = Math.max(0, Math.min(index, figures.length - 1));
+      sequence.dataset.activePhoto = active;
+      figures.forEach((figure, i) => { figure.hidden = i !== active; });
+      content.querySelector('.wall-position').textContent = `${active + 1} / ${figures.length}`;
+      content.querySelector('[data-wall-step="-1"]').disabled = active === 0;
+      content.querySelector('[data-wall-step="1"]').disabled = active === figures.length - 1;
+      content.querySelectorAll('[data-wall-photo]').forEach(button => button.setAttribute('aria-current', String(Number(button.dataset.wallPhoto) === active)));
+    }
+    document.addEventListener('click', event => {
+      const mode = event.target.closest('[data-gallery-mode]');
+      if (mode) setGalleryMode(mode.dataset.galleryMode);
+      const step = event.target.closest('[data-wall-step]');
+      if (step) {
+        const active = Number(document.querySelector('.lab-viewer-sequence').dataset.activePhoto);
+        showPhoto(active + Number(step.dataset.wallStep));
+        if (step.disabled) document.querySelector('[data-gallery-mode="wall"]').focus();
+      }
+      const photo = event.target.closest('[data-wall-photo]');
+      if (photo) {
+        showPhoto(Number(photo.dataset.wallPhoto));
+        setGalleryMode('wall');
+        document.querySelector('[data-gallery-mode="wall"]').focus({ preventScroll: true });
+        document.querySelector('.lab-viewer-sequence').scrollIntoView({ block: 'nearest' });
+      }
+    });
+    document.addEventListener('keydown', event => {
+      const dialog = document.querySelector('.lab-viewer');
+      const sequence = dialog.querySelector('.lab-viewer-sequence');
+      if (!dialog.open || !sequence || sequence.hidden || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+      event.preventDefault();
+      showPhoto(Number(sequence.dataset.activePhoto) + (event.key === 'ArrowRight' ? 1 : -1));
+    });
+    })();
+  </script>
+</body>
+</html>

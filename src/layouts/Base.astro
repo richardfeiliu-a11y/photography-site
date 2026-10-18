@@ -1,0 +1,102 @@
+---
+/*
+ * src/layouts/Base.astro — site layout shell (WP-26).
+ *
+ * Contract (FINAL_DESIGN_SPECIFICATION §5.1–§5.2; RUNTIME_AND_
+ * PROGRESSIVE_ENHANCEMENT §8.2): skip link → #main as the FIRST focusable
+ * element, then <main id="main" tabindex="-1"> as the programmatic skip
+ * target. Global header/nav (SiteHeader/SiteNav) + minimal footer compose the
+ * shared chrome around the page slot. Pages inject head extras (page-specific
+ * meta, inline scripts) through the named "head" slot; body content through
+ * the default slot. Styling: self-hosted frozen faces (fonts.css, WP-05) +
+ * frozen tokens (tokens.css) + global foundation (global.css).
+ *
+ * Semantic landmarks: <header>, <nav> (inside SiteHeader), <main>, <footer>.
+ * JS may enhance later; the shell and navigation are fully no-JS capable.
+ */
+import "../styles/fonts.css";
+import "../styles/tokens.css";
+import "../styles/global.css";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { groundDeclarations, toHex, type Oklch } from "../lib/theme/oklch";
+
+interface Props {
+  title: string;
+  lang?: string;
+  /** Home-only: overlay the brand/nav on the opening stage (absolute,
+   * first screen only, never sticky). Other pages render the solid header. */
+  overlayHeader?: boolean;
+  /** The page's ambient pair (cover-derived, see the atmosphere sidecar).
+   *  Pages that have a subject pass it; index-like pages omit it and get the
+   *  layout's neutral room. Written as the four field variables + the two
+   *  theme-color metas, so browser chrome matches the page it frames. */
+  ambient?: { light: Oklch; dark: Oklch } | null;
+}
+
+const { title, lang = "en", overlayHeader = false, ambient = null } = Astro.props;
+
+// Neutral room fallbacks (the literal values are the ONLY hex allowed outside
+// tokens.css — see tests/unit/design-tokens.test.ts; exactly two).
+const NEUTRAL_LIGHT: Oklch = { l: 0.945, c: 0.012, h: 255 };
+const NEUTRAL_DARK: Oklch = { l: 0.13, c: 0.012, h: 265 };
+const FALLBACK_THEME_COLOR = { light: "#e8edf5", dark: "#05070c" };
+
+const light = ambient?.light ?? NEUTRAL_LIGHT;
+const dark = ambient?.dark ?? NEUTRAL_DARK;
+const fieldStyle = groundDeclarations(light, dark);
+const themeColor = ambient
+  ? { light: toHex(light), dark: toHex(dark) }
+  : FALLBACK_THEME_COLOR;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content={themeColor.light} />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content={themeColor.dark} />
+    <style is:inline set:html={`:root { ${fieldStyle}; }`} />
+    <title>{title}</title>
+    <!-- Pre-paint theme restore (visual redesign spec §3.4): resolves the
+         stored appearance BEFORE first paint so no reverse-color flash. A
+         concrete data-theme is always written (light or dark); CSS also
+         stands alone for no-JS visitors via prefers-color-scheme. Storage
+         errors degrade silently to system. -->
+    <script is:inline>
+      (function () {
+        // Script-alive marker for CSS. Entrance-reveal pending states are
+        // scoped to html.js, so a renderer that never executes this file
+        // (no-JS visitor, print engine, static snapshot) can never be handed
+        // markup whose opacity only a live script could lift.
+        document.documentElement.classList.add("js");
+        try {
+          var raw = localStorage.getItem("photography.appearance");
+          var mode =
+            raw === "light" || raw === "dark" ? raw : "system";
+          var dark =
+            mode === "dark" ||
+            (mode === "system" &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches);
+          document.documentElement.dataset.theme = dark ? "dark" : "light";
+          document.documentElement.style.colorScheme = dark
+            ? "dark"
+            : "light";
+        } catch (e) {
+          /* storage blocked: CSS media query still follows the OS */
+        }
+      })();
+    </script>
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <SiteHeader overlay={overlayHeader} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

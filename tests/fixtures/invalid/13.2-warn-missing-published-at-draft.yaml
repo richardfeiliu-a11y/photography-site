@@ -1,0 +1,23 @@
+# =====================================================================
+# WARNING FIXTURE — CONTENT_MODEL.md §13.2 (warning case 2)
+# Missing published_at on a DRAFT Gallery: valid shape, preview-mode
+# WARNING only. If published as-is, §13.1 rule 14 fires. (The VALID
+# corpus carries the same warning shape on g_essen_industrial_light.)
+# Consumed by: tests/unit/gallery-schema.test.ts (WP-09, preview mode);
+# tests/integration/production-validation.test.ts (WP-13, §13.2 pass).
+# =====================================================================
+id: g_bad_warn_published_at
+slug: invalid-warn-draft-no-published-at
+status: draft
+title: "Warning — draft without published_at"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+places:
+  - pl_lofoten
+cover_photo_id: p_bad_warn_published_at_001
+photos:
+  - id: p_bad_warn_published_at_001
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

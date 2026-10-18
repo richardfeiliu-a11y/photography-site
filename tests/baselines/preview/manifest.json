@@ -1,0 +1,27 @@
+{
+  "generatedAt": "2026-10-18T02:33:16.810Z",
+  "tool": "tests/capture/capture.mjs (copied by tests/capture/baseline-update.mjs)",
+  "chromiumVersion": "151.0.7922.34",
+  "note": "SHA-256 values are file-integrity metadata inside one controlled baseline workflow only. They are NOT visual-equivalence proof across browsers, operating systems, font rasterizers, or machines (TESTING_AND_VISUAL_REGRESSION.md §8.1).",
+  "captures": [
+    {
+      "state": "gallery-desktop-long-72",
+      "path": "/galleries/netherlands",
+      "group": "preview",
+      "buildMode": "preview",
+      "viewport": "1440x900",
+      "deviceScaleFactor": 1,
+      "fullPage": true,
+      "gates": {
+        "status": 200,
+        "heading": "Netherlands",
+        "figures": 28,
+        "pictures": 28,
+        "images": 28
+      },
+      "file": "tests/baselines/preview/gallery-desktop-long-72/index.png",
+      "bytes": 44619483,
+      "sha256": "b13174770e27b8cdaeac096011a7100dbfda0eba2c5e5f4a8958a78165a7598b"
+    }
+  ]
+}

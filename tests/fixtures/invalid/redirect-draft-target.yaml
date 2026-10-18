@@ -1,0 +1,15 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 16 (WP-12 RED set)
+# Redirect target unresolved in PRODUCTION: g_iso_draft EXISTS in
+# the fixture corpus but is a DRAFT (content/galleries/long-gallery-72/
+# meta.yaml), so the alias does not resolve to a public/published
+# canonical route in production output (§11.2/§13.1#16). In preview mode
+# the draft route exists — WP-12 emits a warning there, not an error
+# (see docs/implementation/WP-12.md "Mode semantics").
+# Consumed by: tests/unit/redirects.test.ts (WP-12, unit-synthesized
+# registry); tests/integration/redirect-validation.test.ts (WP-12, real
+# corpus registries); tests/integration/production-validation.test.ts
+# (WP-13).
+# =====================================================================
+/galleries/draft-alias:
+  gallery_id: g_iso_draft

@@ -1,0 +1,23 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 13
+# Invalid status value: "archived" is not draft|published (§4.2 enum;
+# there is no third publication state and no directory partition).
+# Consumed by: tests/unit/gallery-schema.test.ts (WP-09);
+# tests/integration/production-validation.test.ts (WP-13).
+# =====================================================================
+id: g_bad_13_13
+slug: invalid-status-value
+status: archived
+title: "Invalid — status not in enum"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+published_at: "2026-08-29T00:00:00Z"
+places:
+  - pl_lofoten
+cover_photo_id: p_bad_13_13_001
+photos:
+  - id: p_bad_13_13_001
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

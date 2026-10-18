@@ -1,0 +1,66 @@
+id: g_alps
+slug: alps
+status: published
+title: "The Alps"
+description: "Mont Blanc, the Matterhorn and the high snows above the cloud line."
+photographed_start: "2024-08-03"
+photographed_end: "2025-06-08"
+published_at: "2026-09-12T00:00:00Z"
+places:
+  - pl_chamonix
+  - pl_zermatt
+  - pl_mont_blanc
+cover_photo_id: p_alps_four_seasons_005
+next_gallery_id: g_swiss_and_dolomites
+photos:
+  - id: p_alps_four_seasons_001
+    source_ref: alps/DSC00790.jpg
+    place: pl_chamonix
+    captured_at: "2024-08-03T13:40:28"
+    caption: "Mont Blanc · August 2024"
+    rhythm_after: base
+    alt_text: "Part of a modern cable car station building: the station name and altitude number are spelled out in black metal letters on the light-colored stone wall. The wall is covered with a fine protective net, and large overhangs extend above; the green woods and white sky illuminated by the sun are exposed at both corners of the building."
+  - id: p_alps_four_seasons_002
+    source_ref: alps/DSC00806.jpg
+    place: pl_chamonix
+    captured_at: "2024-08-03T15:22:45"
+    caption: "Mont Blanc · August 2024"
+    rhythm_after: base
+    alt_text: "Clouds and mist rise from the valley, and in the distance are the peaks and blue sky covered with thick snow and glaciers. The lower left and right sides of the frame are dark and sharp rock ridges; the upper right corner of the viewing platform built on the rock wall is exposed, with several people standing on the platform."
+  - id: p_alps_four_seasons_003
+    source_ref: alps/DSC00820.jpg
+    place: pl_chamonix
+    captured_at: "2024-08-03T15:37:01"
+    caption: "Mont Blanc · August 2024"
+    rhythm_after: base
+    alt_text: "Three cable cars with glass viewing cabins are suspended on the cableway above the snow slope, arranged from left to right. The lower part of the car is red and printed with white words; behind it are snow-covered rock walls and glacier fissures, and the sky is dark blue."
+  - id: p_alps_four_seasons_004
+    place: pl_mont_blanc   # owner-approved 2026-09-15 (local review)
+    source_ref: alps/DSC00846.jpg
+    caption: "Mont Blanc · August 2024"
+    rhythm_after: base
+    alt_text: "Under the dark blue sky, a snowfield full of folds and ravines extends from the bottom of the frame. In the center of the snowfield is a man wearing a red coat and carrying a backpack, walking alone on the snow; above the snowfield is a ridge of dark gray giant rocks, and several cables slant across the sky on the upper right."
+  - id: p_alps_four_seasons_005
+    place: pl_mont_blanc   # owner-approved 2026-09-15 (local review)
+    source_ref: alps/DSC00877.jpg
+    caption: "Mont Blanc · August 2024"
+    rhythm_after: base
+    alt_text: "On the vast glacial snowfield, a row of dark cone-shaped rock peaks stand like sawtooths, with some rock walls covered with snow and ice. There is another snow-capped mountain in the distance on the left. There are strong sun spots and thin clouds at the top of the frame, and the long shadows of the rock peaks are trailed on the snow."
+  - id: p_alps_four_seasons_006
+    place: pl_chamonix
+    source_ref: alps/DSC00893.jpg
+    caption: "Mont Blanc · August 2024"
+    rhythm_after: base
+    alt_text: "Against the foggy gray background, a huge granite pillar stands. The rock surface is yellow-brown and off-white. Two climbers wearing colorful clothes are climbing up on the lower right side of the rock pillar. Several tourists are standing on the metal viewing platform on the lower left side. Below the platform is the top of a cylindrical building."
+  - id: p_alps_four_seasons_007
+    source_ref: alps/DSC02124.jpg
+    caption: "Thun · December 2024"
+    rhythm_after: base
+    alt_text: "A clear view from a high place in winter. The valley is filled with a thick sea of ​​white clouds, and several snow-covered ridges are exposed above the sea of ​​clouds. On the right side of the frame is a pyramid-shaped snow mountain. On the lower right and right foreground are dark green spruce treetops. On the sea of ​​clouds, there are huge shadows cast by the peaks. The sky is clean blue."
+  - id: p_alps_four_seasons_008
+    source_ref: alps/DSC03332.jpg
+    place: pl_zermatt
+    captured_at: "2025-06-08T13:40:49"
+    caption: "Zermatt · June 2025"
+    rhythm_after: base
+    alt_text: "An isolated pyramid-shaped snow peak stands in the center of the frame. The mountain is steep, the rock walls are exposed and covered with snow; below the peak are vast glaciers and snow-covered rock ridges, and the sky is pure deep blue."

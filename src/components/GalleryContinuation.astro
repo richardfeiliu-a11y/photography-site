@@ -1,0 +1,122 @@
+---
+/*
+ * src/components/GalleryContinuation.astro — the immersive Gallery ending.
+ *
+ * Frozen behavior (FDS §3.1 + G7 / RUNTIME §4), unchanged by the C direction:
+ *   standard: [pause 168/112] End of {title} → Next Gallery — {target title}
+ *             → Back to {origin} (static fallback)
+ *   no-next:  [pause] End of {title} → Back to {origin} (PRIMARY)
+ *             → Browse Journeys (secondary, /archive)
+ *   continuation → footer: XXL 96px.
+ * Prohibited (absent by construction): cover/thumbnail at Next, styled
+ * button/pill/background fill, arrow glyphs, multiple Nexts.
+ *
+ * C direction (2026-10-18): the ending speaks in the page's catalogue voice —
+ * mono labels for "End of" and the quiet links, the Next title in serif 400 on
+ * the new display step (the prototype's section-title clamp, replacing the
+ * frozen 28/22 value, which was a Swiss-sans-era measurement).
+ *
+ * data-* hooks are the e2e assertion surface.
+ */
+import type { GalleryContinuationData } from "../lib/views/gallery";
+
+interface Props {
+  /** The page title (End of {title}). */
+  title: string;
+  continuation: GalleryContinuationData;
+  /** Page-level placement class (R4 T2: the gallery page's grid column). */
+  class?: string;
+}
+
+const { title, continuation, class: className } = Astro.props;
+---
+
+<div class:list={["gallery-ending", className]} data-gallery-continuation>
+  <p class="end-label mono-label" data-end-label>End of {title}</p>
+  {
+    continuation.kind === "standard" ? (
+      <>
+        {/* RUNTIME §4.1 rendering: "Next Gallery -- {target title}" (the whole
+            line is the serif link). */}
+        <a class="next-title" href={`/galleries/${continuation.nextSlug}`}>
+          Next Gallery — {continuation.nextTitle}
+        </a>
+        <a class="origin-link mono-label" href={continuation.originFallback}>
+          Back to Journeys
+        </a>
+      </>
+    ) : (
+      <>
+        <a class="origin-link primary mono-label" data-origin-primary href={continuation.originFallback}>
+          Back to Journeys
+        </a>
+        <a class="origin-link browse mono-label" data-browse-archive href="/archive">
+          Browse Journeys
+        </a>
+      </>
+    )
+  }
+</div>
+
+<style>
+  /*
+   * End pause: 168 desktop / 112 mobile (G7). Margin-top on the block:
+   * the gap from the last figure (caption included — the caption is inside
+   * the last figure).
+   */
+  .gallery-ending {
+    margin-top: 168px;
+    max-width: var(--reading-max);
+    /* Continuation → footer: XXL 96px (RUNTIME §4.3) — this block owns the
+       spacing before the shared shell footer. */
+    margin-bottom: 96px;
+  }
+
+  @media (max-width: 899px) {
+    .gallery-ending {
+      margin-top: 112px;
+    }
+  }
+
+  .end-label {
+    margin: 0;
+  }
+
+  /* Next Gallery title: serif 400 on the immersive display step (the
+     prototype's section title — 1.6rem → 2.4rem across the viewport range). */
+  .next-title {
+    display: block;
+    width: fit-content;
+    margin-top: var(--space-md);
+    font-family: var(--type-display-family);
+    font-size: clamp(1.6rem, 2.4vw + 0.4rem, 2.4rem);
+    font-weight: var(--type-display-weight);
+    line-height: 1.15;
+    letter-spacing: var(--type-display-tracking);
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  .next-title:hover,
+  .next-title:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+  }
+
+  .origin-link {
+    display: block;
+    width: fit-content;
+    margin-top: var(--space-lg);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .origin-link.primary {
+    color: var(--color-text-primary);
+  }
+
+  .origin-link:hover,
+  .origin-link:focus-visible {
+    color: var(--color-text-primary);
+  }
+</style>

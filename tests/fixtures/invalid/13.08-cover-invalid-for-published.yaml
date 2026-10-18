@@ -1,0 +1,27 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 8
+# Cover invalid for a published Gallery: cover_photo_id references
+# p_bad_13_08_foreign, which is NOT in this Gallery's photos[]
+# (cross-Gallery cover references are invalid; §8.4). The sibling
+# sub-case — cover_photo_id absent on a published Gallery — is the same
+# rule and is asserted by the same WP-09 test name.
+# Consumed by: tests/unit/gallery-schema.test.ts (WP-09);
+# tests/integration/gallery-validation.test.ts (WP-09);
+# tests/integration/production-validation.test.ts (WP-13).
+# =====================================================================
+id: g_bad_13_08
+slug: invalid-foreign-cover
+status: published
+title: "Invalid — cover photo outside this gallery"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+published_at: "2026-08-29T00:00:00Z"
+places:
+  - pl_lofoten
+cover_photo_id: p_bad_13_08_foreign
+photos:
+  - id: p_bad_13_08_001
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

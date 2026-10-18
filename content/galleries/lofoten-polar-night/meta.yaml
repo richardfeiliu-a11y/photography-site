@@ -1,0 +1,68 @@
+id: g_lofoten_polar_night
+slug: lofoten-polar-night
+status: published
+title: "Lofoten, Polar Night"
+description: "Arctic Norway in polar night: blue hours, bare rock and the sea."
+photographed_start: "2025-01-26"
+photographed_end: "2025-01-27"
+published_at: "2026-09-12T00:00:00Z"
+places:
+  - pl_lofoten
+cover_photo_id: p_lofoten_polar_night_010
+next_gallery_id: g_south_china_summer
+photos:
+  - id: p_lofoten_polar_night_001
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: "Lofoten · January 2025"
+    rhythm_after: base
+    alt_text: "A city street scene in a snowfall on a winter night, with snow on the road and dense snowflakes floating in the air; a warm yellow light shines through the glass window of a dark-walled building on the right, with large white letters on the window; several pedestrians wearing dark winter clothes and carrying backpacks are walking forward with their backs to the camera; there is a row of cars parked on the left, their lights shining in the snow and fog, and the overall tone is cold blue-grey."
+  - id: p_lofoten_polar_night_002
+    source_ref: lofoten-polar-night/DSC02262.jpg
+    caption: "Lofoten · January 2025"
+    rhythm_after: base
+    alt_text: "A distant view of a fjord town under winter twilight: on the left is a snow-covered mountain with dark tree lines on the mountain. At the foot of the mountain are snow-covered houses lined up along the water's edge, with sporadic warm lights on the roofs; on the right is the open dark blue-gray sea, with a white and red boat sailing into the distance; on the horizon in the distance are the silhouettes of continuous snow-capped mountains, and the sky is grey-blue."
+  - id: p_lofoten_polar_night_003
+    source_ref: lofoten-polar-night/DSC02271.jpg
+    caption: "Lofoten · January 2025"
+    rhythm_after: base
+    alt_text: "The snowy scene of the port overlooked by Blue Moment: a slippery road curves from the front of the frame, and a car leaves a light trail; the middle shot is a row of factory buildings illuminated by warm orange lights, and a large ship with a dark hull and white superstructure is parked next to the dock; on the right is a red and blue container yard and snow-roofed houses, with a dark gray snow mountain in the background and a dark blue sky."
+  - id: p_lofoten_polar_night_004
+    source_ref: lofoten-polar-night/DSC02278.jpg
+    caption: "Lofoten · January 2025"
+    rhythm_after: base
+    alt_text: "A triangular modern church in the Blues Moment. The white shell is in the shape of a sharp triangle. The front is almost entirely glass curtain wall. Bright warm yellow light shines through the interior, and the cross structure inside the glass can be seen. Crowds gather on the snow in front of the church. In the foreground are snow-covered roads and guardrails with traces of melted snow. There are vehicles passing by on the road, and the sky is dark blue."
+  - id: p_lofoten_polar_night_005
+    source_ref: lofoten-polar-night/DSC02280.jpg
+    caption: "Lofoten · January 2025"
+    rhythm_after: base
+    alt_text: "The night scene of the city in the blues moment: a long bridge arcs across the frame, with a row of street lights on the bridge, and the traffic leaves long white and red light trails on the bridge deck; under the bridge is a snow-covered road and a traffic light intersection, with several cars passing by dragging their lights; in the background is a snow-covered urban hillside, with densely packed houses and yellow light spots covering the hills, and the sky is filled with blue-gray clouds."
+  - id: p_lofoten_polar_night_006
+    source_ref: lofoten-polar-night/DSC02335.jpg
+    caption: "Lofoten · January 2025"
+    rhythm_after: base
+    alt_text: "The harbor after sunset: A small black-and-white ferry is sailing smoothly on the water in the center of the frame; in the background are low islands and hills covered with residual snow and dark woods. The hills on the right are higher and have a small building on the top; the sea is calm and gray-blue, and the sky gradually changes from orange-pink glow below to light blue above, with a few clouds in the sky."
+  - id: p_lofoten_polar_night_007
+    source_ref: lofoten-polar-night/DSC02340.jpg
+    caption: "Lofoten · January 2025"
+    rhythm_after: base
+    alt_text: "A roadside at dusk in winter: the sun is setting behind the snow-covered mountains, with an orange-yellow glow on the horizon, and a narrow band of illuminated clouds across the sky; in the foreground is an icy and slippery road, with speed limit signs and diamond-shaped warning signs standing on the roadside; on the left edge is a car parked with its door open, and a man in dark clothes standing next to the car with his back to the camera, and on the right are snow-covered fields and wooden fences."
+  - id: p_lofoten_polar_night_008
+    source_ref: lofoten-polar-night/DSC02364.jpg
+    caption: "Lofoten · January 2025"
+    rhythm_after: base
+    alt_text: "The fjord photographed from the water: on the left is a gently sloping mountain covered with snow, with a dark tree belt at the foot of the mountain and a few buildings by the water. The hillside is dyed warm pink by the sunset; on the far right, several small snow-covered islands and reefs are exposed on the horizon, and the sky gradually changes from blue to warm yellow on the horizon; in the foreground is the water surface with ripples and white wakes."
+  - id: p_lofoten_polar_night_009
+    source_ref: lofoten-polar-night/DSC02410.jpg
+    caption: "Lofoten · January 2025"
+    rhythm_after: base
+    alt_text: "Coastline at dusk: On the right is a row of jagged steep peaks. The snow on the ridges and rock walls is illuminated golden orange by the low-angle sunset; the sea surface is calm and dark blue, with an orange-pink haze belt on the skyline; the rocks near the coast are covered with thin snow. At the bottom of the frame is a curved wooden plank road with several tourists walking on the shore and waterside."
+  - id: p_lofoten_polar_night_010
+    source_ref: lofoten-polar-night/DSC02414.jpg
+    caption: "Lofoten · January 2025"
+    rhythm_after: base
+    alt_text: "A high-angle view of the fjord after snow: the lake surface is dark blue and calm, reflecting the scenery on the shore and the pink-orange glow of the horizon; the nearshore water is dotted with snow-covered rocks and tree shadows, and a curved road extends along the hillside on the right bank; the middle ground and background are snow-covered peaks and ridges, the lower half of the hillside is covered with dark woods, and the sky is a twilight blend of lilac and light blue."
+  - id: p_lofoten_polar_night_011
+    source_ref: lofoten-polar-night/DSC02442.jpg
+    caption: "Lofoten · January 2025"
+    rhythm_after: base
+    alt_text: "The shore of the inlet in winter twilight: There is a white house with a dark pitched roof on the left bank. Warm yellow light shines from the windows, and the house's reflection falls on the calm water. There are several brightly lit houses and a snow-covered slope scattered on the right bank. In the distance, there are cascading mountain shadows and low hanging clouds covered with residual snow. The sky gradually brightens from dark blue to warm white at the horizon."

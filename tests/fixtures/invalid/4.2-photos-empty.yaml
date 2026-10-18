@@ -1,0 +1,15 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §4.2 photos contract
+# Empty photos[]: photos is required and must be a NON-EMPTY ordered
+# sequence. Consumed by: tests/unit/gallery-schema.test.ts (WP-09 RED:
+# "empty photos[] fails").
+# =====================================================================
+id: g_bad_photos_empty
+slug: invalid-photos-empty
+status: draft
+title: "Invalid — empty photos array"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+places:
+  - pl_lofoten
+photos: []

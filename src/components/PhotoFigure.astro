@@ -1,0 +1,150 @@
+---
+/*
+ * src/components/PhotoFigure.astro — one photo in the Gallery sequence (WP-35).
+ *
+ * Frozen references: FDS §3.1 + G4 (rhythm applied via authored rhythm_after
+ * ONLY — orientation never chooses; captioned photo: rhythm starts AFTER the
+ * caption; uncaptioned: no reserved caption region), §11.1/§11.2 (loading
+ * strategy — props from the sequence), §11.3 (intrinsic width/height, aspect
+ * preserved, no crop).
+ *
+ * C direction (2026-10-18): ONE plate measure — the sequence column is the
+ * width, the aspect ratio is the height (the 1100px cap and the portrait
+ * 80svh rule are gone), the soft edge rides the picture's own box, and the
+ * caption is a single mono catalogue line under the plate.
+ *
+ * srcset sizes stay bound to the §3.1 media-frame context (src/lib/media.ts).
+ *
+ * data-photo-id is the e2e sequence-order assertion surface.
+ *
+ * R4 perf rework: the FIRST photo (route LCP) renders its <picture> directly.
+ * Every later photo renders an aspect-ratio-reserved slot plus the real
+ * <picture> inside <noscript>. With JS, src/lib/js/media-slots.ts hydrates a
+ * slot only when it nears the viewport; this keeps Chromium's wide native
+ * lazy-loading distance from dispatching a dozen full-size candidates that
+ * contend with the LCP image (see media-slots.ts for measured rationale).
+ * Without JS the noscript pictures render natively.
+ */
+import { MEDIA_FRAME_SIZES_VALUE as MEDIA_FRAME_SIZES } from "../lib/media";
+import { miniExifLine, type PhotoExifRecord } from "../lib/exif/format";
+
+export interface PhotoFigureData {
+  photoId: string;
+  caption: string | null;
+  captionLang: "zh" | null;
+  altText: string | null;
+  rhythmAfter: "base" | "compact" | "breathing";
+  /** Trusted per-photo place name (photo-level ref; never inherited). */
+  placeName?: string | null;
+  /** Non-sensitive camera labels for the mini line/plaque; null absent. */
+  exif?: PhotoExifRecord | null;
+  display: {
+    /** JPEG fallback URL — embed verbatim as `<img src>`. */
+    src: string;
+    /** JPEG `"url w"` srcset — embed verbatim as `<img srcset>`. */
+    srcset: string;
+    /** AVIF `"url w"` srcset for the `<source type="image/avif">` primary. */
+    avifSrcset?: string;
+    width: number;
+    height: number;
+    /** Preview-only: draft photo with no manifest record (no fabricated URL). */
+    missing?: boolean;
+  };
+}
+
+interface Props {
+  photo: PhotoFigureData;
+  /** Loading strategy for THIS position: first image is the LCP candidate. */
+  position: "first" | "rest";
+  /** One-shot entrance reveal (R3 §5): figures after the first opt in. */
+  reveal?: boolean;
+}
+
+const { photo, position, reveal = false } = Astro.props;
+const eager = position === "first";
+const missing = photo.display.missing === true;
+const slotId = `media-slot-${photo.photoId}`;
+const exifLine = miniExifLine(photo.exif ?? null);
+const aspectVars = `--media-ar:${photo.display.width} / ${photo.display.height}; --media-ar-w:${photo.display.width}; --media-ar-h:${photo.display.height}`;
+---
+
+<figure
+  class:list={[
+    "gallery-figure",
+    `rhythm-${photo.rhythmAfter}`,
+    photo.display.height > photo.display.width ? "is-portrait" : "is-landscape",
+  ]}
+  id={photo.photoId}
+  data-photo-id={photo.photoId}
+  data-place-name={photo.placeName ?? undefined}
+  style={missing ? undefined : aspectVars}
+  {...(reveal ? { "data-reveal": "" } : {})}
+>
+  {
+    !missing && eager && (
+      <picture>
+        {photo.display.avifSrcset && (
+          <source type="image/avif" srcset={photo.display.avifSrcset} sizes={MEDIA_FRAME_SIZES} />
+        )}
+        <img
+          src={photo.display.src}
+          srcset={photo.display.srcset}
+          sizes={MEDIA_FRAME_SIZES}
+          width={photo.display.width}
+          height={photo.display.height}
+          alt={photo.altText ?? ""}
+          fetchpriority="high"
+        />
+      </picture>
+    )
+  }
+  {
+    !missing && !eager && (
+      /* T3: the no-JS picture lives INSIDE the reserved slot, so a figure
+         always occupies exactly ONE media space. As siblings, the scriptless
+         browser laid out the story twice — the aspect-ratio box AND the
+         picture it was standing in for (measured 2026-09-14: slot 114.7px +
+         img 114.6px in the same figure). The slot keeps the ratio reservation
+         and the picture stretches to it, so the geometry is identical with
+         and without JS; the hydrator replaces this <noscript> with the live
+         picture once the slot nears the viewport.
+
+         T1: the slot carries NO aria-hidden. Hiding it hid the hydrated photo
+         from assistive technology (the real <img> is appended INSIDE this
+         span), while DOM counts and axe stayed green. The ratio is handed over
+         as custom properties only — the stylesheet owns `aspect-ratio` so the
+         hydrated state can release the reservation (an inline declaration
+         could not be overridden by a rule below). */
+      <span class="media-slot" data-media-slot={slotId}>
+        <noscript id={slotId}>
+          <picture>
+            {photo.display.avifSrcset && (
+              <source type="image/avif" srcset={photo.display.avifSrcset} sizes={MEDIA_FRAME_SIZES} />
+            )}
+            <img
+              src={photo.display.src}
+              srcset={photo.display.srcset}
+              sizes={MEDIA_FRAME_SIZES}
+              width={photo.display.width}
+              height={photo.display.height}
+              alt={photo.altText ?? ""}
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+        </noscript>
+      </span>
+    )
+  }
+  {
+    (photo.caption || exifLine) && (
+      /* One mono catalogue line (C direction): the caption keeps its words and
+         the capture run keeps its data, both in the same voice and on the same
+         line — no hairline rule, no right-aligned EXIF column. */
+      <figcaption class="mono-meta" lang={photo.captionLang ?? undefined}>
+        {photo.caption && <span class="photo-caption">{photo.caption}</span>}
+        {exifLine && <span class="photo-exif-mini tnum">{exifLine}</span>}
+      </figcaption>
+    )
+  }
+</figure>

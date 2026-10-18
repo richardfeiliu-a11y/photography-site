@@ -1,0 +1,23 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 10
+# next_gallery_id target missing: references g_bad_ghost, which no
+# content/galleries/*/meta.yaml defines. Dangling is a build error,
+# never a warning (§9.2#4).
+# Consumed by: tests/unit/gallery-schema.test.ts (WP-09);
+# tests/integration/production-validation.test.ts (WP-13).
+# =====================================================================
+id: g_bad_13_10
+slug: invalid-next-missing
+status: draft
+title: "Invalid — dangling next_gallery_id"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+places:
+  - pl_lofoten
+next_gallery_id: g_bad_ghost
+photos:
+  - id: p_bad_13_10_001
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

@@ -1,0 +1,21 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §4.3 forbidden fields (UD-011)
+# Authored prev_gallery_id: reverse relations are derived at build time,
+# never authored. Consumed by: tests/unit/gallery-schema.test.ts (WP-09,
+# forbidden-field RED case).
+# =====================================================================
+id: g_bad_forbidden_prev
+slug: invalid-forbidden-prev
+status: draft
+title: "Invalid — authored prev_gallery_id"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+places:
+  - pl_lofoten
+prev_gallery_id: g_lofoten_light
+photos:
+  - id: p_bad_forbidden_prev_001
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

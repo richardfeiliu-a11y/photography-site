@@ -1,0 +1,20 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §6.3 constraints (unknown/orphan keys)
+# Place carrying forbidden concepts: geographic coordinates, gallery
+# counts, Visit/Trip fields — none exist in this architecture and the
+# WP-09/WP-10 schemas reject unknown keys (plan §16 orphan-metadata
+# rejection). Consumed by: tests/unit/place-schema.test.ts (WP-10 RED:
+# "forbidden concepts rejected (coordinates, counts, Visit/Trip)").
+# =====================================================================
+id: pl_bad_concepts
+slug: invalid-place-concepts
+name: "Invalid — forbidden place concepts"
+region: "Nowhere"
+country: "Test"
+coordinates:
+  lat: 0.0
+  lng: 0.0
+gallery_count: 3
+visits:
+  - year: 2024
+trip: "Summer trip 2024"

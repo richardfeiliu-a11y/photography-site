@@ -1,0 +1,23 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 7
+# Photo source_ref missing or empty: the photo carries source_ref: ""
+# (the required-but-absent key form fails the same way at schema level).
+# Expected: schema rejects empty string; validator names photo
+# p_bad_13_07_001, rule 13.1#7.
+# Consumed by: tests/unit/gallery-schema.test.ts (WP-09);
+# tests/integration/production-validation.test.ts (WP-13).
+# =====================================================================
+id: g_bad_13_07
+slug: invalid-empty-source-ref
+status: draft
+title: "Invalid — empty source_ref"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+places:
+  - pl_lofoten
+photos:
+  - id: p_bad_13_07_001
+    source_ref: ""
+    caption: null
+    rhythm_after: base
+    alt_text: null

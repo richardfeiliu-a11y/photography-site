@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101014">
+  <title>Light Field — Photography by Richard</title>
+  <link rel="stylesheet" href="/common.css">
+  <style>
+    /* Light Field lab variant. Ambient colors arrive precomputed per gallery
+       (server.mjs, OKLCH-clamped); this file only consumes them.
+       Dark field is the concept's home ground; light field is the honest
+       translation ("a bright gallery", not "a lit dark room"). */
+    :root { color-scheme: dark; }
+    body {
+      --hue: 265;
+      --ink: oklch(0.93 0.005 var(--hue));
+      --ink2: oklch(0.74 0.008 var(--hue));
+      --ink3: oklch(0.60 0.008 var(--hue));
+      --hair: oklch(0.98 0 0 / 0.14);
+      --edge: rgba(255, 255, 255, 0.22);
+      --focus: #7aa2f7;
+      --viewer-bg: oklch(0.12 0 0);
+      --viewer-ink: oklch(0.93 0 0);
+      background: oklch(0.135 0.01 var(--hue));
+      color: var(--ink);
+      font-family: 'Lab Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      transition: background 700ms ease;
+    }
+    body[data-theme="light"] {
+      color-scheme: light;
+      --ink: oklch(0.27 0.012 var(--hue));
+      --ink2: oklch(0.38 0.015 var(--hue));
+      --ink3: oklch(0.50 0.012 var(--hue));
+      --hair: oklch(0.2 0 0 / 0.14);
+      --edge: rgba(20, 20, 30, 0.25);
+      --focus: #0b57d0;
+      --viewer-bg: oklch(0.12 0 0);
+      --viewer-ink: oklch(0.93 0 0);
+      background: oklch(0.945 0.008 var(--hue));
+    }
+    #field { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+    button { border: 0; background: none; color: inherit; }
+    :focus-visible { outline: 2px solid var(--focus) !important; outline-offset: 4px; }
+    .skip { position: fixed; top: -100px; left: 20px; z-index: 20; padding: 12px 18px; background: var(--ink); color: oklch(0.15 0 0); }
+    body[data-theme="light"] .skip { color: oklch(0.98 0 0); }
+    .skip:focus { top: 12px; }
+    .mono { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+    .serif { font-family: 'Lab Serif', serif; font-weight: 400; }
+    h1, h2, h3, p, figure { margin: 0; }
+
+    /* Edge navigation: one hairline, no bar. */
+    .edge { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 22px 4vw 18px; border-bottom: 1px solid var(--hair); }
+    .identity { padding: 0; text-align: left; line-height: 1.3; }
+    .identity strong { display: block; font-family: 'Lab Serif', serif; font-weight: 400; font-size: 19px; }
+    .identity span { color: var(--ink2); }
+    nav.edge-links { display: flex; gap: 26px; flex-wrap: wrap; align-items: baseline; }
+    nav.edge-links button { padding: 6px 0; color: var(--ink2); border-bottom: 1px solid transparent; font-size: 15px; }
+    nav.edge-links button[aria-current="page"] { color: var(--ink); border-bottom-color: var(--ink); }
+    nav.edge-links button:hover { color: var(--ink); }
+    #theme-toggle { border: 1px solid var(--hair); padding: 8px 16px; border-radius: 999px; color: var(--ink2); font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
+    #theme-toggle:hover { color: var(--ink); border-color: var(--ink2); }
+
+    /* The hour rail: position inside the day cycle. */
+    #rail { position: fixed; right: 16px; top: 22vh; height: 56vh; width: 2px; background: var(--hair); display: none; }
+    #rail.on { display: block; }
+    #rail-dot { position: absolute; left: -3px; top: 0; width: 8px; height: 8px; border-radius: 50%; background: var(--lume, oklch(0.75 0.06 265 / 0.9)); box-shadow: 0 0 12px var(--lume, oklch(0.75 0.06 265 / 0.9)); transition: top 300ms ease; }
+    #rail-label { position: absolute; right: 12px; top: -6px; color: var(--ink3); white-space: nowrap; }
+
+    /* Home: one lamp, then the day's preview stations.
+       The lamp is sized by the room (70vh / 1180px), and the lockup spreads
+       across the lamp's own width so the field's emptiness stays deliberate. */
+    .hero { min-height: 88vh; display: grid; place-content: center; justify-items: center; padding: 4vh 4vw 9vh; }
+    .lamp img { max-height: 64vh; width: auto; max-width: min(1180px, 88vw); box-shadow: 0 0 1px var(--edge), 0 0 60px var(--lume); }
+    .hero-meta { margin-top: 34px; width: min(1180px, 88vw); display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline; gap: 20px; }
+    .hero-meta .hour { justify-self: start; }
+    .hero-meta .hero-side { justify-self: end; color: var(--ink2); font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .hero-sub { margin-top: 16px; width: min(1180px, 88vw); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .hero-sub .lede { max-width: 46ch; text-align: left; }
+    .hour { color: var(--ink2); }
+    .hero-meta h1 { font-family: 'Lab Serif', serif; font-weight: 400; font-size: clamp(28px, 3.4vw, 44px); line-height: 1.12; text-align: center; }
+    .lede { color: var(--ink2); font-size: 15px; max-width: 48ch; }
+    .open { border: 1px solid var(--hair); padding: 13px 28px; border-radius: 999px; color: var(--ink); white-space: nowrap; }
+    .open:hover { border-color: var(--ink); }
+    .cue { width: 1px; height: 28px; background: var(--hair); margin-top: 6vh; justify-self: center; }
+
+    .journey { padding: 4vh 4vw 12vh; max-width: 1400px; margin: 0 auto; }
+    .station { max-width: 1400px; margin: 0 auto; padding: 0 4vw; }
+    .station-inner { width: min(720px, 100%); margin: clamp(110px, 16vh, 190px) auto; }
+    .station-inner:nth-child(odd) { transform: translateX(-6%); }
+    .station-inner:nth-child(even) { transform: translateX(6%); }
+    .plate { display: block; width: 100%; padding: 0; text-align: left; cursor: pointer; }
+    .plate img { width: 100%; height: auto; box-shadow: 0 0 1px var(--edge), 0 0 34px var(--lume); }
+    .station-meta { display: grid; gap: 8px; margin-top: 20px; }
+    .station-meta h2 { font-family: 'Lab Serif', serif; font-weight: 400; font-size: 26px; line-height: 1.2; }
+    .station-meta .sub { color: var(--ink2); font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; letter-spacing: 0.08em; }
+    .plate:hover h2, .plate:hover + .station-meta h2 { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
+
+    .index-links { display: flex; justify-content: center; gap: 40px; padding: 44px 4vw; border-top: 1px solid var(--hair); }
+    .index-links button { color: var(--ink2); font-size: 15px; padding: 6px 0; border-bottom: 1px solid transparent; }
+    .index-links button:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+    /* Generic page shell */
+    .page { max-width: 1400px; margin: 0 auto; padding: 64px 4vw 120px; }
+    .page-head { display: flex; align-items: end; justify-content: space-between; gap: 28px; flex-wrap: wrap; margin-bottom: 8vh; }
+    .page-head h1 { font-family: 'Lab Serif', serif; font-weight: 400; font-size: clamp(28px, 2.8vw, 38px); }
+    .page-head p { color: var(--ink2); margin-top: 12px; max-width: 52ch; font-size: 15px; }
+    .modes { display: flex; gap: 22px; }
+    .modes button { color: var(--ink2); padding: 6px 0; border-bottom: 1px solid transparent; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+    .modes button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+    .legend { color: var(--ink3); margin-bottom: 6vh; }
+
+    /* Chronicle: the utilitarian index. */
+    .rows { border-top: 1px solid var(--hair); }
+    .row { display: grid; grid-template-columns: 120px minmax(0, 1fr) auto; gap: 24px; align-items: baseline; width: 100%; text-align: left; padding: 20px 0; border-bottom: 1px solid var(--hair); cursor: pointer; }
+    .row:hover .row-title { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px; }
+    .row .date { color: var(--ink2); font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; letter-spacing: 0.08em; }
+    .row-title { font-family: 'Lab Serif', serif; font-size: 21px; }
+    .row .meta { color: var(--ink2); font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; letter-spacing: 0.06em; white-space: nowrap; }
+
+    /* Places: grouped index + one place's plates. */
+    .places-layout { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 6vw; }
+    .place-group { margin-bottom: 34px; }
+    .place-group > p { color: var(--ink3); margin-bottom: 6px; }
+    .place-group button { display: flex; justify-content: space-between; gap: 14px; width: 100%; text-align: left; padding: 11px 0 11px 14px; border-bottom: 1px solid var(--hair); color: var(--ink2); font-size: 15px; box-shadow: inset 0 0 0 0 transparent; }
+    .place-group button:hover { color: var(--ink); }
+    .place-group button[aria-pressed="true"] { color: var(--ink); box-shadow: inset 2px 0 0 0 var(--lume, var(--ink)); }
+    .place-group button span { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: var(--ink3); }
+    .place-heading h2 { font-family: 'Lab Serif', serif; font-weight: 400; font-size: 30px; }
+    .place-heading p { color: var(--ink2); margin-top: 8px; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .place-plates { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 44px 28px; margin-top: 34px; }
+    .place-plates .station-meta h3 { font-family: 'Lab Serif', serif; font-weight: 400; font-size: 20px; }
+
+    /* About: the reading room. */
+    .about { max-width: 640px; margin: 0 auto; padding: 12vh 4vw 14vh; }
+    .about h1 { font-family: 'Lab Serif', serif; font-weight: 400; font-size: clamp(28px, 2.8vw, 38px); margin-bottom: 34px; }
+    .about p { color: var(--ink2); font-size: 17px; line-height: 1.7; margin-bottom: 22px; }
+    .about .stats { margin: 40px 0; padding: 22px 0; border-block: 1px solid var(--hair); color: var(--ink2); font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+    .about figure { margin-top: 54px; }
+    .about img { width: 100%; box-shadow: 0 0 1px var(--edge), 0 0 34px var(--lume); }
+    .about figcaption { margin-top: 12px; color: var(--ink3); font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    footer { display: flex; justify-content: space-between; gap: 24px; margin: 0 4vw; padding: 28px 0 40px; border-top: 1px solid var(--hair); color: var(--ink2); font-size: 13px; flex-wrap: wrap; }
+
+    /* Viewer: the neutral darkroom. No ambient color, ever. */
+    .lab-viewer { --viewer-bg: oklch(0.12 0 0); --viewer-ink: oklch(0.93 0 0); }
+    .lab-viewer .lab-viewer-bar { background: oklch(0.12 0 0); border-bottom: 1px solid rgba(255, 255, 255, 0.12); padding: 16px 4vw; }
+    .lab-viewer-title { font-family: 'Lab Serif', serif; font-weight: 400; }
+    .lab-viewer-count { color: oklch(0.68 0 0); font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; letter-spacing: 0.1em; }
+    .lab-viewer-bar [data-close] { border: 1px solid rgba(255, 255, 255, 0.2) !important; border-radius: 999px; color: oklch(0.93 0 0); }
+    .lab-viewer-content { position: relative; padding: 40px 4vw 120px; }
+    .lf-tools { display: flex; justify-content: space-between; align-items: end; gap: 28px; flex-wrap: wrap; max-width: 1100px; margin: 0 auto 64px; }
+    .lf-tools h1 { font-family: 'Lab Serif', serif; font-weight: 400; font-size: clamp(26px, 3vw, 38px); margin: 10px 0 14px; }
+    .lf-tools .dim { color: oklch(0.72 0 0); max-width: 56ch; font-size: 15px; }
+    .lf-tools .meta { color: oklch(0.60 0 0); font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 12px; }
+    .lf-tools .hour { color: oklch(0.60 0 0); }
+    .lf-frames { max-width: 1100px; margin: 0 auto; }
+    .lf-frames figure { scroll-margin-top: 90px; }
+    .lf-frames figure.r-compact { margin-bottom: 56px; }
+    .lf-frames figure.r-base { margin-bottom: 110px; }
+    .lf-frames figure.r-breathing { margin-bottom: 180px; }
+    .lf-frames figure img { width: 100%; height: auto; max-height: 82dvh; object-fit: contain; box-shadow: 0 0 1px rgba(255, 255, 255, 0.18); }
+    .lf-frames figcaption { display: flex; justify-content: space-between; gap: 20px; padding-top: 14px; color: oklch(0.68 0 0); font-size: 14px; border-top: 1px solid rgba(255, 255, 255, 0.10); margin-top: 14px; }
+    .lf-frames figcaption .idx { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; letter-spacing: 0.1em; white-space: nowrap; }
+    .frame-open { display: block; width: 100%; padding: 0; cursor: default; }
+    .frame-open:disabled { color: inherit; }
+    .lf-frames.overview { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px 22px; }
+    .lf-frames.overview figure { margin: 0 !important; }
+    .lf-frames.overview img { height: 210px; }
+    .lf-frames.overview .frame-open { cursor: pointer; }
+    .lf-frames.overview .frame-open:hover img { box-shadow: 0 0 1px rgba(255, 255, 255, 0.18), 0 0 24px rgba(255, 255, 255, 0.14); }
+    .lf-rail { position: fixed; right: 18px; top: 18vh; height: 64vh; width: 2px; background: rgba(255, 255, 255, 0.14); }
+    .lf-rail .tick { position: absolute; left: -2px; width: 6px; height: 1px; background: rgba(255, 255, 255, 0.3); }
+    .lf-rail .dot { position: absolute; left: -3px; width: 8px; height: 8px; border-radius: 50%; background: oklch(0.93 0 0); box-shadow: 0 0 10px rgba(255, 255, 255, 0.6); transition: top 250ms ease; }
+    .loading { padding: 14vh 4vw; color: var(--ink2); }
+
+    @media (max-width: 1100px) { .lf-rail { display: none; } }
+    @media (max-width: 900px) {
+      #rail { display: none !important; }
+      .places-layout { grid-template-columns: 1fr; gap: 44px; }
+      .place-plates { grid-template-columns: 1fr; }
+      .station-inner:nth-child(odd), .station-inner:nth-child(even) { transform: none; }
+      .lf-frames.overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .lf-frames.overview img { height: 150px; }
+      .lf-frames figure.r-compact { margin-bottom: 36px; }
+      .lf-frames figure.r-base { margin-bottom: 64px; }
+      .lf-frames figure.r-breathing { margin-bottom: 96px; }
+    }
+    @media (max-width: 560px) {
+      .edge { flex-direction: column; align-items: start; gap: 14px; }
+      nav.edge-links { width: 100%; justify-content: space-between; gap: 10px; }
+      nav.edge-links button { min-height: 44px; }
+      .hero { min-height: 0; padding-top: 9vh; }
+      .lamp img { max-height: 52vh; }
+      .hero-meta { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 10px; }
+      .hero-meta .hour, .hero-meta .hero-side { justify-self: center; }
+      .hero-sub { flex-direction: column; align-items: center; text-align: center; }
+      .hero-sub .lede { text-align: center; }
+      .row { grid-template-columns: 1fr; gap: 6px; }
+      .row .meta { white-space: normal; }
+      .lf-tools { margin-bottom: 40px; }
+      .lf-frames.overview { gap: 22px 12px; }
+      .lf-frames.overview img { height: 120px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <div id="field" aria-hidden="true"></div>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="edge">
+    <button class="identity" data-view="home" aria-label="Richard photography, home">
+      <strong>Richard</strong><span class="mono" style="font-size:10px">Light Field</span>
+    </button>
+    <nav class="edge-links" aria-label="Main navigation">
+      <button data-view="home" aria-current="page">Home</button>
+      <button data-view="archive">Archive</button>
+      <button data-view="places">Places</button>
+      <button data-view="about">About</button>
+      <button id="theme-toggle" aria-pressed="false">Light</button>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1"><p class="loading" role="status">Preparing the light…</p></main>
+  <footer>
+    <p>Photography by Richard</p>
+    <p>A walk through one day of light.</p>
+  </footer>
+  <div id="rail" aria-hidden="true"><span id="rail-label" class="mono"></span><div id="rail-dot"></div></div>
+  <script src="/common.js"></script>
+  <script>
+    window.DesignLab.ready.then(data => {
+      const image = window.DesignLab.image;
+      const esc = window.DesignLab.escape;
+      const main = document.querySelector('main');
+      const field = document.getElementById('field');
+      const rail = document.getElementById('rail');
+      const railDot = document.getElementById('rail-dot');
+      const railLabel = document.getElementById('rail-label');
+      const archive = data.archive;
+
+      // The authored loop: follow next_gallery_id from the featured collection.
+      const featured = data.galleries[0];
+      const byId = new Map(archive.map(g => [g.id, g]));
+      const loop = [featured];
+      let cursor = featured;
+      while (cursor.next && byId.get(cursor.next) && byId.get(cursor.next).id !== featured.id && loop.length < archive.length + 1) {
+        cursor = byId.get(cursor.next);
+        loop.push(cursor);
+      }
+      const stations = loop.length === archive.length ? loop : archive;
+      const hourOf = i => {
+        const minutes = Math.round(i * 24 * 60 / stations.length);
+        const hh = String(Math.floor(minutes / 60)).padStart(2, '0');
+        const mm = String(minutes % 60).padStart(2, '0');
+        return hh + ':' + mm;
+      };
+      const theme = () => document.body.dataset.theme === 'light' ? 'light' : 'dark';
+      const fieldColor = g => {
+        const a = g.ambient[theme()];
+        return 'oklch(' + a.l + ' ' + a.c + ' ' + a.h + ')';
+      };
+      const lumeOf = g => {
+        const a = g.ambient[theme()];
+        const l = Math.min(a.l + (theme() === 'dark' ? 0.55 : -0.55), 0.85);
+        const alpha = theme() === 'dark' ? 0.28 : 0.18;
+        return 'oklch(' + Math.max(l, 0.12) + ' ' + (a.c + 0.02).toFixed(3) + ' ' + a.h + ' / ' + alpha + ')';
+      };
+      const neutral = { dark: { l: 0.125, c: 0, h: 265 }, light: { l: 0.96, c: 0, h: 265 } };
+      const neutralGallery = { ambient: neutral };
+      function setField(galleries) {
+        const colors = galleries.map(fieldColor);
+        field.style.background = colors.length > 1
+          ? 'linear-gradient(180deg, ' + colors.map((c, i) => c + ' ' + (i / (colors.length - 1) * 100).toFixed(1) + '%').join(', ') + ')'
+          : colors[0];
+        document.body.style.setProperty('--hue', galleries[0].ambient[theme()].h);
+      }
+      const placeNames = g => g.places.map(p => p.title).join(', ');
+      const stationHtml = (g, i, total) =>
+        '<div class="station-inner" style="--lume:' + lumeOf(g) + '">' +
+          '<button class="plate" data-gallery="' + esc(g.id) + '" aria-label="View ' + esc(g.title) + '">' +
+            image(g.cover, '(max-width: 900px) 92vw, 640px') +
+          '</button>' +
+          '<div class="station-meta">' +
+            '<span class="mono hour">' + hourOf(i) + '</span>' +
+            '<h2>' + esc(g.title) + '</h2>' +
+            '<span class="sub">' + esc(g.date.slice(0, 7)) + ' · ' + g.count + ' photographs' + (g.places.length ? ' · ' + esc(placeNames(g)) : '') + '</span>' +
+          '</div>' +
+        '</div>';
+
+      const home = () => {
+        const g = featured;
+        const preview = stations.slice(1, 6);
+        return '<section class="hero" style="--lume:' + lumeOf(g) + '">' +
+            '<figure class="lamp">' + image(g.cover, '(max-width: 900px) 92vw, min(1180px, 84vw)', true) + '</figure>' +
+            '<div class="hero-meta">' +
+              '<span class="mono hour">00:00</span>' +
+              '<h1>' + esc(g.title) + '</h1>' +
+              '<span class="hero-side">' + esc(g.date.slice(0, 7)) + ' · ' + g.count + ' photographs</span>' +
+            '</div>' +
+            '<div class="hero-sub">' +
+              '<p class="lede">' + esc(g.description) + '</p>' +
+              '<button class="open mono" data-gallery="' + esc(g.id) + '">Enter the collection</button>' +
+            '</div>' +
+            '<div class="cue" aria-hidden="true"></div>' +
+          '</section>' +
+          '<section class="journey" aria-label="The day ahead">' +
+            preview.map((p, i) => stationHtml(p, i + 1, stations.length)).join('') +
+          '</section>' +
+          '<nav class="index-links" aria-label="Index">' +
+            '<button data-view="archive">Archive</button>' +
+            '<button data-view="places">Places</button>' +
+            '<button data-view="about">About</button>' +
+          '</nav>';
+      };
+
+      let archiveMode = 'day';
+      const chronicle = [...archive].sort((a, b) => b.published.localeCompare(a.published));
+      const archiveBody = () => {
+        if (archiveMode === 'chrono') {
+          return '<div class="rows">' + chronicle.map(g =>
+            '<button class="row" data-gallery="' + esc(g.id) + '">' +
+              '<span class="date">' + esc(g.published.slice(0, 10)) + '</span>' +
+              '<span class="row-title">' + esc(g.title) + '</span>' +
+              '<span class="meta">' + esc(placeNames(g)) + ' · ' + g.count + '</span>' +
+            '</button>').join('') + '</div>';
+        }
+        return '<p class="legend mono">00:00 ———— 12:00 ———— 24:00 · one day of light, in the author\u2019s order</p>' +
+          '<div class="station">' + stations.map((g, i) => stationHtml(g, i, stations.length)).join('') + '</div>';
+      };
+      const archiveView = () =>
+        '<section class="page">' +
+          '<div class="page-head"><div><h1>Archive</h1><p>Thirteen collections walked as a single day, from polar night back to polar night. Switch to the chronicle for a plain index.</p></div>' +
+          '<div class="modes" aria-label="Archive layout">' +
+            '<button data-amode="day" aria-pressed="' + (archiveMode === 'day') + '">One day</button>' +
+            '<button data-amode="chrono" aria-pressed="' + (archiveMode === 'chrono') + '">Chronicle</button>' +
+          '</div></div>' +
+          '<div id="archive-body">' + archiveBody() + '</div>' +
+        '</section>';
+
+      // Places: grouped by country, one place's plates on the right.
+      const locations = new Map();
+      archive.forEach(g => g.places.forEach(p => {
+        if (!locations.has(p.id)) locations.set(p.id, { ...p, galleries: [] });
+        if (!locations.get(p.id).galleries.some(x => x.id === g.id)) locations.get(p.id).galleries.push(g);
+      }));
+      const places = [...locations.values()].sort((a, b) => a.title.localeCompare(b.title));
+      const countries = new Map();
+      places.forEach(p => {
+        const key = p.country || 'Elsewhere';
+        if (!countries.has(key)) countries.set(key, []);
+        countries.get(key).push(p);
+      });
+      let placeId = places[0] ? places[0].id : null;
+      const placeResults = () => {
+        const place = locations.get(placeId);
+        if (!place) return '<p>No places are listed.</p>';
+        return '<div class="place-heading"><h2>' + esc(place.title) + '</h2>' +
+          '<p>' + esc([place.region, place.country].filter(Boolean).join(' · ')) + ' · ' + place.galleries.length + ' collections</p></div>' +
+          '<div class="place-plates">' + place.galleries.map(g =>
+            '<div style="--lume:' + lumeOf(g) + '">' +
+              '<button class="plate" data-gallery="' + esc(g.id) + '" aria-label="View ' + esc(g.title) + '">' + image(g.cover, '(max-width: 900px) 92vw, 420px') + '</button>' +
+              '<div class="station-meta"><h3>' + esc(g.title) + '</h3><span class="sub">' + esc(g.date.slice(0, 7)) + ' · ' + g.count + ' photographs</span></div>' +
+            '</div>').join('') + '</div>';
+      };
+      const placesView = () =>
+        '<section class="page">' +
+          '<div class="page-head"><div><h1>Places</h1><p>' + places.length + ' places, grouped by country. Choose one to see the light that was found there.</p></div></div>' +
+          '<div class="places-layout"><div aria-label="Choose a place">' +
+            [...countries.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([country, list]) =>
+              '<div class="place-group"><p class="mono">' + esc(country) + '</p>' +
+              list.map(p => '<button data-place="' + esc(p.id) + '" aria-pressed="' + (p.id === placeId) + '">' + esc(p.title) + '<span>' + p.galleries.length + '</span></button>').join('') +
+              '</div>').join('') +
+          '</div><div id="place-results" aria-live="polite">' + placeResults() + '</div></div>' +
+        '</section>';
+
+      const about = () =>
+        '<section class="about" style="--lume:' + lumeOf(featured) + '">' +
+          '<h1>About</h1>' +
+          '<p>This is a photographic archive by Richard — thirteen collections made between cities, mountains and coastlines, kept in the order they were photographed.</p>' +
+          '<p>The archive is arranged as one day of light. It begins in the polar night of Lofoten and walks through dawn, hard noon and the long evening before returning to the dark. Each collection keeps its own hour.</p>' +
+          '<p class="stats">' + archive.length + ' collections · ' + archive.reduce((n, g) => n + g.count, 0) + ' photographs · ' + places.length + ' places</p>' +
+          '<p>Nothing here is cropped, reordered or retouched for the page. The photographs keep their original proportions and their authored sequence.</p>' +
+          '<figure>' + image(featured.cover, '(max-width: 900px) 92vw, 560px') +
+            '<figcaption>' + esc(featured.title) + ' · ' + esc(featured.date.slice(0, 7)) + '</figcaption>' +
+          '</figure>' +
+        '</section>';
+
+      const views = { home, archive: archiveView, places: placesView, about };
+      function renderView(focus) {
+        const key = location.hash.slice(1);
+        const view = Object.hasOwn(views, key) ? key : 'home';
+        main.innerHTML = views[view]();
+        document.querySelectorAll('nav [data-view]').forEach(button => {
+          if (button.dataset.view === view) button.setAttribute('aria-current', 'page');
+          else button.removeAttribute('aria-current');
+        });
+        document.title = (view === 'home' ? 'Light Field' : view[0].toUpperCase() + view.slice(1)) + ' — Photography by Richard';
+        if (view === 'home') setField(stations.slice(0, 6));
+        else if (view === 'archive') setField(archiveMode === 'day' ? stations : [neutralGallery]);
+        else if (view === 'places') setField([locations.get(placeId) ? byId.get((locations.get(placeId).galleries[0] || featured).id) : neutralGallery]);
+        else setField([neutralGallery]);
+        rail.classList.toggle('on', view === 'archive' && archiveMode === 'day');
+        if (view === 'archive') updateRail(0);
+        observeStations();
+        if (focus) { main.focus({ preventScroll: true }); window.scrollTo(0, 0); }
+      }
+      function updateRail(fraction) {
+        railDot.style.top = 'calc(' + (fraction * 100).toFixed(1) + '% - 4px)';
+        railLabel.textContent = hourOf(Math.round(fraction * (stations.length - 1)));
+      }
+      let stationObserver;
+      function observeStations() {
+        if (stationObserver) stationObserver.disconnect();
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const nodes = document.querySelectorAll('.station-inner');
+        stationObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const idx = [...nodes].indexOf(entry.target);
+            if (idx >= 0 && rail.classList.contains('on')) updateRail(idx / Math.max(nodes.length - 1, 1));
+          });
+        }, { threshold: 0.4 });
+        nodes.forEach(n => stationObserver.observe(n));
+      }
+
+      // Viewer: editorial sequence + star-point overview + hour rail of plates.
+      let railObserver;
+      window.DesignLab.renderGallery = gallery => {
+        const idx = stations.findIndex(g => g.id === gallery.id);
+        const hour = idx >= 0 ? hourOf(idx) : '';
+        const figures = gallery.photos.map((photo, i) =>
+          '<figure id="lf-frame-' + i + '" class="r-' + esc(photo.rhythm) + '" data-photo-id="' + esc(photo.id) + '">' +
+            '<button class="frame-open" data-frame="' + i + '" disabled aria-label="Photograph ' + (i + 1) + ' of ' + gallery.photos.length + '">' +
+              image(photo, '(max-width: 900px) 92vw, 1080px', i === 0) +
+            '</button>' +
+            '<figcaption><span>' + esc(photo.caption) + '</span><span class="idx">' + String(i + 1).padStart(2, '0') + ' / ' + gallery.photos.length + '</span></figcaption>' +
+          '</figure>').join('');
+        queueMicrotask(() => {
+          const dialog = document.querySelector('dialog.lab-viewer');
+          const frames = dialog.querySelectorAll('.lf-frames figure');
+          const dot = dialog.querySelector('.lf-rail .dot');
+          if (railObserver) railObserver.disconnect();
+          railObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+              if (!entry.isIntersecting || !dot) return;
+              const i = [...frames].indexOf(entry.target);
+              dot.style.top = 'calc(' + (i / Math.max(frames.length - 1, 1) * 100).toFixed(1) + '% - 4px)';
+            });
+          }, { root: dialog, threshold: 0.5 });
+          frames.forEach(f => railObserver.observe(f));
+        });
+        return '<div class="lf-tools"><div>' +
+            '<span class="mono hour">' + hour + '</span>' +
+            '<h1>' + esc(gallery.title) + '</h1>' +
+            '<p class="dim">' + esc(gallery.description) + '</p>' +
+            '<p class="meta">' + esc(gallery.date) + (gallery.places.length ? ' · ' + esc(placeNames(gallery)) : '') + ' · ' + gallery.count + ' photographs</p>' +
+          '</div>' +
+          '<div class="modes" aria-label="Photograph layout">' +
+            '<button data-mode="sequence" aria-pressed="true">Sequence</button>' +
+            '<button data-mode="overview" aria-pressed="false">Overview</button>' +
+          '</div></div>' +
+          '<div class="lf-frames lab-viewer-sequence">' + figures + '</div>' +
+          '<div class="lf-rail" aria-hidden="true">' +
+            gallery.photos.map((_, i) => '<span class="tick" style="top:' + (i / Math.max(gallery.photos.length - 1, 1) * 100).toFixed(1) + '%"></span>').join('') +
+            '<span class="dot" style="top:-4px"></span>' +
+          '</div>';
+      };
+      function setGalleryMode(mode) {
+        const dialog = document.querySelector('dialog.lab-viewer');
+        const frames = dialog.querySelector('.lf-frames');
+        frames.classList.toggle('overview', mode === 'overview');
+        frames.querySelectorAll('.frame-open').forEach(b => { b.disabled = mode !== 'overview'; });
+        dialog.querySelectorAll('[data-mode]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === mode)));
+      }
+
+      document.addEventListener('click', event => {
+        if (event.target.closest('.skip')) { event.preventDefault(); main.focus(); return; }
+        const button = event.target.closest('button');
+        if (!button) return;
+        if (button.id === 'theme-toggle') {
+          const next = theme() === 'dark' ? 'light' : 'dark';
+          document.body.dataset.theme = next;
+          button.textContent = next === 'dark' ? 'Light' : 'Dark';
+          button.setAttribute('aria-pressed', String(next === 'light'));
+          renderView(false);
+          return;
+        }
+        if (button.dataset.view) {
+          if (location.hash === '#' + button.dataset.view) renderView(true);
+          else location.hash = button.dataset.view;
+        }
+        if (button.dataset.amode) {
+          archiveMode = button.dataset.amode;
+          document.getElementById('archive-body').innerHTML = archiveBody();
+          document.querySelectorAll('[data-amode]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.amode === archiveMode)));
+          setField(archiveMode === 'day' ? stations : [neutralGallery]);
+          rail.classList.toggle('on', archiveMode === 'day');
+          updateRail(0);
+          observeStations();
+        }
+        if (button.dataset.place) {
+          placeId = button.dataset.place;
+          document.getElementById('place-results').innerHTML = placeResults();
+          document.querySelectorAll('[data-place]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.place === placeId)));
+          const g = locations.get(placeId).galleries[0];
+          if (g) setField([byId.get(g.id)]);
+        }
+        if (button.dataset.mode) setGalleryMode(button.dataset.mode);
+        if (button.dataset.frame !== undefined) {
+          setGalleryMode('sequence');
+          const frame = document.getElementById('lf-frame-' + button.dataset.frame);
+          const dialog = document.querySelector('dialog.lab-viewer');
+          dialog.scrollTo({ top: frame.offsetTop - 80, behavior: 'instant' });
+        }
+      });
+      document.addEventListener('keydown', event => {
+        const dialog = document.querySelector('dialog.lab-viewer[open]');
+        if (!dialog || (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft')) return;
+        if (/^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName)) return;
+        const frames = [...dialog.querySelectorAll('.lf-frames figure')];
+        if (!frames.length) return;
+        const top = dialog.scrollTop + 100;
+        let current = 0;
+        frames.forEach((f, i) => { if (f.offsetTop <= top) current = i; });
+        const next = Math.min(Math.max(current + (event.key === 'ArrowRight' ? 1 : -1), 0), frames.length - 1);
+        event.preventDefault();
+        dialog.scrollTo({ top: frames[next].offsetTop - 80, behavior: 'smooth' });
+      });
+      window.addEventListener('hashchange', () => renderView(true));
+      renderView(false);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 15
+# Invalid redirect entry: this old path carries BOTH target types —
+# gallery_id XOR place_id is required, exactly one per entry (§11.1).
+# Sibling sub-cases consumed by the same WP-12/WP-13 test names:
+# neither target set, missing/malformed path, old path equal to a
+# current canonical route. (WP-12 adds its own redirect-* fixtures.)
+# Consumed by: tests/unit/redirects.test.ts (WP-12);
+# tests/integration/production-validation.test.ts (WP-13).
+# =====================================================================
+/galleries/invalid-two-targets:
+  gallery_id: g_lofoten_polar_night
+  place_id: pl_lofoten

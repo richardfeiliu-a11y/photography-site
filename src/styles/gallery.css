@@ -1,0 +1,100 @@
+/*
+ * src/styles/gallery.css — the immersive Gallery sequence (C direction).
+ *
+ * ONE plate measure: the sequence column sets the width for every photograph
+ * (the Monograph 1100px cap and the portrait 80svh height rule are lifted),
+ * and the intrinsic aspect ratio sets the height. A photograph is never
+ * cropped and never letterboxed: the <img> box IS the picture's box, which is
+ * why the soft edge (--photo-edge 1px rim + --photo-shadow) lands on the
+ * photograph instead of on an empty element box. The pre-hydration slot
+ * reserves the identical geometry.
+ *
+ * Vertical rhythm (authored rhythm_after ONLY; orientation never chooses):
+ *   compact 64 / base 112 / breathing 168 desktop · 40 / 72 / 104 mobile.
+ *
+ * Caption: one mono line under the plate (the catalogue voice — uppercase,
+ * letter-spaced, secondary ink), leading-edge aligned with the photograph.
+ * The hairline rule and the right-aligned EXIF column are gone; the capture
+ * run joins the same line.
+ */
+
+.gallery-figure {
+  position: relative;
+  width: 100%;
+  margin: 0;
+}
+
+/* Gap AFTER a figure = the authored rhythm_after of THAT figure. */
+.gallery-figure + .gallery-figure {
+  margin-top: 112px;
+}
+.gallery-figure.rhythm-compact + .gallery-figure {
+  margin-top: 64px;
+}
+.gallery-figure.rhythm-breathing + .gallery-figure {
+  margin-top: 168px;
+}
+
+@media (max-width: 899px) {
+  .gallery-figure + .gallery-figure {
+    margin-top: 72px;
+  }
+  .gallery-figure.rhythm-compact + .gallery-figure {
+    margin-top: 40px;
+  }
+  .gallery-figure.rhythm-breathing + .gallery-figure {
+    margin-top: 104px;
+  }
+}
+
+.gallery-figure picture {
+  display: block;
+}
+
+/* The plate: width from the column, height from the photograph. */
+.gallery-figure img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+  border-radius: 0;
+  background: transparent;
+  object-fit: contain;
+  box-shadow: var(--photo-edge), var(--photo-shadow);
+}
+
+/* Pre-hydration reserved slot mirrors the eventual plate geometry exactly
+   (same width, aspect-driven height, no fill of its own). */
+.gallery-figure .media-slot {
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--media-ar-w) / var(--media-ar-h);
+  height: auto;
+  max-height: none;
+  background: transparent;
+}
+
+.gallery-figure .media-slot[data-media-ready="1"] {
+  aspect-ratio: auto;
+}
+
+/* Caption line: mono catalogue voice (type carried by the global .mono-meta
+   primitive on the figcaption), one line, leading edge on the plate. */
+.gallery-figure figcaption {
+  width: 100%;
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 24px;
+}
+
+.gallery-figure .photo-exif-mini {
+  white-space: nowrap;
+}
+
+/* CJK captions keep the taller leading (uppercase is a no-op for them). */
+.gallery-figure figcaption:lang(zh) {
+  line-height: 1.75;
+}

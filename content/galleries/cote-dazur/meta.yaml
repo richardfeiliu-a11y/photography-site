@@ -1,0 +1,147 @@
+id: g_cote_dazur
+slug: cote-dazur
+status: published
+title: "Côte d'Azur"
+description: "The Mediterranean at its brightest: Marseille's calanques and the promenade at Nice."
+photographed_start: "2024-07-27"
+photographed_end: "2024-07-28"
+published_at: "2026-09-12T00:00:00Z"
+places:
+  - pl_marseille
+  - pl_nice
+cover_photo_id: p_cote_dazur_017
+next_gallery_id: g_aegean
+photos:
+  - id: p_cote_dazur_001
+    source_ref: cote-dazur/DSC00475.jpg
+    place: pl_marseille
+    captured_at: "2024-07-27T09:35:43"
+    caption: "Marseille · July 2024"
+    rhythm_after: base
+    alt_text: "Panoramic view of the port during the day. There are densely packed sailboats and yachts parked on both sides of the dark blue harbor. Rows of masts stand upright in the sun. A small boat drags its wake across the water. In the background are light-colored stone city buildings and a church-like building with a bell tower. The sky is pure and blue."
+  - id: p_cote_dazur_002
+    source_ref: cote-dazur/DSC00480.jpg
+    place: pl_marseille
+    captured_at: "2024-07-27T09:43:35"
+    caption: "Marseille · July 2024"
+    rhythm_after: base
+    alt_text: "The ancient stone walls and square towers on one side of the harbor are mottled and have a piled stone revetment at the bottom. Sunlight shines obliquely on the stone walls. Three rubber boats are carrying people in the harbor. The sea surface shines with dense silver reflections in the sunlight. In the distance are rows of moored sailboats and the city skyline."
+  - id: p_cote_dazur_003
+    place: pl_marseille   # owner-approved 2026-09-15 (local review)
+    source_ref: cote-dazur/DSC00485.jpg
+    caption: "Marseille · July 2024"
+    rhythm_after: base
+    alt_text: "A white catamaran is sailing on the clear sea. The sails are half dark gray and half white. There are letter numbers and patterns on the sails. There are several people sitting on the deck. In the distance are the undulating light brown coastal hills, and the water is dark blue with fine ripples."
+  - id: p_cote_dazur_004
+    source_ref: cote-dazur/DSC00488.jpg
+    place: pl_marseille
+    captured_at: "2024-07-27T09:52:38"
+    caption: "Marseille · July 2024"
+    rhythm_after: base
+    alt_text: "On the open sea, a small rocky island stands alone. On the island is a white stone fortress with multiple cylindrical towers and a wall. There is a small lighthouse with a red top on the left end of the island. It is surrounded by only dark blue sea and clean light blue sky. In the distance, there is a layer of mist floating at the junction of sea and sky."
+  - id: p_cote_dazur_005
+    source_ref: cote-dazur/DSC00501.jpg
+    caption: "Marseille · July 2024"
+    rhythm_after: base
+    alt_text: "A close-up of the sea surface, most of the frame is filled with dark blue water, and the water is densely covered with silver reflective spots of sunlight; the lower left corner of the frame reveals a white ship side or a corner of the railing, and rust can be seen below the railing."
+  - id: p_cote_dazur_006
+    place: pl_marseille
+    source_ref: cote-dazur/DSC00513.jpg
+    caption: "Marseille · July 2024"
+    rhythm_after: base
+    alt_text: "The white limestone cliffs on the sea surface are layered, with horizontal grooves and cracks formed by weathering on the surface. They extend from the left to the promontory on the right. There are scattered green shrubs growing on the ridges. Below the cliffs is the dark blue sea. In the lower right corner of the frame, there are white wakes left by two speedboats passing by, and the sky is filled with white clouds."
+  - id: p_cote_dazur_007
+    place: pl_marseille
+    source_ref: cote-dazur/DSC00522.jpg
+    caption: "Marseille · July 2024"
+    rhythm_after: base
+    alt_text: "On the open sea under the blue sky, a white yacht with a cabin is sailing in the front right of the frame. Two people are standing on the stern of the boat, and there is a retracted mast on the deck. In the middle of the frame is an island with exposed rock walls and a flat top. There is a sailboat and several small boats in front of the island. The sea is dark blue with fine waves, and there are a few thin clouds in the sky."
+  - id: p_cote_dazur_008
+    place: pl_marseille
+    source_ref: cote-dazur/DSC00525.jpg
+    caption: "Marseille · July 2024"
+    rhythm_after: base
+    alt_text: "A section of steep coast: the upper half of the frame is a light gray rock wall, with dense dark green pine trees growing in the gaps in the rock wall. Below the cliff is a breakwater-like revetment made of large white stones; the sea surface is bright blue-green, with fine ripples on the water, and a white yacht is driving slowly along the stone shore."
+  - id: p_cote_dazur_009
+    place: pl_marseille
+    source_ref: cote-dazur/DSC00538.jpg
+    caption: "Marseille · July 2024"
+    rhythm_after: base
+    alt_text: "The turquoise water clings to a tall gray-white limestone cliff, which is covered with cracks and hollows. On the water, two people each paddled side by side in a white kayak. One of the three people, wearing red, was waving his oar forward, and the oar stirred up white water spray."
+  - id: p_cote_dazur_010
+    source_ref: cote-dazur/DSC00557.jpg
+    place: pl_marseille
+    captured_at: "2024-07-27T13:10:18"
+    caption: "Marseille · July 2024"
+    rhythm_after: base
+    alt_text: "Looking at the city's waterfront from the sea: To the left of the center is a majestic Romanesque church with a huge dome and two square towers. The exterior wall is made of gray-white and dark-striped stone. On both sides of the church are dense urban buildings and red tile roofs. A stone breakwater runs across the front of the church. On the lower right, a white sailboat is sailing across the dark blue sea."
+  - id: p_cote_dazur_011
+    source_ref: cote-dazur/DSC00567.jpg
+    place: pl_marseille
+    captured_at: "2024-07-27T15:28:00"
+    caption: "Marseille · July 2024"
+    rhythm_after: base
+    alt_text: "Looking out from inside a huge stone arch: outside the arch, there are modern apartment buildings with beige square veneers on both sides. Through the middle of the arch is a street leading down to the harbor. The harbor is full of sailboats, and there are pedestrians, cars and parked vehicles on the street. On the hill at the end of the street stands a large church-like building with a tall tower and dome. Houses are scattered on the mountainside, and there is mist in the sky."
+  - id: p_cote_dazur_012
+    place: pl_nice
+    source_ref: cote-dazur/DSC00627.jpg
+    caption: "Nice · July 2024"
+    rhythm_after: base
+    alt_text: "There is a narrow and steep ramp in the old city. On the left side, an entire old stone wall made of irregular gray and white stones takes up almost half of the frame. On the right side are houses with yellow-orange exterior walls. There are shutters and blue window frames on the walls. Two men are walking up the ramp side by side. The ground is a worn stone road, and the background is blurred."
+  - id: p_cote_dazur_013
+    source_ref: cote-dazur/DSC00638.jpg
+    place: pl_nice
+    captured_at: "2024-07-28T12:18:27"
+    caption: "Nice · July 2024"
+    rhythm_after: base
+    alt_text: "A panoramic view of the bay city from a high angle: a huge arc-shaped beach curves gracefully along the coast, and the beach is densely packed with umbrellas and people; the sea water is bright blue near the shore, gradually turning into dark blue outward; the inner side of the beach is lined with street trees and highways, and further inside is a dense urban area with red tile roofs. There is a green tree crown at the bottom of the frame, and the sky is light blue with mist."
+  - id: p_cote_dazur_014
+    place: pl_nice
+    source_ref: cote-dazur/DSC00705.jpg
+    caption: "Nice · July 2024"
+    rhythm_after: base
+    alt_text: "A small bay overlooked from a high place, the sea surface is bright blue; on the left is a stone breakwater extending into the sea, with a small white lighthouse on the head of the breakwater, and several small boats and a sailboat parked inside the breakwater; behind the breakwater is a hillside covered with pine trees and dotted with white and pink houses. On the right are dark green trees in the foreground, and there are several small boats on the sea in the distance."
+  - id: p_cote_dazur_015
+    place: pl_nice
+    source_ref: cote-dazur/DSC00708.jpg
+    caption: "Nice · July 2024"
+    rhythm_after: base
+    alt_text: "The sea surface is photographed from a high place. The sea occupies the vast majority of the frame. The nearby water surface appears transparent green due to the sunlight. You can vaguely see the underwater rocks and rocks, which gradually turn into a rich blue in the distance. In the lower left corner, there is a clump of light green agave and shrub leaves extending into the frame."
+  - id: p_cote_dazur_016
+    source_ref: cote-dazur/DSC00711.jpg
+    place: pl_nice
+    captured_at: "2024-07-28T12:58:43"
+    caption: "Nice · July 2024"
+    rhythm_after: base
+    alt_text: "A view of the bay from a high angle: the curved beach extends along the coast, and the beach is crowded with parasols, tents and people playing in the water; the water gradually changes from the emerald green on the shore to the deep blue of the open sea, with a long white wake dragged by a motorboat and a few swimmers on the sea; behind the beach is a coastal avenue and rows of light-colored buildings with red tile roofs. There is a tree crown and a red tile roof at the bottom of the frame."
+  - id: p_cote_dazur_017
+    place: pl_nice
+    source_ref: cote-dazur/DSC00724.jpg
+    caption: "Nice · July 2024"
+    rhythm_after: base
+    alt_text: "Overlooking the beach: the upper half of the frame is a blue-green sea, with many swimmers scattered in the nearshore water, and inflatable rafts floating on the water; there is a paved walkway on the shore, with several flagpoles standing, flying yellow and blue flags, red flags and British flags respectively. Crowds gather on the walkway and under the shade of the trees, and there are palm trees and street lights on the left."
+  - id: p_cote_dazur_018
+    place: pl_nice   # owner-approved 2026-09-15 (local review)
+    source_ref: cote-dazur/DSC00733.jpg
+    caption: "Nice · July 2024"
+    rhythm_after: base
+    alt_text: "A high-angle overhead shot of a rocky bay: on the left side of the frame is a large flat reef that has been tanned to a light yellow color. A man wearing only swimming trunks is standing on the edge of the rock, facing the water on the right side of the frame; on the right side of the reef is clear turquoise water, and underwater rocks can be seen from the surface of the water. There is a freshly splashed white water in the water; there is another swimmer in the lower right corner of the frame."
+  - id: p_cote_dazur_019
+    place: pl_nice   # owner-approved 2026-09-15 (local review)
+    source_ref: cote-dazur/DSC00746.jpg
+    caption: "Nice · July 2024"
+    rhythm_after: base
+    alt_text: "Lively bathing beach: The lower half of the frame is a pebbly beach, crowded with colorful parasols and people lying and walking. There are also a large number of people swimming in the sea; in the sky above the sea to the right, a tourist is being towed by a speedboat for a sea parachute flight, with a person hanging under a colorful parachute; in the distance, the sea level is flat, and the sky is clean and light blue."
+  - id: p_cote_dazur_020
+    source_ref: cote-dazur/DSC00750.jpg
+    place: pl_nice
+    captured_at: "2024-07-28T14:47:48"
+    caption: "Nice · July 2024"
+    rhythm_after: base
+    alt_text: "In the center of the frame is a giant dark blue sculpture. It is shaped like a slatted chair with the legs turned up and the seat facing the side. It is installed on a square concrete base. There is an explanation board on the front of the base. The sculpture overlaps with the city coastline, sea and beach in the distance. On the lower right are pedestrians on the seaside promenade."
+  - id: p_cote_dazur_021
+    place: pl_nice   # owner-approved 2026-09-15 (local review)
+    source_ref: cote-dazur/DSC00752.jpg
+    caption: "Nice · July 2024"
+    rhythm_after: base
+    alt_text: "A close-up view of the junction of the water surface and the beach: the upper half of the frame is crystal clear sea water, and the underwater pebbles can be seen through the water surface, and a small white wave is hitting the shore; the lower half of the frame is a gravel beach densely covered with gray-brown pebbles. The pebbles are of different sizes and are washed very smooth by the water."

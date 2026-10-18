@@ -1,0 +1,37 @@
+id: g_kota_kinabalu
+slug: kota-kinabalu
+status: published
+title: "Kota Kinabalu"
+description: "Borneo's coast at first light - a short set from Kota Kinabalu."
+photographed_start: "2026-03-14"
+photographed_end: "2026-03-14"
+published_at: "2026-09-12T00:00:00Z"
+places:
+  - pl_kota_kinabalu
+cover_photo_id: p_kota_kinabalu_002
+next_gallery_id: g_bavaria_konigssee
+photos:
+  - id: p_kota_kinabalu_001
+    place: pl_kota_kinabalu   # owner-approved 2026-09-15 (local review)
+    source_ref: kota-kinabalu/FEI03699.jpg
+    caption: "Kota Kinabalu · March 2026"
+    rhythm_after: base
+    alt_text: "There is a wooden swing frame on the beach, and a white signboard hangs in the center of the beam, with reddish-brown letters and a sun pattern on it. Behind the swing is the blue sea water and blue sky, with a few white clouds on the left horizon, and the shadow of the swing spread out on the white beach nearby."
+  - id: p_kota_kinabalu_002
+    place: pl_kota_kinabalu   # owner-approved 2026-09-15 (local review)
+    source_ref: kota-kinabalu/FEI03708.jpg
+    caption: "Kota Kinabalu · March 2026"
+    rhythm_after: base
+    alt_text: "A stretch of white sandy beach extends along a shallow arc-shaped bay. The offshore water is clear turquoise, gradually turning into dark blue outwards; several weathered driftwood logs lie scattered on the sand, and the shore is otherwise empty; the sky is clean blue, and the faint outline of the island vaguely appears on the horizon."
+  - id: p_kota_kinabalu_003
+    place: pl_kota_kinabalu   # owner-approved 2026-09-15 (local review)
+    source_ref: kota-kinabalu/FEI03711.jpg
+    caption: "Kota Kinabalu · March 2026"
+    rhythm_after: base
+    alt_text: "There is a huge inflatable yellow rubber duck propped on the beach, with an orange-red beak and soles, 'hands' on both sides of the body raised, and a white chest. Behind and on both sides of the duck are green sea pine trees with drooping leaves. There are parasols, deck chairs, and folding tables and chairs under the trees. You can see the turquoise sea through the tree trunks in the distance, and the beach is white."
+  - id: p_kota_kinabalu_004
+    place: pl_kota_kinabalu   # owner-approved 2026-09-15 (local review)
+    source_ref: kota-kinabalu/FEI03727.jpg
+    caption: "Kota Kinabalu · March 2026"
+    rhythm_after: base
+    alt_text: "Sunset at the seaside: a bright sun is close to the horizon, dyeing the entire sky and sea into orange-gold, and the sunlight draws a golden reflective strip on the water; the silhouettes of more than a dozen vacationers are scattered on the beach, some standing, some in pairs, and some taking photos; there are silhouettes of pine tree branches extending into the upper and upper right corners of the frame, and the lower half is a dark beach."

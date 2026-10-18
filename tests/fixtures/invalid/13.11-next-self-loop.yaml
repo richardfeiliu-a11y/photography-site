@@ -1,0 +1,24 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 11
+# next_gallery_id self-loop: equals this Gallery's own id (§9.2#3).
+# Consumed by: tests/unit/gallery-schema.test.ts (WP-09);
+# tests/integration/production-validation.test.ts (WP-13). Note: the
+# allowed cycle forms (A→B→A, A→B→C→A) live in the VALID corpus
+# (red-lanterns ↔ tromso-city-nights; the 5-cycle through lofoten-light)
+# and must keep passing — only the self-loop fails.
+# =====================================================================
+id: g_bad_13_11
+slug: invalid-next-self-loop
+status: draft
+title: "Invalid — next_gallery_id self-loop"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+places:
+  - pl_lofoten
+next_gallery_id: g_bad_13_11
+photos:
+  - id: p_bad_13_11_001
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

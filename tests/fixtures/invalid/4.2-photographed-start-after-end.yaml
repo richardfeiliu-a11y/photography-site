@@ -1,0 +1,20 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §4.2 photographed dates contract
+# photographed_start > photographed_end (start <= end required; ISO
+# YYYY-MM-DD). Consumed by: tests/unit/gallery-schema.test.ts (WP-09
+# RED: "photographed_start > photographed_end fails").
+# =====================================================================
+id: g_bad_dates_inverted
+slug: invalid-inverted-dates
+status: draft
+title: "Invalid — photographed dates inverted"
+photographed_start: "2025-02-07"
+photographed_end: "2025-02-01"
+places:
+  - pl_lofoten
+photos:
+  - id: p_bad_dates_001
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

@@ -1,0 +1,54 @@
+id: g_bavaria_konigssee
+slug: bavaria-konigssee
+status: published
+title: "Bavaria: Königssee and Neuschwanstein"
+description: "Königssee and Neuschwanstein: alpine water and a castle in the Bavarian hills."
+photographed_start: "2026-05-23"
+photographed_end: "2026-05-24"
+published_at: "2026-09-12T00:00:00Z"
+places:
+  - pl_konigssee
+  - pl_neuschwanstein
+cover_photo_id: p_bavaria_konigssee_004
+next_gallery_id: g_iceland
+photos:
+  - id: p_bavaria_konigssee_001
+    source_ref: bavaria-konigssee/FEI03823.jpg
+    place: pl_konigssee
+    captured_at: "2026-05-23T13:34:15"
+    caption: "Königssee · May 2026"
+    rhythm_after: base
+    alt_text: "On an emerald green alpine lake on a sunny day, a wooden-hulled cruise ship carries tourists on the lake. The boat has a white hull, a wooden sunshade on the top, and a small flag at the stern. The lake is crystal clear, and you can see the light-colored lake bed underwater. On the right side of the foreground are a row of wooden piles inserted into the water and a wooden trestle, and in the background are steep rock walls covered with coniferous forests."
+  - id: p_bavaria_konigssee_002
+    place: pl_konigssee   # owner-approved 2026-09-15 (local review)
+    source_ref: bavaria-konigssee/FEI03849.jpg
+    caption: "Königssee · May 2026"
+    rhythm_after: base
+    alt_text: "The scenery on the other side of the lake: The lake is green with shimmering waves. On the shore is a bright green grass slope. There are several low wooden houses with dark roofs on the grass slope. Above the grass slope are dense coniferous forests and exposed gray rock walls, which almost fill the entire frame."
+  - id: p_bavaria_konigssee_003
+    place: pl_konigssee   # owner-approved 2026-09-15 (local review)
+    source_ref: bavaria-konigssee/FEI03855.jpg
+    caption: "Königssee · May 2026"
+    rhythm_after: base
+    alt_text: "A clear stream winds from the front of the frame to a lake in the distance. The water stirs up white splashes among the rocks. The stream is lined with green grass-covered riverbanks and scattered stones. There is a tree with a slender trunk and leaves illuminated by the sun in the front left. There are several wooden houses in the distance on the left bank. At the end of the stream is a steep rock-walled valley covered with coniferous forests. Leaves hang down from the top of the frame."
+  - id: p_bavaria_konigssee_004
+    source_ref: bavaria-konigssee/FEI03859.jpg
+    place: pl_konigssee
+    captured_at: "2026-05-23T14:34:38"
+    caption: "Königssee · May 2026"
+    rhythm_after: base
+    alt_text: "A broad panoramic view of an alpine lake: the dark blue surface of the lake runs across the lower part of the frame. On the left side of the lake shore is a steep, almost vertical light gray rock wall, and on the right side of the mountain there is a slender waterfall pouring down from a high place; the hillside is covered with dark green coniferous forest and grassland, and there is a small wooden house on the lakeside grassland; the top of the mountain is covered by white clouds, and the sky is filled with cumulus clouds."
+  - id: p_bavaria_konigssee_005
+    source_ref: bavaria-konigssee/FEI03898.jpg
+    place: pl_konigssee
+    captured_at: "2026-05-23T15:37:12"
+    caption: "Königssee · May 2026"
+    rhythm_after: base
+    alt_text: "There is a small church by the lake with white walls and a dark red onion-shaped dome, surrounded by green trees. On the left side of the church is a rectangular building with a dark pitched roof and a wooden corridor. Many tourists gather on the shore. The lake is blue and rippled. In the background are two towering rock peaks, with white snow remaining on the mountains and clouds and mist in the valleys."
+  - id: p_bavaria_konigssee_006
+    source_ref: bavaria-konigssee/FEI03923.jpg
+    place: pl_neuschwanstein
+    captured_at: "2026-05-24T16:20:55"
+    caption: "Neuschwanstein · May 2026"
+    rhythm_after: base
+    alt_text: "A white castle-like building complex is located on a ridge covered with dark green forest, with multiple spiers and a tall square tower, with light-colored exterior walls and dark roofs; behind the castle are open plains, villages and towns, and a light blue lake. On the right is a green hill covered with trees, and the sky is light blue with thin clouds."

@@ -1,0 +1,27 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 18
+# Derivative coverage incomplete: rule 18 is a PIPELINE state, not an
+# authored shape — the failure is realized by WP-13 against
+# generated/asset-manifest.json when a published Photo lacks any
+# expected derivative. This file is the schema-shaped gallery carrier
+# the WP-13 test validates against an intentionally incomplete
+# manifest fixture. Authored shape alone must NOT fail (the corpus
+# schema accepts it); only the missing-manifest-rows check does.
+# Consumed by: tests/integration/production-validation.test.ts (WP-13).
+# =====================================================================
+id: g_bad_13_18
+slug: invalid-derivative-gap
+status: published
+title: "Invalid — derivative coverage gap carrier"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+published_at: "2026-08-29T00:00:00Z"
+places:
+  - pl_lofoten
+cover_photo_id: p_bad_13_18_001
+photos:
+  - id: p_bad_13_18_001
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

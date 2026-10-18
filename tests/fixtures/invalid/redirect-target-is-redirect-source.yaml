@@ -1,0 +1,20 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 16 (WP-12 RED set)
+# Redirect target that is itself a redirect source: /galleries/legacy-
+# aurora resolves to /galleries/aurora-unit (g_aurora_unit slug
+# aurora-unit), which is the SECOND entry's old path — a redirect-to-
+# redirect chain (forbidden: §11.2 "redirect targets are not themselves
+# redirect sources"; BUILD_AND_ROUTING §5). NOT a loop: the second entry
+# resolves to /galleries/gamma-unit (g_gamma_unit slug gamma-unit),
+# which is a canonical route and not a redirect source.
+# Requires unit-synthesized registries (see tests/unit/redirects.test.ts).
+# (The second old path also equals a canonical route, so §13.1#15 fires
+# too; this fixture targets the §13.1#16 redirect-to-redirect finding.)
+# Consumed by: tests/unit/redirects.test.ts (WP-12);
+# tests/integration/production-validation.test.ts (WP-13).
+# =====================================================================
+/galleries/legacy-aurora:
+  gallery_id: g_aurora_unit
+
+/galleries/aurora-unit:
+  gallery_id: g_gamma_unit

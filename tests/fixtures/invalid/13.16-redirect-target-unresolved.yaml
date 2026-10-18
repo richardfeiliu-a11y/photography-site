@@ -1,0 +1,12 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 16
+# Redirect target unresolved in production: gallery_id g_bad_ghost
+# exists in no content/galleries/*/meta.yaml, so the alias cannot
+# resolve to a public canonical route (§11.2 fail-closed). Loop and
+# route-collision sub-cases are consumed by the same WP-12/WP-13 test
+# names (WP-12 adds its own redirect-* fixtures).
+# Consumed by: tests/unit/redirects.test.ts (WP-12);
+# tests/integration/production-validation.test.ts (WP-13).
+# =====================================================================
+/galleries/invalid-ghost-target:
+  gallery_id: g_bad_ghost

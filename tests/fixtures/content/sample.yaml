@@ -1,0 +1,10 @@
+# WP-06 content-validation smoke fixture (tests/fixtures/content/sample.yaml).
+#
+# Test-only data for the P1 exit-item smoke test. This is NOT production
+# content and claims nothing about the WP-09/WP-12 content schema — the
+# placeholder structural check only asserts that the document loads and has
+# these exact keys.
+site:
+  id: sample
+  title: Sample Fixture Site
+  status: published

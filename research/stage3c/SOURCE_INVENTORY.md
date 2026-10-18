@@ -1,0 +1,122 @@
+# Stage 3C — Source Photo Inventory (Phase 1)
+
+Source directory: `media/stage3c-fixtures/` (114 files). Read-only inventory; sources untouched.
+
+| Filename | Format | WxH (EXIF-normalized) | Class | Ratio | EXIF orient | Size | Decode |
+|---|---|---|---|---|---|---|---|
+| .DS_Store | — | — | — | — | 1 | 0.0 MB | FAIL: UnidentifiedImageError: cannot identify image file '<repo>/media/stage3c-fixtures/.DS_Store' |
+| DSC01832.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.7 MB | OK |
+| DSC01836.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.7 MB | OK |
+| DSC01837.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.8 MB | OK |
+| DSC01840.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.7 MB | OK |
+| DSC01842.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.3 MB | OK |
+| DSC01844.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.7 MB | OK |
+| DSC01859.jpg | JPEG | 2048×1036 | landscape | 59:30 | 1 | 1.0 MB | OK |
+| DSC01861.jpg | JPEG | 2048×1018 | panorama-ish landscape | 2:1 | 1 | 1.0 MB | OK |
+| DSC01873.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.3 MB | OK |
+| DSC01876.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.6 MB | OK |
+| DSC01880.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.7 MB | OK |
+| DSC01887.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.2 MB | OK |
+| DSC01889.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.8 MB | OK |
+| DSC01905.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.2 MB | OK |
+| DSC01927.jpg | JPEG | 1365×2048 | portrait | 2:3 | 1 | 1.7 MB | OK |
+| DSC01935.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.6 MB | OK |
+| DSC01940.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.0 MB | OK |
+| DSC01954.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.2 MB | OK |
+| DSC01958.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.6 MB | OK |
+| DSC01960.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.4 MB | OK |
+| DSC01970.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 3.9 MB | OK |
+| DSC01995.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.0 MB | OK |
+| DSC02020.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.6 MB | OK |
+| DSC02043.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.1 MB | OK |
+| DSC02054.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.6 MB | OK |
+| DSC02055.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 0.7 MB | OK |
+| DSC02066.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 0.9 MB | OK |
+| DSC02071.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.9 MB | OK |
+| DSC02082.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.4 MB | OK |
+| DSC02084.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.2 MB | OK |
+| DSC02092.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.2 MB | OK |
+| DSC02097.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.4 MB | OK |
+| DSC02230.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.9 MB | OK |
+| DSC02231.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.7 MB | OK |
+| DSC02233.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.5 MB | OK |
+| DSC02235.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.7 MB | OK |
+| DSC02252.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.0 MB | OK |
+| DSC02259.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.6 MB | OK |
+| DSC02263.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.5 MB | OK |
+| DSC02265.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.5 MB | OK |
+| DSC02270.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.2 MB | OK |
+| DSC02271.jpg | JPEG | 1365×2048 | portrait | 2:3 | 1 | 1.7 MB | OK |
+| DSC02277.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.7 MB | OK |
+| DSC02292.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.3 MB | OK |
+| DSC02295.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.4 MB | OK |
+| DSC02298.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.2 MB | OK |
+| DSC02305.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.8 MB | OK |
+| DSC02315.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.6 MB | OK |
+| DSC02316.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.8 MB | OK |
+| DSC02327.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.0 MB | OK |
+| DSC02335.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.4 MB | OK |
+| DSC02336.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.4 MB | OK |
+| DSC02339.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.4 MB | OK |
+| DSC02340.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.4 MB | OK |
+| DSC02341.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.3 MB | OK |
+| DSC02342.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.4 MB | OK |
+| DSC02343.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.9 MB | OK |
+| DSC02346.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.7 MB | OK |
+| DSC02347.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.6 MB | OK |
+| DSC02362.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.7 MB | OK |
+| DSC02364.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.4 MB | OK |
+| DSC02367.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.9 MB | OK |
+| DSC02373.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.8 MB | OK |
+| DSC02378.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.7 MB | OK |
+| DSC02387.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.2 MB | OK |
+| DSC02390.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.3 MB | OK |
+| DSC02391.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.5 MB | OK |
+| DSC02399.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 0.8 MB | OK |
+| DSC02402.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.0 MB | OK |
+| DSC02408.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.2 MB | OK |
+| DSC02414.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.1 MB | OK |
+| DSC02416.jpg | JPEG | 1365×2048 | portrait | 2:3 | 1 | 1.6 MB | OK |
+| DSC02440.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 0.8 MB | OK |
+| DSC02441.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.6 MB | OK |
+| DSC02450.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.5 MB | OK |
+| DSC02454.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.5 MB | OK |
+| DSC02461.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.6 MB | OK |
+| DSC02466.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.3 MB | OK |
+| DSC02535.jpg | JPEG | 2048×1413 | landscape | 29:20 | 1 | 2.2 MB | OK |
+| DSC02542-2.jpg | JPEG | 1290×2048 | portrait | 17:27 | 1 | 2.8 MB | OK |
+| DSC02542.jpg | JPEG | 1487×2048 | portrait | 8:11 | 1 | 3.0 MB | OK |
+| DSC02548.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.6 MB | OK |
+| DSC02559.jpg | JPEG | 1365×2048 | portrait | 2:3 | 1 | 2.6 MB | OK |
+| DSC02560.jpg | JPEG | 1365×2048 | portrait | 2:3 | 1 | 2.8 MB | OK |
+| DSC02568.jpg | JPEG | 2048×1612 | landscape | 33:26 | 1 | 3.4 MB | OK |
+| DSC02573.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.6 MB | OK |
+| DSC02575.jpg | JPEG | 2048×871 | panorama-ish landscape | 47:20 | 1 | 1.6 MB | OK |
+| DSC02589.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.2 MB | OK |
+| DSC02605.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.8 MB | OK |
+| DSC02635.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.2 MB | OK |
+| DSC02661.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.9 MB | OK |
+| DSC02664.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.1 MB | OK |
+| DSC02667.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.2 MB | OK |
+| DSC02686.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.0 MB | OK |
+| DSC02695.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.6 MB | OK |
+| DSC02699.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.4 MB | OK |
+| DSC02712.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 5.0 MB | OK |
+| DSC02723.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.9 MB | OK |
+| DSC02740.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 3.8 MB | OK |
+| DSC02745.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.3 MB | OK |
+| DSC02752.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.6 MB | OK |
+| DSC02756.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 1.9 MB | OK |
+| DSC02762.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 3.3 MB | OK |
+| DSC02794.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.3 MB | OK |
+| DSC02796.jpg | JPEG | 1365×2048 | portrait | 2:3 | 1 | 2.2 MB | OK |
+| DSC02817.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.5 MB | OK |
+| DSC02825.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.6 MB | OK |
+| DSC02844.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 4.3 MB | OK |
+| DSC02850.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.5 MB | OK |
+| DSC02851.jpg | JPEG | 1365×2048 | portrait | 2:3 | 1 | 2.3 MB | OK |
+| DSC02881.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.5 MB | OK |
+| DSC02884.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.8 MB | OK |
+| DSC02889.jpg | JPEG | 2048×1365 | landscape | 3:2 | 1 | 2.6 MB | OK |
+
+Decode success: 113/114.

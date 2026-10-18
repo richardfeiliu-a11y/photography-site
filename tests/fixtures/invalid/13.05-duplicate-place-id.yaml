@@ -1,0 +1,21 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 5 (TWO DOCUMENTS)
+# Duplicate Place ID: both Place documents carry id pl_bad_13_05 with
+# different slugs, isolating the ID collision from §13.1 rule 6.
+# Singular shape per §6.1 (each doc is ONE Place object — the failure
+# is the cross-file ID collision, not the file cardinality).
+# Consumed by: tests/unit/place-schema.test.ts (WP-10, loadAll);
+# tests/integration/production-validation.test.ts (WP-13).
+# =====================================================================
+id: pl_bad_13_05
+slug: invalid-dup-place-id-a
+name: "Invalid duplicate place id — A"
+region: "Nowhere"
+country: "Test"
+
+---
+id: pl_bad_13_05
+slug: invalid-dup-place-id-b
+name: "Invalid duplicate place id — B"
+region: "Nowhere"
+country: "Test"

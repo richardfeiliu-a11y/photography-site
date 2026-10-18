@@ -1,0 +1,38 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §13.1 rule 2 (TWO DOCUMENTS)
+# Duplicate Gallery ID: both documents carry id g_bad_13_02 while slugs
+# differ, isolating the ID collision from the slug collision (§13.1#3).
+# Expected: cross-item validation rejects the second occurrence.
+# Consumed by: tests/unit/gallery-schema.test.ts (WP-09, loadAll both
+# docs); tests/integration/production-validation.test.ts (WP-13).
+# =====================================================================
+id: g_bad_13_02
+slug: invalid-dup-id-a
+status: draft
+title: "Invalid duplicate gallery id — A"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+places:
+  - pl_lofoten
+photos:
+  - id: p_bad_13_02_a
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null
+
+---
+id: g_bad_13_02
+slug: invalid-dup-id-b
+status: draft
+title: "Invalid duplicate gallery id — B"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+places:
+  - pl_lofoten
+photos:
+  - id: p_bad_13_02_b
+    source_ref: lofoten-polar-night/DSC02262.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

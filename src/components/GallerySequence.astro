@@ -1,0 +1,50 @@
+---
+/*
+ * src/components/GallerySequence.astro — the authored photo sequence (WP-35).
+ *
+ * Frozen references: FDS §3.1 + G4 (the rhythm system: compact 64/40,
+ * base 96/64 default, breathing 144/96 — applied ONLY from the authored
+ * rhythm_after; orientation never chooses; no count-based compression),
+ * header→first photo 72/48, RUNTIME §11.1 (first image = route LCP: eager +
+ * fetchpriority high + single preload), §11.2 (rest lazy + async).
+ *
+ * Rhythm values live in gallery.css (one canonical definition consumed by
+ * the sequence; both capture viewports switch at the 900px magnitude
+ * boundary, mirroring tokens.css).
+ */
+import type { PhotoFigureData } from "./PhotoFigure.astro";
+import PhotoFigure from "./PhotoFigure.astro";
+
+interface Props {
+  photos: PhotoFigureData[];
+  /** Page-level placement class (R4 T2: the gallery page's grid column). */
+  class?: string;
+}
+
+const { photos, class: className } = Astro.props;
+---
+
+<div class:list={["gallery-sequence", className]}>
+  {
+    photos.map((photo, i) => (
+      <PhotoFigure
+        photo={photo}
+        position={i === 0 ? "first" : "rest"}
+        reveal={i > 0}
+      />
+    ))
+  }
+</div>
+
+<style>
+  .gallery-sequence {
+    margin-top: 48px; /* header→first photo, mobile (frozen 72/48) */
+  }
+
+  @media (min-width: 900px) {
+    .gallery-sequence {
+      margin-top: 72px; /* header→first photo, desktop */
+    }
+  }
+</style>
+<!-- preload link for the first display derivative is emitted by the page head -->

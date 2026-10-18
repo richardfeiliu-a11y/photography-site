@@ -1,0 +1,21 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §4.3 / §9.5 forbidden fields
+# has_continuation: derived from next_gallery_id presence, never an
+# independent authored field. Consumed by:
+# tests/unit/gallery-schema.test.ts (WP-09, forbidden-field RED case).
+# =====================================================================
+id: g_bad_forbidden_continuation
+slug: invalid-forbidden-has-continuation
+status: draft
+title: "Invalid — authored has_continuation"
+photographed_start: "2025-01-01"
+photographed_end: "2025-01-02"
+places:
+  - pl_lofoten
+has_continuation: true
+photos:
+  - id: p_bad_forbidden_continuation_001
+    source_ref: lofoten-polar-night/DSC02252.jpg
+    caption: null
+    rhythm_after: base
+    alt_text: null

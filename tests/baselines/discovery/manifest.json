@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-10-18T02:33:16.808Z",
+  "tool": "tests/capture/capture.mjs (copied by tests/capture/baseline-update.mjs)",
+  "chromiumVersion": "151.0.7922.34",
+  "note": "SHA-256 values are file-integrity metadata inside one controlled baseline workflow only. They are NOT visual-equivalence proof across browsers, operating systems, font rasterizers, or machines (TESTING_AND_VISUAL_REGRESSION.md §8.1).",
+  "captures": [
+    {
+      "state": "home-desktop",
+      "path": "/",
+      "group": "discovery",
+      "buildMode": "production",
+      "viewport": "1440x900",
+      "deviceScaleFactor": 1,
+      "fullPage": true,
+      "gates": {
+        "status": 200,
+        "heading": "Lofoten, Polar Night"
+      },
+      "file": "tests/baselines/discovery/home-desktop/index.png",
+      "bytes": 1810252,
+      "sha256": "a043eb656421168e1b6dee89e776aead4be72311980605ecf57582c1b19a5639"
+    },
+    {
+      "state": "home-mobile",
+      "path": "/",
+      "group": "discovery",
+      "buildMode": "production",
+      "viewport": "390x844",
+      "deviceScaleFactor": 1,
+      "fullPage": true,
+      "gates": {
+        "status": 200,
+        "heading": "Lofoten, Polar Night"
+      },
+      "file": "tests/baselines/discovery/home-mobile/index.png",
+      "bytes": 1056427,
+      "sha256": "169c38a4fbb9a02f71cdd1d42f46a7c539c14a6c0712468c0ccb1ad04f8bd559"
+    },
+    {
+      "state": "archive-desktop",
+      "path": "/archive",
+      "group": "discovery",
+      "buildMode": "production",
+      "viewport": "1440x900",
+      "deviceScaleFactor": 1,
+      "fullPage": true,
+      "gates": {
+        "status": 200,
+        "heading": "Journeys"
+      },
+      "file": "tests/baselines/discovery/archive-desktop/index.png",
+      "bytes": 422735,
+      "sha256": "83e790f68b2ff404636031619c95a7e12637cf6dc49d0d14dfca7fd52555d53a"
+    },
+    {
+      "state": "places-index-desktop",
+      "path": "/places",
+      "group": "discovery",
+      "buildMode": "production",
+      "viewport": "1440x900",
+      "deviceScaleFactor": 1,
+      "fullPage": true,
+      "gates": {
+        "status": 200,
+        "heading": "Places"
+      },
+      "file": "tests/baselines/discovery/places-index-desktop/index.png",
+      "bytes": 7288116,
+      "sha256": "9f5cabfbc7b7cab0fa5a9e356a67bdd070c07c92965ff6a21b62a76cad3a5845"
+    },
+    {
+      "state": "place-detail-desktop",
+      "path": "/places/lofoten",
+      "group": "discovery",
+      "buildMode": "production",
+      "viewport": "1440x900",
+      "deviceScaleFactor": 1,
+      "fullPage": true,
+      "gates": {
+        "status": 200,
+        "heading": "Lofoten"
+      },
+      "file": "tests/baselines/discovery/place-detail-desktop/index.png",
+      "bytes": 54424,
+      "sha256": "32ef3a582ce6d8d4e729a8b167dd8e00dfc14f46c773a132b6ef275cbdad632a"
+    },
+    {
+      "state": "about-desktop",
+      "path": "/about",
+      "group": "discovery",
+      "buildMode": "production",
+      "viewport": "1440x900",
+      "deviceScaleFactor": 1,
+      "fullPage": true,
+      "gates": {
+        "status": 200,
+        "heading": "About"
+      },
+      "file": "tests/baselines/discovery/about-desktop/index.png",
+      "bytes": 72353,
+      "sha256": "8b398dc39ca3c29a6818fd1bb5ff6df7986fd1940f3cb4bc51a3115b84ba06e8"
+    }
+  ]
+}

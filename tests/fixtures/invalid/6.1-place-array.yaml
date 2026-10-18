@@ -1,0 +1,19 @@
+# =====================================================================
+# INVALID FIXTURE — CONTENT_MODEL.md §6.1 cardinality (IC-01)
+# An ARRAY of Places in one file: ONE PLACE = ONE YAML FILE. The glob
+# loader with the singular placeSchema validates a single Place object;
+# an aggregate array is structurally invalid. Consumed by:
+# tests/unit/place-schema.test.ts (WP-10 RED: "a YAML file containing an
+# array of Places rejected (singular object only)").
+# =====================================================================
+- id: pl_bad_array_a
+  slug: invalid-place-array-a
+  name: "Invalid place array — A"
+  region: "Nowhere"
+  country: "Test"
+
+- id: pl_bad_array_b
+  slug: invalid-place-array-b
+  name: "Invalid place array — B"
+  region: "Nowhere"
+  country: "Test"
